@@ -24,6 +24,7 @@
     <ProjectGuid>{0880bcd0-7f65-4e58-81df-af1e6bba86d8}</ProjectGuid>
     <RootNamespace>HalloSFML</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>KitchenRushContent</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
