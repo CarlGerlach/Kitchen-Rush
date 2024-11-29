@@ -5,7 +5,7 @@
 
 
 
-
+//Erstelen eines Grids
 Grid::Grid()
 {
 	const Vector2f sizeOfShape{ 73.0f, 73.0f };
@@ -15,6 +15,8 @@ Grid::Grid()
 	gridShape.setOutlineThickness(2.f);
 }
 
+
+//Referenz der Shape als Returnwert
 RectangleShape& Grid::getGridShape()
 {
 	return gridShape;

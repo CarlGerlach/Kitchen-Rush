@@ -12,6 +12,9 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
 
+    //Erstellt SPielfeld
+
+    ///////////////////Singleton
     Spielfeld* playField = new Spielfeld();
 
 
