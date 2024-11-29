@@ -1,25 +1,37 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp> 
 #include <iostream>
+
+#include "Grid.h"
+#include "Spielfeld.h"
+
 using namespace std;
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
+
+    Spielfeld* playField = new Spielfeld();
+
+
+    //Sounds
     // Sound-Puffer und Sound einmal erstellen
-    sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("Button-Click.wav")) // WAV-Datei statt MP3
-    {
-        std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
-        return -1;
-        //Falls leer
-    }
+    //sf::SoundBuffer buffer;
+    //if (!buffer.loadFromFile("Button-Click.wav")) // WAV-Datei statt MP3
+    //{
+    //    std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
+    //    return -1;
+    //    //Falls leer
+    //}
 
-    sf::Sound sound;
-    sound.setBuffer(buffer);
+    //sf::Sound sound;
+    //sound.setBuffer(buffer);
+
+
+
+
+
 
     while (window.isOpen())
     {
@@ -30,14 +42,16 @@ int main()
                 window.close();
 
             // Sound nur bei einem spezifischen Ereignis abspielen
-            if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
-            {
-                sound.play();
-            }
+            //if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
+            //{
+            //    sound.play();
+            //}
         }
 
         window.clear();
-        window.draw(shape);
+ 
+        playField->drawSpielfeld(window);
+
         window.display();
     }
 
