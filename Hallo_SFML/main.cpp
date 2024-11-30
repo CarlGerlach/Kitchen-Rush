@@ -34,7 +34,7 @@ int main()
 
 
     // Erstelle einen Button
-    Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White);
+    Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White, testSound);
 
     // Setze die OnClick-Funktion
     button.setOnClick([](){ cout << "Button geklickt!" << endl; });
