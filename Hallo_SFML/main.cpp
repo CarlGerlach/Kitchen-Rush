@@ -4,8 +4,10 @@
 
 #include "Grid.h"
 #include "Spielfeld.h"
+#include "Button.h"
 
 using namespace std;
+using namespace sf;
 
 int main()
 {
@@ -16,6 +18,22 @@ int main()
 
     ///////////////////Singleton
     Spielfeld* playField = new Spielfeld();
+
+
+    sf::Font font;
+
+    if (!font.loadFromFile("arial.ttf")) { // Stelle sicher, dass eine Schriftart geladen wird
+        return -1;
+    }
+
+
+    // Erstelle einen Button
+    Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White);
+
+    // Setze die OnClick-Funktion
+    button.setOnClick([]() {
+        cout << "Button geklickt!" << endl;
+        });
 
 
     //Sounds
@@ -49,11 +67,18 @@ int main()
             //{
             //    sound.play();
             //}
+
+
+            // Verarbeite Button-Klick
+            button.handleEvent(event, window);
+
         }
 
         window.clear();
  
         playField->drawSpielfeld(window);
+
+        button.draw(window);
 
         window.display();
     }

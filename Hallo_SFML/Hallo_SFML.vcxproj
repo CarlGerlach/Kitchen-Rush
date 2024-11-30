@@ -134,12 +134,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Spielfeld.h" />
