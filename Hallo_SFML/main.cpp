@@ -5,49 +5,42 @@
 #include "Grid.h"
 #include "Spielfeld.h"
 #include "Button.h"
+#include "mySound.h"
 
 using namespace std;
 using namespace sf;
 
 int main()
 {
-
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
 
-    //Erstellt SPielfeld
-
-    ///////////////////Singleton
-    Spielfeld* playField = new Spielfeld();
-
-
     sf::Font font;
-
     if (!font.loadFromFile("arial.ttf")) { // Stelle sicher, dass eine Schriftart geladen wird
         return -1;
     }
+
+
+
+    //Erstellt SPielfeld
+    ///////////////////Singleton
+    Spielfeld* playField = new Spielfeld();
+
+    //Sound
+    mySound* testSound = new mySound();
+
+
+
+
 
 
     // Erstelle einen Button
     Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White);
 
     // Setze die OnClick-Funktion
-    button.setOnClick([]() {
-        cout << "Button geklickt!" << endl;
-        });
+    button.setOnClick([](){ cout << "Button geklickt!" << endl; });
 
 
-    //Sounds
-    // Sound-Puffer und Sound einmal erstellen
-    //sf::SoundBuffer buffer;
-    //if (!buffer.loadFromFile("Button-Click.wav")) // WAV-Datei statt MP3
-    //{
-    //    std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
-    //    return -1;
-    //    //Falls leer
-    //}
-
-    //sf::Sound sound;
-    //sound.setBuffer(buffer);
+  
 
 
 
@@ -63,10 +56,10 @@ int main()
                 window.close();
 
             // Sound nur bei einem spezifischen Ereignis abspielen
-            //if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
-            //{
-            //    sound.play();
-            //}
+            if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
+            {
+                testSound->getMeinSound().play();
+            }
 
 
             // Verarbeite Button-Klick
