@@ -1,6 +1,7 @@
 #include "Button.h"
+#include "mySound.h"
 
-Button::Button(float x, float y, float width, float height, const std::string& label, const sf::Font& font, const sf::Color& buttonColor, const sf::Color& textColor)
+Button::Button(float x, float y, float width, float height, const std::string& label, const sf::Font& font, const sf::Color& buttonColor, const sf::Color& textColor, mySound* ini_soundOfButton)
 {
     // Setze die Form
     shape.setPosition(x, y);
@@ -18,12 +19,15 @@ Button::Button(float x, float y, float width, float height, const std::string& l
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
+
+    soundOfButton = ini_soundOfButton;
 }
 
 // Setter für die OnClick-Funktion
 void Button::setOnClick(std::function<void()> callback)
 {
     onClick = callback;
+   
 }
 
 // Zeichne den Button
@@ -43,6 +47,7 @@ void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window)
         {
             if (onClick)
             {
+                soundOfButton->getMeinSound().play();
                 onClick();  // Rufe die OnClick-Funktion auf
             }
         }
