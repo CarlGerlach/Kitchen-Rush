@@ -5,12 +5,20 @@
 #include "Grid.h"
 #include "Spielfeld.h"
 #include "Button.h"
+#include "Fenster.h"
 
 using namespace std;
 using namespace sf;
 
+bool fensterTest = false;
+
+int test = 1;
+
+
 int main()
 {
+
+
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
 
@@ -31,9 +39,25 @@ int main()
     Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White);
 
     // Setze die OnClick-Funktion
-    button.setOnClick([]() {
-        cout << "Button geklickt!" << endl;
+    //button.setOnClick([]() { cout << "Button geklickt!" << endl; });
+
+
+    //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
+
+
+    Fenster f("Koch Menü", font);
+
+
+    button.setOnClick([]()
+        { 
+            //fensterTest = true;
+            test++;
         });
+
+
+
+
+
 
 
     //Sounds
@@ -79,6 +103,18 @@ int main()
         playField->drawSpielfeld(window);
 
         button.draw(window);
+
+        /*
+        if (fensterTest == true)
+        {
+            f.draw(window);
+        }
+        */
+
+        if (test % 2 == 0)
+        {
+            f.draw(window);
+        }
 
         window.display();
     }
