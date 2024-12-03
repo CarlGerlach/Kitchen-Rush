@@ -10,15 +10,8 @@
 using namespace std;
 using namespace sf;
 
-bool fensterTest = false;
-
-int test = 1;
-
-
 int main()
 {
-
-
 
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
 
@@ -35,6 +28,12 @@ int main()
     }
 
 
+
+
+
+
+
+
     // Erstelle einen Button
     Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White);
 
@@ -45,14 +44,17 @@ int main()
     //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
 
 
-    Fenster f("Koch Menü", font);
+    Fenster f("Koch Menü", font); // Erstellt das Fenster "Kochfenster"
 
 
-    button.setOnClick([]()
-        { 
-            //fensterTest = true;
-            test++;
-        });
+    button.setOnClick([&f]() { f.setVisible(true); }); // Öffnet das Fenster "Kochfenster"
+
+
+    // Buttons innerhalb der List des Kochfensters hinzufügen
+    // (x von f + offset, y von f + offset, width, height, Label, ... )
+    f.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
+
+    f.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
 
 
 
@@ -78,41 +80,28 @@ int main()
 
 
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event))
-        {   
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // Sound nur bei einem spezifischen Ereignis abspielen
-            //if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
-            //{
-            //    sound.play();
-            //}
-
+            // Handler für Fenster events wie "Close" und weitere Buttons in "Kochfenster"
+            f.handleEvent(event, window);
 
             // Verarbeite Button-Klick
             button.handleEvent(event, window);
-
         }
 
         window.clear();
- 
+
         playField->drawSpielfeld(window);
 
         button.draw(window);
 
-        /*
-        if (fensterTest == true)
-        {
-            f.draw(window);
-        }
-        */
 
-        if (test % 2 == 0)
-        {
+
+        if (f.isVisible()) {
             f.draw(window);
         }
 
