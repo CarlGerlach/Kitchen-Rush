@@ -33,7 +33,7 @@ int main()
     // Hintergrundmusik laden und abspielen
     if (soundManager->loadHintergrundMusik("Hintergrund-Musik.ogg"))
     {
-        soundManager->setMusicLautstaerke(10.0f); // LautstÃ¤rke auf 10 % setzen, weil sonst zu laut -.-
+        soundManager->setMusicLautstaerke(5.0f); // LautstÃ¤rke auf 10 % setzen, weil sonst zu laut -.-
 
         soundManager->playHintergrundMusik();
     }
@@ -99,8 +99,7 @@ int main()
 
    
 
-    // Spielfeldbegrenzung (x, y, Breite, HÃ¶he)
-    sf::FloatRect spielfeldGrenzen(200.f, 170.f, 1460.f, 730.f);
+    
 
     // Spielfeldbegrenzung (x, y, Breite, Höhe)
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
@@ -122,17 +121,6 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            // Sound nur bei einem spezifischen Ereignis abspielen
-
-
-            if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
-            {
-                soundManager->getMeinSound().play();
-            }
-
-          
-
-           
 
 
             // Verarbeite Button-Klick
