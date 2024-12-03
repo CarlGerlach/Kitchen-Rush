@@ -10,7 +10,7 @@ using namespace std;
 using namespace sf;
 
 //Erstellt ein Spielfeld
-Spielfeld::Spielfeld()
+Spielfeld::Spielfeld(Texture* t1, Texture* t2)
 {
 	//Werte des Grids
 	const float gridWidth = 73.0f;
@@ -28,11 +28,11 @@ Spielfeld::Spielfeld()
 			
 			if (i == 0 || i == 19 || j == 0 || j == 9) // Äußeres Grid
 			{
-				allGrids[i][j]->setGridTexture("BrickWall.jpg");
+				allGrids[i][j]->setGridTexture(t1);
 			}
 			else // Inneres Grid
 			{
-				allGrids[i][j]->setGridTexture("Boden.jpg");
+				allGrids[i][j]->setGridTexture(t2);
 			}
 			allGrids[i][j]->getGridShape().setPosition(i * gridWidth + 200, j * gridHight + 170);
 		}

@@ -21,12 +21,28 @@ int main()
     { // Stelle sicher, dass eine Schriftart geladen wird
         return -1;
     }
+    
+    sf::Texture* brickWall;
+    sf::Texture* floor;
+
+    brickWall = new sf::Texture();
+    floor = new sf::Texture();
+
+    brickWall->loadFromFile("BrickWall.jpg");
+    floor->loadFromFile("Boden.jpg");
+
+
+
+
+
 
 
 
     //Erstellt SPielfeld
     ///////////////////Singleton
-    Spielfeld* playField = new Spielfeld();
+    Spielfeld* playField = new Spielfeld(brickWall, floor);
+
+
 
     //Sound
     mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
@@ -60,7 +76,7 @@ int main()
 
 
     //Fenster erstellen
-    Fenster f("Koch Men�", font); // Erstellt das Fenster "Kochfenster"
+    Fenster f("Koch Menue", font); // Erstellt das Fenster "Kochfenster"
 
 
     button.setOnClick([&f]() { f.setVisible(true); }); // �ffnet das Fenster "Kochfenster"

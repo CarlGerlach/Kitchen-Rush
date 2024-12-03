@@ -21,7 +21,7 @@ private:
 
 
 public:
-	Spielfeld();	
+	Spielfeld(Texture* t1, Texture* t2);
 	void drawSpielfeld(RenderWindow& Window);
 	//Vector2f coordOfMouse();
 
