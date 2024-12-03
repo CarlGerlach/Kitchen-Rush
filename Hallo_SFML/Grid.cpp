@@ -37,13 +37,9 @@ int Grid::getNumberOfGrid()
 	return numberOfGrid;
 }
 
-void Grid::setGridTexture(string nameOfFile)
+void Grid::setGridTexture(Texture* t)
 {
-	if (!textureOfGrid.loadFromFile(nameOfFile))
-	{
-		cout << "Fehler beim Laden der Textur" << endl;
-	}
-	gridShape.setTexture(&textureOfGrid);
+	gridShape.setTexture(t);
 	numberOfGrid = numberOfAllGrids;
 }
 
