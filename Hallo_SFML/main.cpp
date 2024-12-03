@@ -6,6 +6,7 @@
 #include "Spielfeld.h"
 #include "Button.h"
 #include "mySound.h"
+#include "Spieler.h"
 
 using namespace std;
 using namespace sf;
@@ -40,7 +41,10 @@ int main()
     button.setOnClick([](){ cout << "Button geklickt!" << endl; });
 
 
-  
+    // Spielfeldbegrenzung (x, y, Breite, Höhe)
+    sf::FloatRect spielfeldGrenzen(200.f, 170.f, 1460.f, 730.f);
+    //erstellt Spieler
+    Spieler spieler1(300.f, 300.f, 50.f, 0.6f, spielfeldGrenzen);
 
 
 
@@ -67,9 +71,32 @@ int main()
 
         }
 
+
+
+        // Spieler bewegen (mit WASD)
+        sf::Vector2f direction(0.f, 0.f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            direction.y -= 1.f; // Nach oben
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            direction.y += 1.f; // Nach unten
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            direction.x -= 1.f; // Nach links
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            direction.x += 1.f; // Nach rechts
+        }
+
+        spieler1.move(direction);
+
+
+
         window.clear();
  
         playField->drawSpielfeld(window);
+
+        spieler1.draw(window);
 
         button.draw(window);
 
