@@ -12,6 +12,10 @@ class Grid
 {
 private:
 	RectangleShape gridShape;
+	Texture textureOfGrid; 
+	int numberOfGrid;
+	static int numberOfAllGrids;
+
 
 
 
@@ -20,6 +24,9 @@ public:
 
 
 	RectangleShape& getGridShape();
+	void setNumberOfGrid(int ini_numberOfGrid);
+	int getNumberOfGrid();
+	void setGridTexture(string nameOfFile);
 
 
 
