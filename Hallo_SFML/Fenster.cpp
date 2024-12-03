@@ -1,4 +1,5 @@
 #include "Fenster.h"
+#include "Button.h"
 
 Fenster::Fenster(const std::string& label, const sf::Font& font) : visible(false)
 {
@@ -19,7 +20,7 @@ Fenster::Fenster(const std::string& label, const sf::Font& font) : visible(false
     text.setPosition(710 + 250, 240 + 50); // Zentriert im oberen Bereich
 
     // \"X\"-Button oben rechts erstellen
-    closeButton = new Button(710 + 500 - 30, 240, 30, 30, "X", this->font, sf::Color::Black, sf::Color::White);
+    closeButton = new Button(710 + 500 - 30, 240, 30, 30, "X", this->font, sf::Color::Black, sf::Color::White, nullptr);
     closeButton->setOnClick([this]() { this->setVisible(false); }); // Sichtbarkeit beim Klicken deaktivieren
 }
 
@@ -83,7 +84,7 @@ bool Fenster::isVisible()
 
 void Fenster::addButton(float x, float y, float width, float height, const std::string& label, const sf::Color& bgColor, const sf::Color& textColor, std::function<void()> onClick)
 {
-    Button* newButton = new Button(x, y, width, height, label, font, bgColor, textColor);
+    Button* newButton = new Button(x, y, width, height, label, font, bgColor, textColor, nullptr);
     newButton->setOnClick(onClick);
     buttons.push_back(newButton);
 }

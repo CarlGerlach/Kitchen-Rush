@@ -14,6 +14,8 @@ private:
 
     bool visible;              // Sichtbarkeitsstatus
 
+    mySound* soundOfButton;
+
 public:
     Fenster(const std::string& label, const sf::Font& font);
     ~Fenster();

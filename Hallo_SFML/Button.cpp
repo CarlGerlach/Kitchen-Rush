@@ -47,7 +47,11 @@ void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window)
         {
             if (onClick)
             {
-                soundOfButton->getMeinSound().play();
+                if (soundOfButton != nullptr)
+                {
+                    soundOfButton->getMeinSound().play();
+                }
+
                 onClick();  // Rufe die OnClick-Funktion auf
             }
         }
