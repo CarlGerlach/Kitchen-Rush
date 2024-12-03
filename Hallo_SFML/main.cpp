@@ -5,6 +5,7 @@
 #include "Grid.h"
 #include "Spielfeld.h"
 #include "Button.h"
+#include "Fenster.h"
 #include "mySound.h"
 #include "Spieler.h"
 
@@ -46,19 +47,38 @@ int main()
 
 
 
+
     // Erstelle einen Button
     Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Setze die OnClick-Funktion
-    button.setOnClick([]() 
-        { cout << "Button geklickt!" << endl; });
 
+    //button.setOnClick([]() { cout << "Button geklickt!" << endl; });
+
+
+    //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
+
+
+    //Fenster erstellen
+    Fenster f("Koch Men�", font); // Erstellt das Fenster "Kochfenster"
+
+
+    button.setOnClick([&f]() { f.setVisible(true); }); // �ffnet das Fenster "Kochfenster"
+
+
+    // Buttons innerhalb der List des Kochfensters hinzuf�gen
+    // (x von f + offset, y von f + offset, width, height, Label, ... )
+    f.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
+
+    f.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
 
 
 
     // Erstelle Button Start Musik
     Button buttonMusikStart(300, 350, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
 
+  
+  
     // Starte die Musik und gib diesen Text in Konsole aus
     buttonMusikStart.setOnClick
     ([soundManager]
@@ -113,13 +133,18 @@ int main()
 
 
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         sf::Event event;
-        while (window.pollEvent(event))
-        {   
+        while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+
+            // Handler f�r Fenster events wie "Close" und weitere Buttons in "Kochfenster"
+            f.handleEvent(event, window);
+
+            // Verarbeite Button-Klick
+            button.handleEvent(event, window);
 
 
 
@@ -127,6 +152,7 @@ int main()
             button.handleEvent(event, window);
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
+
 
         }
 
@@ -150,14 +176,23 @@ int main()
         spieler1.move(direction);
 
 
+      
+      
+      
+      
+        // Draw Sachen
 
         window.clear();
- 
+
         playField->drawSpielfeld(window);
 
         spieler1.draw(window);
 
         button.draw(window);
+
+        if (f.isVisible()) {
+            f.draw(window);
+        }
 
         buttonMusikStopp.draw(window);
 
