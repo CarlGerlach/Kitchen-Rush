@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+
+
 
 #include "Grid.h"
 
@@ -20,6 +23,7 @@ private:
 public:
 	Spielfeld();	
 	void drawSpielfeld(RenderWindow& Window);
+	//Vector2f coordOfMouse();
 
 };
 
