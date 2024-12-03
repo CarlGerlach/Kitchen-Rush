@@ -33,7 +33,7 @@ int main()
     // Hintergrundmusik laden und abspielen
     if (soundManager->loadHintergrundMusik("Hintergrund-Musik.ogg"))
     {
-        soundManager->setMusicLautstaerke(10.0f); // Lautstärke auf 10 % setzen, weil sonst zu laut -.-
+        soundManager->setMusicLautstaerke(10.0f); // LautstÃ¤rke auf 10 % setzen, weil sonst zu laut -.-
 
         soundManager->playHintergrundMusik();
     }
@@ -68,7 +68,7 @@ int main()
 
 
             // nur wenn Musik nicht schon spielt
-            if (soundManager->isMusicPlaying()) // Überprüfen, ob Musik spielt
+            if (soundManager->isMusicPlaying()) // ÃberprÃ¼fen, ob Musik spielt
             {
                 cout << "Die Musik spielt bereits." << endl;
             }
@@ -78,6 +78,7 @@ int main()
             }
         }
     );
+
 
 
 
@@ -98,8 +99,12 @@ int main()
 
    
 
-    // Spielfeldbegrenzung (x, y, Breite, Höhe)
+    // Spielfeldbegrenzung (x, y, Breite, HÃ¶he)
     sf::FloatRect spielfeldGrenzen(200.f, 170.f, 1460.f, 730.f);
+
+    // Spielfeldbegrenzung (x, y, Breite, Höhe)
+    sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
+
     //erstellt Spieler
     Spieler spieler1(300.f, 300.f, 50.f, 0.4f, spielfeldGrenzen);
 
