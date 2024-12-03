@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Sound.cpp">
+    <ClCompile Include="mySound.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Spielfeld.cpp">
@@ -30,12 +30,16 @@
     <ClCompile Include="Button.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+
     <ClCompile Include="Fenster.cpp">
+
+    <ClCompile Include="Spieler.cpp">
+
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sound.h">
+    <ClInclude Include="mySound.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Spielfeld.h">
@@ -47,7 +51,11 @@
     <ClInclude Include="Button.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+
     <ClInclude Include="Fenster.h">
+
+    <ClInclude Include="Spieler.h">
+
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
