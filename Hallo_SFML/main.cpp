@@ -42,7 +42,7 @@ int main()
 
 
     // Spielfeldbegrenzung (x, y, Breite, Höhe)
-    sf::FloatRect spielfeldGrenzen(200.f, 170.f, 1460.f, 730.f);
+    sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
     //erstellt Spieler
     Spieler spieler1(300.f, 300.f, 50.f, 0.4f, spielfeldGrenzen);
 
