@@ -138,12 +138,14 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mySound.cpp" />
+    <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="mySound.h" />
+    <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
