@@ -1,6 +1,11 @@
 #include "Spielfeld.h"
 #include "Grid.h"
 
+#include <thread> // Für std::this_thread::sleep_for
+#include <chrono> // Für std::chrono::seconds
+
+
+
 using namespace std;
 using namespace sf;
 
@@ -20,6 +25,15 @@ Spielfeld::Spielfeld()
 
 			///////////////////////////Später 21 und 22 in eine Zeile
 			allGrids[i][j] = new Grid();
+			
+			if (i == 0 || i == 19 || j == 0 || j == 9) // Äußeres Grid
+			{
+				allGrids[i][j]->setGridTexture("BrickWall.jpg");
+			}
+			else // Inneres Grid
+			{
+				allGrids[i][j]->setGridTexture("Boden.jpg");
+			}
 			allGrids[i][j]->getGridShape().setPosition(i * gridWidth + 200, j * gridHight + 170);
 		}
 	}
@@ -35,6 +49,7 @@ void Spielfeld::drawSpielfeld(RenderWindow& window)
 		for (int j = 0; j < 10; j++)
 		{
 			window.draw(allGrids[i][j]->getGridShape());
+		
 		}
 	}
 }

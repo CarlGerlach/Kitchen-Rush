@@ -6,6 +6,7 @@
 #include "Spielfeld.h"
 #include "Button.h"
 #include "mySound.h"
+#include "Spieler.h"
 
 using namespace std;
 using namespace sf;
@@ -32,7 +33,7 @@ int main()
     // Hintergrundmusik laden und abspielen
     if (soundManager->loadHintergrundMusik("Hintergrund-Musik.ogg"))
     {
-        soundManager->setMusicLautstaerke(10.0f); // Lautst‰rke auf 10 % setzen, weil sonst zu laut -.-
+        soundManager->setMusicLautstaerke(10.0f); // Lautst√§rke auf 10 % setzen, weil sonst zu laut -.-
 
         soundManager->playHintergrundMusik();
     }
@@ -54,6 +55,7 @@ int main()
 
 
 
+
     // Erstelle Button Start Musik
     Button buttonMusikStart(300, 350, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
 
@@ -66,7 +68,7 @@ int main()
 
 
             // nur wenn Musik nicht schon spielt
-            if (soundManager->isMusicPlaying()) // ‹berpr¸fen, ob Musik spielt
+            if (soundManager->isMusicPlaying()) // √úberpr√ºfen, ob Musik spielt
             {
                 cout << "Die Musik spielt bereits." << endl;
             }
@@ -96,6 +98,12 @@ int main()
 
    
 
+    // Spielfeldbegrenzung (x, y, Breite, H√∂he)
+    sf::FloatRect spielfeldGrenzen(200.f, 170.f, 1460.f, 730.f);
+    //erstellt Spieler
+    Spieler spieler1(300.f, 300.f, 50.f, 0.4f, spielfeldGrenzen);
+
+
 
 
 
@@ -110,10 +118,14 @@ int main()
                 window.close();
 
             // Sound nur bei einem spezifischen Ereignis abspielen
+
+
             if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
             {
                 soundManager->getMeinSound().play();
             }
+
+          
 
            
 
@@ -125,9 +137,32 @@ int main()
 
         }
 
+
+
+        // Spieler bewegen (mit WASD)
+        sf::Vector2f direction(0.f, 0.f);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            direction.y -= 1.f; // Nach oben
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            direction.y += 1.f; // Nach unten
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            direction.x -= 1.f; // Nach links
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            direction.x += 1.f; // Nach rechts
+        }
+
+        spieler1.move(direction);
+
+
+
         window.clear();
  
         playField->drawSpielfeld(window);
+
+        spieler1.draw(window);
 
         button.draw(window);
 

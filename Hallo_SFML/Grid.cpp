@@ -3,16 +3,21 @@
 
 #include "Grid.h"
 
+using namespace std;
+using namespace sf;
 
+int Grid::numberOfAllGrids = 1;
 
 //Erstelen eines Grids
 Grid::Grid()
 {
 	const Vector2f sizeOfShape{ 73.0f, 73.0f };
 	gridShape.setSize(sizeOfShape);
-	gridShape.setFillColor(Color::Red);
-	gridShape.setOutlineColor(sf::Color::White);
+	//gridShape.setFillColor(Color::Red);
+	gridShape.setOutlineColor(sf::Color::Black);
 	gridShape.setOutlineThickness(2.f);
+	numberOfGrid = numberOfAllGrids;
+	numberOfAllGrids++;
 }
 
 
@@ -21,3 +26,24 @@ RectangleShape& Grid::getGridShape()
 {
 	return gridShape;
 }
+
+void Grid::setNumberOfGrid(int ini_numberOfGrid)
+{
+	numberOfGrid = ini_numberOfGrid;
+}
+
+int Grid::getNumberOfGrid()
+{
+	return numberOfGrid;
+}
+
+void Grid::setGridTexture(string nameOfFile)
+{
+	if (!textureOfGrid.loadFromFile(nameOfFile))
+	{
+		cout << "Fehler beim Laden der Textur" << endl;
+	}
+	gridShape.setTexture(&textureOfGrid);
+	numberOfGrid = numberOfAllGrids;
+}
+
