@@ -44,6 +44,7 @@ int main()
     //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
 
 
+    //Fenster erstellen
     Fenster f("Koch Menü", font); // Erstellt das Fenster "Kochfenster"
 
 
