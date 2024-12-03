@@ -44,7 +44,7 @@ int main()
     // Spielfeldbegrenzung (x, y, Breite, Höhe)
     sf::FloatRect spielfeldGrenzen(200.f, 170.f, 1460.f, 730.f);
     //erstellt Spieler
-    Spieler spieler1(300.f, 300.f, 50.f, 0.6f, spielfeldGrenzen);
+    Spieler spieler1(300.f, 300.f, 50.f, 0.4f, spielfeldGrenzen);
 
 
 
@@ -60,10 +60,7 @@ int main()
                 window.close();
 
             // Sound nur bei einem spezifischen Ereignis abspielen
-            if (event.type == sf::Event::KeyPressed) // Beispiel: Tastendruck
-            {
-                testSound->getMeinSound().play();
-            }
+          
 
 
             // Verarbeite Button-Klick
