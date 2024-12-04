@@ -15,6 +15,7 @@ using namespace sf;
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
+    window.setFramerateLimit(60);
 
     sf::Font font;
     if (!font.loadFromFile("arial.ttf"))
@@ -141,7 +142,7 @@ int main()
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
     //erstellt Spieler
-    Spieler spieler1(300.f, 300.f, 50.f, 0.4f, spielfeldGrenzen);
+    Spieler spieler1(300.f, 300.f, 50.f, 1.0f, spielfeldGrenzen);
 
 
 
