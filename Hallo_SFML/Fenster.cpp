@@ -1,8 +1,10 @@
 #include "Fenster.h"
 #include "Button.h"
 
-Fenster::Fenster(const std::string& label, const sf::Font& font) : visible(false)
+Fenster::Fenster(const std::string& label, const sf::Font& font)
 {
+    this->visible = false;
+
     // Hintergrund des Fensters
     shape.setPosition(710, 240); // mittig im Fenster
     shape.setSize({ 500, 600 }); // Breite, Höhe

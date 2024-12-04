@@ -11,7 +11,9 @@ private:
 
 public:
     Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds)
-        : speed(speed), bounds(bounds) {
+      {
+        this->speed = speed;         
+        this->bounds = bounds;       
         shape.setSize(sf::Vector2f(size, size));
         shape.setFillColor(sf::Color::Blue);
         shape.setPosition(startX, startY);
