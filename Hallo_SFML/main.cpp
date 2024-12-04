@@ -142,7 +142,7 @@ int main()
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
     //erstellt Spieler
-    Spieler spieler1(300.f, 300.f, 50.f, 1.0f, spielfeldGrenzen);
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen);
 
 
 
