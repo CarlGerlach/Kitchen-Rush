@@ -150,6 +150,13 @@ int main()
 
 
 
+
+    // Küchengerät erstellen TEST
+
+    Button kg(15);
+
+
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -206,6 +213,8 @@ int main()
         spieler1.draw(window);
 
         button.draw(window);
+
+        kg.draw(window);
 
         if (f.isVisible()) {
             f.draw(window);
