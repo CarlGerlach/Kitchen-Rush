@@ -18,19 +18,22 @@ int main()
     window.setFramerateLimit(60);
 
     sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
+    if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
     { // Stelle sicher, dass eine Schriftart geladen wird
         return -1;
     }
     
     sf::Texture* brickWall;
     sf::Texture* floor;
+   
 
+    
     brickWall = new sf::Texture();
     floor = new sf::Texture();
 
-    brickWall->loadFromFile("BrickWall.jpg");
-    floor->loadFromFile("Boden.jpg");
+    brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
+    floor->loadFromFile("Texturen & Musik/Boden.jpg");
+    
 
 
 
@@ -49,9 +52,9 @@ int main()
     mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
 
     // Hintergrundmusik laden und abspielen
-    if (soundManager->loadHintergrundMusik("Hintergrund-Musik.ogg"))
+    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
     {
-        soundManager->setMusicLautstaerke(5.0f); // LautstÃ¤rke auf 10 % setzen, weil sonst zu laut -.-
+        soundManager->setMusicLautstaerke(10.0f); // Lautstärke auf 10 % setzen, weil sonst zu laut -.-
 
         soundManager->playHintergrundMusik();
     }
@@ -142,7 +145,7 @@ int main()
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
     //erstellt Spieler
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen);
+    Spieler spieler1(300.f, 300.f, 100.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
 
 
 
@@ -150,7 +153,8 @@ int main()
 
 
 
-    while (window.isOpen()) {
+    while (window.isOpen()) 
+    {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)

@@ -3,20 +3,44 @@
 #include <SFML/Audio.hpp> 
 #include <iostream>
 #include <functional>
-class Spieler {
+class Spieler 
+{
 private:
-    sf::RectangleShape shape; // Form des Spielers 
+    sf::RectangleShape shape; // Form des Spielers
     float speed; // Bewegungsgeschwindigkeit
     sf::FloatRect bounds; //Spielfeldgrenzen
 
+    sf::Texture texture; //texture für spieler (ente)
+
 public:
-    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds)
+   
+    
+    
+    
+   
+    
+    
+    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, const std::string& texturPfad)
       {
         this->speed = speed;         
-        this->bounds = bounds;       
+        this->bounds = bounds;     
+
+        //Textur laden
+
+        if (!texture.loadFromFile("Texturen & Musik/Char-links.png")) {
+            std::cerr << "Fehler beim Laden der Textur!" << std::endl;
+            exit(-1);
+        }
+
+        shape.setTexture(&texture);
+
         shape.setSize(sf::Vector2f(size, size));
-        shape.setFillColor(sf::Color::Blue);
+
+       /* shape.setFillColor(sf::Color::Blue);*/
+        //Unnötig weil keine Farbe im sprite
+
         shape.setPosition(startX, startY);
+
     }
 
     // Funktion zum Zeichnen des Spielers

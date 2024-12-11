@@ -4,7 +4,7 @@ using namespace sf;
 
 mySound::mySound()
 {
-    if (!buffer.loadFromFile("Button-Click.wav")) // WAV-Datei statt MP3
+    if (!buffer.loadFromFile("Texturen & Musik/Button-Click.wav")) // WAV-Datei statt MP3
     {
         std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
     }
