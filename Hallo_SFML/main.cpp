@@ -145,7 +145,8 @@ int main()
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
     //erstellt Spieler
-    Spieler spieler1(300.f, 300.f, 100.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
+
 
 
 
@@ -181,16 +182,25 @@ int main()
 
         // Spieler bewegen (mit WASD)
         sf::Vector2f direction(0.f, 0.f);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+        {
             direction.y -= 1.f; // Nach oben
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
+        {
             direction.y += 1.f; // Nach unten
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
+        {
+            spieler1.setTexture("Texturen & Musik/Char-links.png");
+            
+
             direction.x -= 1.f; // Nach links
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+        {
+            spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+
             direction.x += 1.f; // Nach rechts
         }
 
