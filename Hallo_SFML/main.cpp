@@ -69,7 +69,7 @@ int main()
 
 
     // Erstelle einen Button
-    Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button button(300, 25, 200, 50, "Koch menue!", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Setze die OnClick-Funktion
 
@@ -95,7 +95,7 @@ int main()
 
 
     // Erstelle Button Start Musik
-    Button buttonMusikStart(300, 350, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
 
   
   
@@ -123,7 +123,7 @@ int main()
 
 
     // Erstelle Button Stop Musik
-    Button buttonMusikStopp(300, 275, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Stoppe die Musik und gib diesen Text in Konsole aus
     buttonMusikStopp.setOnClick
