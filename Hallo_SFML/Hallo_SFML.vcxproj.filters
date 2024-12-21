@@ -21,7 +21,4 @@
   <ItemGroup>
     <ResourceCompile Include="KitchenRushContent.rc" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\..\Downloads\kitchenrush.ico" />
-  </ItemGroup>
 </Project>
