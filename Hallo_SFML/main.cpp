@@ -18,19 +18,22 @@ int main()
     window.setFramerateLimit(60);
 
     sf::Font font;
-    if (!font.loadFromFile("arial.ttf"))
+    if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
     { // Stelle sicher, dass eine Schriftart geladen wird
         return -1;
     }
     
     sf::Texture* brickWall;
     sf::Texture* floor;
+   
 
+    
     brickWall = new sf::Texture();
     floor = new sf::Texture();
 
-    brickWall->loadFromFile("BrickWall.jpg");
-    floor->loadFromFile("Boden.jpg");
+    brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
+    floor->loadFromFile("Texturen & Musik/Boden.jpg");
+    
 
 
 
@@ -49,9 +52,9 @@ int main()
     mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
 
     // Hintergrundmusik laden und abspielen
-    if (soundManager->loadHintergrundMusik("Hintergrund-Musik.ogg"))
+    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
     {
-        soundManager->setMusicLautstaerke(5.0f); // LautstÃ¤rke auf 10 % setzen, weil sonst zu laut -.-
+        soundManager->setMusicLautstaerke(10.0f); // Lautstärke auf 10 % setzen, weil sonst zu laut -.-
 
         soundManager->playHintergrundMusik();
     }
@@ -66,7 +69,7 @@ int main()
 
 
     // Erstelle einen Button
-    Button button(300, 200, 200, 50, "Klick mich!", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button button(300, 25, 200, 50, "Koch menue!", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Setze die OnClick-Funktion
 
@@ -92,7 +95,7 @@ int main()
 
 
     // Erstelle Button Start Musik
-    Button buttonMusikStart(300, 350, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
 
   
   
@@ -120,7 +123,7 @@ int main()
 
 
     // Erstelle Button Stop Musik
-    Button buttonMusikStopp(300, 275, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Stoppe die Musik und gib diesen Text in Konsole aus
     buttonMusikStopp.setOnClick
@@ -142,22 +145,19 @@ int main()
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
     //erstellt Spieler
-    Spieler spieler1(300.f, 300.f, 50.f, 10.0f, spielfeldGrenzen);
+
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
 
 
-
-
-
-
-
-
-    // Küchengerät erstellen TEST
 
     Button kg(15);
 
 
 
-    while (window.isOpen()) {
+
+    while (window.isOpen()) 
+    {
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -184,22 +184,26 @@ int main()
 
         // Spieler bewegen (mit WASD)
         sf::Vector2f direction(0.f, 0.f);
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+      
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
         {
             direction.y -= 1.f; // Nach oben
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
         {
             direction.y += 1.f; // Nach unten
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
         {
+            spieler1.setTexture("Texturen & Musik/Char-links.png");
+            
+
             direction.x -= 1.f; // Nach links
         }
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
         {
+            spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+
             direction.x += 1.f; // Nach rechts
         }
 
