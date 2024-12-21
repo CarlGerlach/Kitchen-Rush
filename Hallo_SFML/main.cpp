@@ -161,15 +161,18 @@ int main()
     }
 
 
+	//Button für Herd konfigurieren
 
     Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
     kg.setTexture(&kgTexture); // Weise die Herd-Textur zu
 	kg.setText(" "); // Kein Text auf dem Button
+    
+	kg.setScale(0.9f);  // Skalierung des Buttons auf 90% setzen
 
     
 
 
-
+    //Spielschleife
     while (window.isOpen()) 
     {
 

@@ -50,4 +50,15 @@ public:
     // Setter für den Text
 	string setText(const string& newText);
 
+	// Setter für die Skalierung
+    void setScale(float scale) 
+    {
+        // Aktuelle Skalierung des Buttons abrufen
+        sf::Vector2f currentScale = sprite.getScale();
+
+        // Skalierung um den angegebenen Faktor erhöhen (1.5 bedeutet z.B. 50% größer)
+        sprite.setScale(currentScale.x * scale, currentScale.y * scale);
+    }
+
+
 };
