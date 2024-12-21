@@ -36,7 +36,7 @@ int main()
     
 
 
-
+    
 
 
 
@@ -63,13 +63,16 @@ int main()
         cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
     }
 
+    
+
+
 
 
 
 
 
     // Erstelle einen Button
-    Button button(300, 25, 200, 50, "Koch menue!", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button button(300, 25, 200, 50, "Koch Menue", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Setze die OnClick-Funktion
 
@@ -83,7 +86,7 @@ int main()
     Fenster f("Koch Menue", font); // Erstellt das Fenster "Kochfenster"
 
 
-    button.setOnClick([&f]() { f.setVisible(true); }); // �ffnet das Fenster "Kochfenster"
+    button.setOnClick([&f]() { f.setVisible(true); }); // öffnet das Fenster "Kochfenster"
 
 
     // Buttons innerhalb der List des Kochfensters hinzuf�gen
@@ -149,9 +152,21 @@ int main()
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
 
 
+    //Sprite für Herd
+    sf::Texture kgTexture;
+    if (!kgTexture.loadFromFile("Texturen & Musik/Herd_01.png")) 
+    {
+        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
+        return -1;
+    }
+
+
 
     Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
+    kg.setTexture(&kgTexture); // Weise die Herd-Textur zu
+	kg.setText(" "); // Kein Text auf dem Button
 
+    
 
 
 

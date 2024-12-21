@@ -18,6 +18,10 @@ private:
     std::function<void()> onClick; // Funktion, die beim Klick ausgeführt wird
     mySound* soundOfButton;
 
+	sf::Sprite sprite; // Sprite des Buttons
+    sf::Texture* texture; // Zeiger auf eine externe Textur, um Speicherprobleme zu vermeiden
+
+
 
 public:
     // Konstruktor
@@ -37,4 +41,13 @@ public:
 
     // Setter für die Position
     void setPosition(float x, float y);
+
+
+	// Setter für die Textur
+    void setTexture(sf::Texture* newTexture);
+
+
+    // Setter für den Text
+	string setText(const string& newText);
+
 };

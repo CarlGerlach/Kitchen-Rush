@@ -69,7 +69,12 @@ void Button::setOnClick(std::function<void()> callback)
 // Zeichne den Button
 void Button::draw(sf::RenderWindow& window)
 {
-    window.draw(shape);
+    if (texture) {
+        window.draw(sprite);
+    }
+    else {
+		window.draw(shape); // Fallback auf Standardform falls keine textur vorhanden
+    }
     window.draw(text);
 }
 
@@ -99,4 +104,23 @@ void Button::setPosition(float x, float y)
 {
     shape.setPosition(x, y);
     text.setPosition(x + shape.getSize().x / 2.0f, y + shape.getSize().y / 2.0f);
+}
+
+
+void Button::setTexture(sf::Texture* newTexture) {
+    texture = newTexture;
+    sprite.setTexture(*texture);
+    sprite.setPosition(shape.getPosition()); // Übernehme die Position des Buttons
+    sprite.setScale(
+        shape.getSize().x / texture->getSize().x,
+        shape.getSize().y / texture->getSize().y
+    ); // Skaliere die Textur auf die Größe des Buttons
+}
+
+
+//Setter für den Text
+string Button::setText(const string& newText) 
+{
+	text.setString(newText);
+	return newText;
 }
