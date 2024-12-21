@@ -147,8 +147,15 @@
     <ClInclude Include="Fenster.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="mySound.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="KitchenRushContent.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\kitchenrush.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

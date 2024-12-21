@@ -23,6 +23,9 @@ public:
     // Konstruktor
     Button(float x, float y, float width, float height, const std::string& label, const sf::Font& font, const sf::Color& buttonColor, const sf::Color& textColor, mySound* ini_soundOfButton);
 
+    Button(int gridNumber);
+
+
     // Setter für die OnClick-Funktion
     void setOnClick(std::function<void()> callback);
 

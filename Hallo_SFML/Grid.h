@@ -6,8 +6,6 @@
 using namespace std;
 using namespace sf;
 
-
-
 class Grid
 {
 private:
@@ -16,8 +14,9 @@ private:
 	int numberOfGrid;
 	static int numberOfAllGrids;
 
+	static std::map<int, sf::Vector2f> gridPositions; // Speichert Nummern und Positionen
 
-
+	static std::vector<Grid*> allGrids;
 
 public:
 	Grid();
@@ -28,7 +27,8 @@ public:
 	int getNumberOfGrid();
 	void setGridTexture(Texture* t);
 
+	//Vector2f getPosition(int gridNum);
 
-
+	static sf::Vector2f getPosition(int gridNum);
 };
 

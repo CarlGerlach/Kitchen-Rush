@@ -145,17 +145,19 @@ int main()
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
     //erstellt Spieler
+
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
 
 
 
-
+    Button kg(15);
 
 
 
 
     while (window.isOpen()) 
     {
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -182,6 +184,7 @@ int main()
 
         // Spieler bewegen (mit WASD)
         sf::Vector2f direction(0.f, 0.f);
+      
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
         {
             direction.y -= 1.f; // Nach oben
@@ -220,6 +223,8 @@ int main()
         spieler1.draw(window);
 
         button.draw(window);
+
+        kg.draw(window);
 
         if (f.isVisible()) {
             f.draw(window);

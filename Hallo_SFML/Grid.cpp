@@ -6,7 +6,10 @@
 using namespace std;
 using namespace sf;
 
+std::map<int, sf::Vector2f> Grid::gridPositions;
 int Grid::numberOfAllGrids = 1;
+
+std::vector<Grid*> Grid::allGrids;
 
 //Erstelen eines Grids
 Grid::Grid()
@@ -17,6 +20,10 @@ Grid::Grid()
 	gridShape.setOutlineColor(sf::Color::Black);
 	gridShape.setOutlineThickness(2.f);
 	numberOfGrid = numberOfAllGrids;
+
+	gridPositions[numberOfGrid] = gridShape.getPosition(); // Speichere Position
+	allGrids.push_back(this); // Speichere Zeiger auf dieses Grid
+
 	numberOfAllGrids++;
 }
 
@@ -43,3 +50,28 @@ void Grid::setGridTexture(Texture* t)
 	numberOfGrid = numberOfAllGrids;
 }
 
+sf::Vector2f Grid::getPosition(int gridNum)
+{
+	if (gridNum > 0 && gridNum <= allGrids.size())
+	{
+		return allGrids[gridNum - 1]->gridShape.getPosition();
+	}
+	return sf::Vector2f(-1.0f, -1.0f); // Ungültige Position
+}
+
+/*
+sf::Vector2f Grid::getPosition(int gridNum)
+{
+	for (int i = 0; i < numberOfAllGrids; i++)
+	{
+		gridPositions[i] = gridShape.getPosition(); // Speichere Position
+	}
+
+
+	if (gridPositions.find(gridNum) != gridPositions.end())
+	{
+		return gridPositions[gridNum];
+	}
+	return sf::Vector2f(-1.0f, -1.0f); // Ungültige Position
+}
+*/
