@@ -150,7 +150,7 @@ int main()
 
 
 
-    Button kg(15);
+    Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
 
 
 
