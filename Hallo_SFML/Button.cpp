@@ -25,6 +25,7 @@ Button::Button(float x, float y, float width, float height, const std::string& l
     soundOfButton = ini_soundOfButton;
 }
 
+/*
 Button::Button(int gridNumber)
 {
     float width = 75;
@@ -58,6 +59,7 @@ Button::Button(int gridNumber)
 
     soundOfButton = nullptr;
 }
+*/
 
 // Setter für die OnClick-Funktion
 void Button::setOnClick(std::function<void()> callback)
