@@ -65,6 +65,16 @@ void Mapelement::setTexture(sf::Texture* newTexture)
     ); // Skaliere die Textur auf die Größe des Buttons
 }
 
+float Mapelement::getPositionX()
+{
+    return sprite.getPosition().x;
+}
+
+float Mapelement::getPositionY()
+{
+    return sprite.getPosition().y;
+}
+
 void Mapelement::setScale(float scale)
 {
     // Aktuelle Skalierung des Buttons abrufen

@@ -33,6 +33,9 @@ public:
 	void setPosition(float x, float y);
 	void setTexture(sf::Texture* newTexture);
 
+	float getPositionX();
+	float getPositionY();
+
 	void setScale(float scale);
 
 	void setItem(Item newItem);

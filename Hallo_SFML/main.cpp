@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp> 
 #include <iostream>
+#include <list>
+#include <cmath>
 
 #include "Grid.h"
 #include "Spielfeld.h"
@@ -27,7 +29,9 @@ int main()
     
     sf::Texture* brickWall;
     sf::Texture* floor;
-   
+
+	int radius = 100; // Radius, in dem der Spieler sein muss, um mit dem Objekt zu interagieren
+    bool isPlayerInRadius = false;
 
     
     brickWall = new sf::Texture();
@@ -35,9 +39,6 @@ int main()
 
     brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
     floor->loadFromFile("Texturen & Musik/Boden.jpg");
-    
-
-
     
 
 
@@ -215,7 +216,13 @@ int main()
 	theke.setTexture(&placeholder);
 
 	Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
-	theke.setOnClick([&theke_fenster]() { theke_fenster.setVisible(true); }); // öffnet das Fenster "Theken Fenster"
+	theke.setOnClick([&theke_fenster, &isPlayerInRadius]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
+    {
+            if (isPlayerInRadius == true)
+            {
+                theke_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
+            }
+    });
 
     theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.setAktuellesItem(testItem); });
 
@@ -251,6 +258,15 @@ int main()
 
 
         }
+
+
+
+        //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
+        float distance = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
+        
+        isPlayerInRadius = distance <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist
+        
+		cout << isPlayerInRadius << endl; // Ausgabe, ob Spieler im Radius ist
 
 
 
