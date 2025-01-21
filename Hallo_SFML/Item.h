@@ -13,6 +13,7 @@ private:
 
 public:
 
+	Item();
 	Item(const std::string& type, const sf::Texture& texture);
 
 	string getTyp();

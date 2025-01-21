@@ -2,6 +2,7 @@
 #include "mySound.h"
 #include "Grid.h"
 #include "Spielfeld.h"
+#include "Item.h"
 
 Mapelement::Mapelement(int gridNumber)
 {

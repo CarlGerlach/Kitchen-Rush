@@ -1,5 +1,11 @@
 #include "Item.h"
 
+Item::Item()
+{
+	typ = "default";
+
+}
+
 Item::Item(const std::string& type, const sf::Texture& texture) : typ(type)
 {
 	sprite.setTexture(texture);

@@ -208,10 +208,16 @@ int main()
         return -1;
     }
 
-	Item testitem("Test", placeholder);
+	Item* testItem = new Item("Test", placeholder);
 
 
+	Mapelement theke(16);
+	theke.setTexture(&placeholder);
 
+	Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
+	theke.setOnClick([&theke_fenster]() { theke_fenster.setVisible(true); }); // öffnet das Fenster "Theken Fenster"
+
+    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.setAktuellesItem(testItem); });
 
 
 
@@ -225,15 +231,17 @@ int main()
                 window.close();
 
 
-            // Handler f�r Fenster events wie "Close" und weitere Buttons in "Kochfenster"
-            f.handleEvent(event, window);
-			herd_fenster.handleEvent(event, window);
 
             // Verarbeite Button-Klick
             button.handleEvent(event, window);
-
 			herd.handleEvent(event, window);
+			theke.handleEvent(event, window);
 
+
+            // Handler für Fenster events wie "Close" und weitere Buttons
+            f.handleEvent(event, window);
+			herd_fenster.handleEvent(event, window);
+			theke_fenster.handleEvent(event, window);
 
 
             // Verarbeite Button-Klick
@@ -290,12 +298,18 @@ int main()
 
         herd.draw(window);
 
+		theke.draw(window);
+
         if (f.isVisible()) {
             f.draw(window);
         }
 
         if (herd_fenster.isVisible()) {
             herd_fenster.draw(window);
+        }
+
+        if (theke_fenster.isVisible()) {
+			theke_fenster.draw(window);
         }
 
         buttonMusikStopp.draw(window);
