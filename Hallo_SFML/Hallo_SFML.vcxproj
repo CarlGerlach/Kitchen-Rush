@@ -137,6 +137,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Fenster.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Spieler.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="Fenster.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="mySound.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spieler.h" />
