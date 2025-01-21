@@ -55,3 +55,23 @@ void Spieler::move(sf::Vector2f direction) {
 sf::Vector2f Spieler::getPosition() {
     return shape.getPosition();
 }
+
+Item* Spieler::getAktuellesItem()
+{
+    return aktuellesItem;
+}
+
+void Spieler::setAktuellesItem(Item* ini_Item)
+{
+    aktuellesItem = ini_Item;
+}
+
+int Spieler::getPoints()
+{
+    return points;
+}
+
+void Spieler::addPoints(int ini_points)
+{
+    points += ini_points;
+}
