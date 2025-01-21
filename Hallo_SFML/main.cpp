@@ -9,6 +9,8 @@
 #include "mySound.h"
 #include "Spieler.h"
 
+#include "Mapelement.h"
+
 using namespace std;
 using namespace sf;
 
@@ -161,13 +163,33 @@ int main()
     }
 
 
+
+    /* ALTER CODE - ALTER CODE - ALTER CODE
+
 	//Button für Herd konfigurieren
 
     Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
     kg.setTexture(&kgTexture); // Weise die Herd-Textur zu
 	kg.setText(" "); // Kein Text auf dem Button
     
-	kg.setScale(0.9f);  // Skalierung des Buttons auf 90% setzen
+	kg.setScale(1.0f);  // Skalierung des Buttons auf 90% setzen
+
+    */
+
+
+
+
+
+
+    Mapelement herd(15);
+
+    herd.setTexture(&kgTexture);
+    herd.setScale(1.0f);
+
+
+
+
+
 
     
 
@@ -242,7 +264,7 @@ int main()
 
         button.draw(window);
 
-        kg.draw(window);
+        herd.draw(window);
 
         if (f.isVisible()) {
             f.draw(window);

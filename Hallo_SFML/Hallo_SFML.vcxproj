@@ -139,6 +139,7 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mapelement.cpp" />
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Fenster.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Mapelement.h" />
     <ClInclude Include="mySound.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spieler.h" />
