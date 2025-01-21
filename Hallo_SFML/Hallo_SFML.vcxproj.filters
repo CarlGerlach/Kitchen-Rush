@@ -8,6 +8,7 @@
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Mapelement.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -18,6 +19,7 @@
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Mapelement.h" />
   </ItemGroup>
 </Project>
