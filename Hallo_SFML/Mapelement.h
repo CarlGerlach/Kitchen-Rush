@@ -7,6 +7,8 @@
 
 #include "mySound.h"
 
+#include "Item.h"
+
 using namespace std;
 using namespace sf;
 
@@ -19,6 +21,8 @@ private:
 	sf::Sprite sprite; // Sprite des Buttons
 	sf::Texture* texture; // Zeiger auf eine externe Textur, um Speicherprobleme zu vermeiden
 
+	Item item;
+
 public:
 	Mapelement(int gridnumber);
 
@@ -30,4 +34,6 @@ public:
 	void setTexture(sf::Texture* newTexture);
 
 	void setScale(float scale);
+
+	void setItem(Item newItem);
 };

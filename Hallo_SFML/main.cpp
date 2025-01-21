@@ -179,19 +179,40 @@ int main()
 
 
 
-
-
     Mapelement herd(15);
 
     herd.setTexture(&kgTexture);
     herd.setScale(1.0f);
 
+	Fenster herd_fenster("Herd Fenster", font); // Erstellt das Fenster "Kochfenster"
+
+    herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
+
+    // Buttons innerhalb der List des Kochfensters hinzuf�gen
+    // (x von f + offset, y von f + offset, width, height, Label, ... )
+    herd_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
+
+    herd_fenster.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
 
 
 
 
 
     
+
+    //Sprite für Herd
+    sf::Texture placeholder;
+    if (!placeholder.loadFromFile("Texturen & Musik/temp.png"))
+    {
+        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
+        return -1;
+    }
+
+	Item testitem("Test", placeholder);
+
+
+
+
 
 
     //Spielschleife
@@ -206,9 +227,12 @@ int main()
 
             // Handler f�r Fenster events wie "Close" und weitere Buttons in "Kochfenster"
             f.handleEvent(event, window);
+			herd_fenster.handleEvent(event, window);
 
             // Verarbeite Button-Klick
             button.handleEvent(event, window);
+
+			herd.handleEvent(event, window);
 
 
 
@@ -268,6 +292,10 @@ int main()
 
         if (f.isVisible()) {
             f.draw(window);
+        }
+
+        if (herd_fenster.isVisible()) {
+            herd_fenster.draw(window);
         }
 
         buttonMusikStopp.draw(window);

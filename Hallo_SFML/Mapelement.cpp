@@ -72,3 +72,8 @@ void Mapelement::setScale(float scale)
     // Skalierung um den angegebenen Faktor erhöhen (1.5 bedeutet z.B. 50% größer)
     sprite.setScale(currentScale.x * scale, currentScale.y * scale);
 }
+
+void Mapelement::setItem(Item newItem)
+{
+	item = newItem;
+}

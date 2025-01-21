@@ -5,8 +5,6 @@ Item::Item(const std::string& type, const sf::Texture& texture) : typ(type)
 	sprite.setTexture(texture);
 }
 
-
-
 string Item::getTyp() 
 {
     return typ;

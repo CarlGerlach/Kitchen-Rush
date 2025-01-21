@@ -18,7 +18,5 @@ public:
 	string getTyp();
 
 	sf::Sprite getSprite(); 
-
-
 };
 
