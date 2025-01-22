@@ -77,6 +77,7 @@ void Fenster::setText(std::string t)
 void Fenster::setVisible(bool isVisible)
 {
     visible = isVisible; // Sichtbarkeit ändern
+    cout << "Set visible geht" << endl;
 }
 
 bool Fenster::isVisible()

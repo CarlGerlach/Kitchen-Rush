@@ -6,7 +6,7 @@
 #include <functional>
 
 #include "mySound.h"
-
+#include "Fenster.h"
 #include "Item.h"
 
 using namespace std;
@@ -21,10 +21,10 @@ private:
 	sf::Sprite sprite; // Sprite des Buttons
 	sf::Texture* texture; // Zeiger auf eine externe Textur, um Speicherprobleme zu vermeiden
 
-	Item item;
+	Fenster* dasFenster;
 
 public:
-	Mapelement(int gridnumber);
+	Mapelement(int gridnumber, sf::Font ini_font);
 
 	void setOnClick(std::function<void()> callback);
 	void draw(sf::RenderWindow& window);
@@ -38,5 +38,8 @@ public:
 
 	void setScale(float scale);
 
-	void setItem(Item newItem);
+	Fenster* getFenster();
+
+	void setFenster(Fenster* ini_dasFenster);
+
 };

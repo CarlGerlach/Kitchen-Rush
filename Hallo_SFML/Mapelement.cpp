@@ -4,7 +4,7 @@
 #include "Spielfeld.h"
 #include "Item.h"
 
-Mapelement::Mapelement(int gridNumber)
+Mapelement::Mapelement(int gridNumber, sf::Font ini_font)
 {
 	float width = 75;
 	float height = 75;
@@ -15,6 +15,14 @@ Mapelement::Mapelement(int gridNumber)
 	shape.setPosition(gridPos.x - 2, gridPos.y - 2);
 	shape.setSize({ width, height });
 	shape.setFillColor(buttonColor);
+
+    dasFenster = new Fenster("Theke", ini_font);
+
+    this->setOnClick([this]() { this->dasFenster->setVisible(true); }); // öffnet das Fenster "Kochfenster"
+
+    // Buttons innerhalb der List des Kochfensters hinzuf?gen
+    // (x von f + offset, y von f + offset, width, height, Label, ... )
+   
 }
 
 void Mapelement::setOnClick(std::function<void()> callback)
@@ -43,6 +51,7 @@ void Mapelement::handleEvent(const sf::Event& event, const sf::RenderWindow& win
             if (onClick)
             {
                 onClick();  // Rufe die OnClick-Funktion auf
+                cout << "Hadle event geht" << endl;
             }
         }
     }
@@ -84,7 +93,12 @@ void Mapelement::setScale(float scale)
     sprite.setScale(currentScale.x * scale, currentScale.y * scale);
 }
 
-void Mapelement::setItem(Item newItem)
+Fenster* Mapelement::getFenster()
 {
-	item = newItem;
+    return dasFenster;
 }
+
+
+
+
+

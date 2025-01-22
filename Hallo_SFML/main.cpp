@@ -10,6 +10,7 @@
 #include "Fenster.h"
 #include "mySound.h"
 #include "Spieler.h"
+#include "Theke.h"
 
 #include "Mapelement.h"
 
@@ -67,37 +68,7 @@ int main()
     }
 
     
-
-
-
-
-
-
-
-    // Erstelle einen Button
-    Button button(300, 25, 200, 50, "Koch Menue", font, sf::Color::Blue, sf::Color::White, soundManager);
-
-    // Setze die OnClick-Funktion
-
-    //button.setOnClick([]() { cout << "Button geklickt!" << endl; });
-
-
-    //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
-
-
-    //Fenster erstellen
-    Fenster f("Koch Menue", font); // Erstellt das Fenster "Kochfenster"
-
-
-    button.setOnClick([&f]() { f.setVisible(true); }); // öffnet das Fenster "Kochfenster"
-
-
-    // Buttons innerhalb der List des Kochfensters hinzuf�gen
-    // (x von f + offset, y von f + offset, width, height, Label, ... )
-    f.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
-
-    f.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
-
+    
 
 
     // Erstelle Button Start Musik
@@ -165,38 +136,6 @@ int main()
 
 
 
-    /* ALTER CODE - ALTER CODE - ALTER CODE
-
-	//Button für Herd konfigurieren
-
-    Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
-    kg.setTexture(&kgTexture); // Weise die Herd-Textur zu
-	kg.setText(" "); // Kein Text auf dem Button
-    
-	kg.setScale(1.0f);  // Skalierung des Buttons auf 90% setzen
-
-    */
-
-
-
-
-    Mapelement herd(15);
-
-    herd.setTexture(&kgTexture);
-    herd.setScale(1.0f);
-
-	Fenster herd_fenster("Herd Fenster", font); // Erstellt das Fenster "Kochfenster"
-
-    herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
-
-    // Buttons innerhalb der List des Kochfensters hinzuf�gen
-    // (x von f + offset, y von f + offset, width, height, Label, ... )
-    herd_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
-
-    herd_fenster.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
-
-
-
 
 
     
@@ -212,19 +151,16 @@ int main()
 	Item* testItem = new Item("Test", placeholder);
 
 
-	Mapelement theke(16);
-	theke.setTexture(&placeholder);
+	
+    Theke theke(35, font);
+   // theke.setTexture(kgTexture);
+    theke.setAuftrag("Pizza", 2, 100);
+    theke.setInventar("Burger", placeholder);
+    
+    Mapelement herd(34, font);
 
-	Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
-	theke.setOnClick([&theke_fenster, &isPlayerInRadius]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
-    {
-            if (isPlayerInRadius == true)
-            {
-                theke_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
-            }
-    });
 
-    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.setAktuellesItem(testItem); });
+   
 
 
 
@@ -240,19 +176,15 @@ int main()
 
 
             // Verarbeite Button-Klick
-            button.handleEvent(event, window);
-			herd.handleEvent(event, window);
-			theke.handleEvent(event, window);
+            theke.handleEvent(event, window);
 
 
             // Handler für Fenster events wie "Close" und weitere Buttons
-            f.handleEvent(event, window);
-			herd_fenster.handleEvent(event, window);
-			theke_fenster.handleEvent(event, window);
+            theke.getFenster()->handleEvent(event, window);
+   
 
 
             // Verarbeite Button-Klick
-            button.handleEvent(event, window);
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
 
@@ -308,25 +240,19 @@ int main()
 
         playField->drawSpielfeld(window);
 
+        theke.draw(window);
+        
         spieler1.draw(window);
 
-        button.draw(window);
-
-        herd.draw(window);
-
-		theke.draw(window);
-
-        if (f.isVisible()) {
-            f.draw(window);
+        
+        if (theke.getFenster()->isVisible())
+        {
+            theke.anzeigeTheke();
+            theke.getFenster()->draw(window);
         }
 
-        if (herd_fenster.isVisible()) {
-            herd_fenster.draw(window);
-        }
+    
 
-        if (theke_fenster.isVisible()) {
-			theke_fenster.draw(window);
-        }
 
         buttonMusikStopp.draw(window);
 
