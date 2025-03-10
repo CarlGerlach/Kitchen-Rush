@@ -10,9 +10,13 @@ private:
     float speed;               // Bewegungsgeschwindigkeit
     sf::FloatRect bounds;      // Spielfeldgrenzen
     sf::Texture texture;       // Textur für den Spieler
-    Item* aktuellesItem;
+    Item* inventar[5];         // Inventar mit 5 Slots
     int points;
 
+    // Grafische Elemente für das Inventar
+    sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
+    sf::Font font;                      // Schriftart für Item-Anzahl
+    sf::Text itemCountText[5];          // Text für die Anzahl der Items pro Slot
 
 public:
     // Konstruktor
@@ -21,7 +25,7 @@ public:
     // Methode zum Ändern der Textur
     void setTexture(const std::string& texturPfad);
 
-    // Funktion zum Zeichnen des Spielers
+    // Funktion zum Zeichnen des Spielers und Inventars
     void draw(sf::RenderWindow& window);
 
     // Funktion zur Bewegung
@@ -30,11 +34,11 @@ public:
     // Zugriff auf die Position
     sf::Vector2f getPosition();
 
-    Item* getAktuellesItem();
-    void setAktuellesItem(Item* ini_Item);
+    // Inventar-Methoden
+    bool addItem(Item* item, int slotIndex);
+    bool removeItem(int slotIndex);
+    void showInventar();
 
     int getPoints();
     void addPoints(int ini_points);
-    
-
 };

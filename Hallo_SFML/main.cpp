@@ -39,6 +39,10 @@ int main()
 
     brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
     floor->loadFromFile("Texturen & Musik/Boden.jpg");
+
+    // Grafische Elemente für das Inventar
+    sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
+         
     
 
 
@@ -46,7 +50,6 @@ int main()
 
 
     //Erstellt SPielfeld
-    ///////////////////Singleton
     Spielfeld* playField = new Spielfeld(brickWall, floor);
 
 
@@ -77,17 +80,8 @@ int main()
     // Erstelle einen Button
     Button button(300, 25, 200, 50, "Koch Menue", font, sf::Color::Blue, sf::Color::White, soundManager);
 
-    // Setze die OnClick-Funktion
-
-    //button.setOnClick([]() { cout << "Button geklickt!" << endl; });
-
-
-    //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
-
-
     //Fenster erstellen
     Fenster f("Koch Menue", font); // Erstellt das Fenster "Kochfenster"
-
 
     button.setOnClick([&f]() { f.setVisible(true); }); // öffnet das Fenster "Kochfenster"
 
@@ -178,8 +172,6 @@ int main()
     */
 
 
-
-
     Mapelement herd(15);
 
     herd.setTexture(&kgTexture);
@@ -224,7 +216,7 @@ int main()
             }
     });
 
-    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.setAktuellesItem(testItem); });
+    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 5); });
 
 
 
@@ -256,6 +248,10 @@ int main()
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
 
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+            {
+                spieler1.addItem(testItem, 1);
+            }
 
         }
 
@@ -272,7 +268,7 @@ int main()
 
         // Spieler bewegen (mit WASD)
         sf::Vector2f direction(0.f, 0.f);
-      
+        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
         {
             direction.y -= 1.f; // Nach oben
@@ -285,16 +281,16 @@ int main()
         {
             spieler1.setTexture("Texturen & Musik/Char-links.png");
             
-
+        
             direction.x -= 1.f; // Nach links
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
         {
             spieler1.setTexture("Texturen & Musik/Char-rechts.png");
-
+        
             direction.x += 1.f; // Nach rechts
         }
-
+        
         spieler1.move(direction);
 
 

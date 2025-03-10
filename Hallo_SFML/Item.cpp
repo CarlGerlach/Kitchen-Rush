@@ -1,22 +1,19 @@
 #include "Item.h"
 
-Item::Item()
-{
-	typ = "default";
+// Standardkonstruktor
+Item::Item() : typ("") {}
 
+// Konstruktor mit Typ und Textur
+Item::Item(const std::string& type, const sf::Texture& texture) : typ(type) {
+    sprite.setTexture(texture);
 }
 
-Item::Item(const std::string& type, const sf::Texture& texture) : typ(type)
-{
-	sprite.setTexture(texture);
-}
-
-string Item::getTyp() 
-{
+// Item-Typ abrufen
+std::string Item::getTyp() {
     return typ;
 }
 
-sf::Sprite Item::getSprite()
-{
+// Sprite abrufen
+sf::Sprite Item::getSprite() {
     return sprite;
 }

@@ -2,22 +2,16 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-using namespace std;
-
 class Item
 {
 private:
-
-	string typ;
-	sf::Sprite sprite;
+    std::string typ;
+    sf::Sprite sprite;
 
 public:
+    Item();
+    Item(const std::string& type, const sf::Texture& texture);
 
-	Item();
-	Item(const std::string& type, const sf::Texture& texture);
-
-	string getTyp();
-
-	sf::Sprite getSprite(); 
+    std::string getTyp();
+    sf::Sprite getSprite();
 };
-
