@@ -16,7 +16,7 @@ private:
     // Grafische Elemente für das Inventar
     sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
     sf::Font font;                      // Schriftart für Item-Anzahl
-    sf::Text itemCountText[5];          // Text für die Anzahl der Items pro Slot
+    
 
 public:
     // Konstruktor
@@ -37,7 +37,6 @@ public:
     // Inventar-Methoden
     bool addItem(Item* item, int slotIndex);
     bool removeItem(int slotIndex);
-    void showInventar();
 
     int getPoints();
     void addPoints(int ini_points);

@@ -28,21 +28,13 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     float startXPos = (bounds.width - totalWidth) / 2.f; // Zentrierte Position
     float startYPos = bounds.height - slotSize - 20.f; // Etwas über dem unteren Rand
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) 
+    {
         inventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         inventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200));
 
-        // Initialisiere den Text für die Anzahl der Items
-        itemCountText[i].setFont(font);
-        itemCountText[i].setCharacterSize(14);
-        itemCountText[i].setFillColor(sf::Color::White);
-        itemCountText[i].setPosition(inventarSlots[i].getPosition().x + 5, inventarSlots[i].getPosition().y + 5);
-    }
-
-    // Schriftart laden
-    if (!font.loadFromFile("arial.ttf")) {
-        std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
+  
     }
 }
 
@@ -142,20 +134,6 @@ bool Spieler::removeItem(int slotIndex) {
     return false;
 }
 
-// Inventar anzeigen (Terminal)
-void Spieler::showInventar() {
-    std::cout << "Inventar:" << std::endl;
-    for (int i = 0; i < 5; i++) {
-        std::cout << "Slot " << i + 1 << ": ";
-        if (inventar[i] != nullptr) {
-            std::cout << "[" << inventar[i]->getTyp() << "] ";
-        }
-        else {
-            std::cout << "[leer] ";
-        }
-        std::cout << std::endl;
-    }
-}
 
 // Punkteverwaltung
 int Spieler::getPoints()

@@ -43,19 +43,13 @@ int main()
     // Grafische Elemente für das Inventar
     sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
          
-    
-
-
-
-
-
     //Erstellt SPielfeld
     Spielfeld* playField = new Spielfeld(brickWall, floor);
 
-
-
     //Sound
     mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
+
+
 
     // Hintergrundmusik laden und abspielen
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
