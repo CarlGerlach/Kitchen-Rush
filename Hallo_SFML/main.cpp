@@ -83,6 +83,13 @@ int main()
         return -1;
     }
 
+    sf::Texture theke01;
+    if (!theke01.loadFromFile("Texturen & Musik/Theke_01.png"))
+    {
+        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
+        return -1;
+    }
+
 
 
 
@@ -135,7 +142,7 @@ int main()
     Item* testItem = new Item("Test", placeholder);
 
     Mapelement theke(16);
-    theke.setTexture(&placeholder);
+    theke.setTexture(&theke01);
 
     Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
     theke.setOnClick([&theke_fenster, &isPlayerInRadiusZuTheke]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
