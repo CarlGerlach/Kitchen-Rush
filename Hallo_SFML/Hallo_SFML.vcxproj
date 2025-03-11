@@ -136,23 +136,31 @@
   <ItemGroup>
     <ClCompile Include="Auftrag.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="dasFenster.cpp" />
     <ClCompile Include="Fenster.cpp" />
+    <ClCompile Include="GeraetBase.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Knopf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapelement.cpp" />
     <ClCompile Include="mySound.cpp" />
+    <ClCompile Include="Ofen.cpp" />
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Auftrag.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="dasFenster.h" />
     <ClInclude Include="Fenster.h" />
+    <ClInclude Include="GeraetBase.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Knopf.h" />
     <ClInclude Include="Mapelement.h" />
     <ClInclude Include="mySound.h" />
+    <ClInclude Include="Ofen.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />

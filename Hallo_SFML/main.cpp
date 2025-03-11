@@ -13,6 +13,10 @@
 
 #include "Mapelement.h"
 
+
+#include "GeraetBase.h"
+#include "Ofen.h"
+
 using namespace std;
 using namespace sf;
 
@@ -79,6 +83,11 @@ int main()
 
     
 
+
+    
+    Ofen ofen1(400, 400);
+    ofen1.setTexture(&placeholder);
+  
 
 
 
@@ -227,7 +236,7 @@ int main()
 
         spieler1.draw(window);
 
-
+        ofen1.draw(window);
 
        
 
