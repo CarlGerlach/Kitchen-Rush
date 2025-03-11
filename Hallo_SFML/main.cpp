@@ -10,6 +10,7 @@
 #include "Fenster.h"
 #include "mySound.h"
 #include "Spieler.h"
+#include "StartScreen.h"
 
 #include "Mapelement.h"
 
@@ -27,6 +28,14 @@ int main()
         return -1;
     }
     
+    // Starte den Startscreen
+    StartScreen startScreen;
+    if (!startScreen.run(window))
+        return 0; // Fenster wurde z.B. geschlossen
+
+
+
+
     sf::Texture* brickWall;
     sf::Texture* floor;
 

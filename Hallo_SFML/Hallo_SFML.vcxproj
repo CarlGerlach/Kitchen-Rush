@@ -144,6 +144,7 @@
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
+    <ClCompile Include="StartScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Auftrag.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
+    <ClInclude Include="StartScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
