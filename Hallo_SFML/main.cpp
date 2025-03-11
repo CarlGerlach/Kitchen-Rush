@@ -14,6 +14,10 @@
 
 #include "Mapelement.h"
 
+
+#include "GeraetBase.h"
+#include "Ofen.h"
+
 using namespace std;
 using namespace sf;
 
@@ -59,6 +63,34 @@ int main()
     mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
 
 
+    sf::Texture placeholder;
+    if (!placeholder.loadFromFile("Texturen & Musik/temp.png"))
+    {
+        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
+        return -1;
+    }
+
+
+
+
+
+
+
+    Item* fertigesItem1 = new Item("Anderer Test1", placeholder);
+    Item* fertigesItem2 = new Item("Anderer Test2", placeholder);
+
+
+
+
+
+
+
+
+    // Spielfeldbegrenzung (x, y, Breite, Höhe)
+    sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
+
+    //erstellt Spieler
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
 
     // Hintergrundmusik laden und abspielen
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
@@ -75,26 +107,20 @@ int main()
     
 
 
+    
+    Ofen ofen1(400, 400, font);
+    ofen1.setTexture(&placeholder);
+    ofen1.addItem(fertigesItem1);
+    ofen1.addItem(fertigesItem2);
+  
+    cout << "Das ist ein Test" << endl;
 
 
 
 
 
-    // Erstelle einen Button
-    Button button(300, 25, 200, 50, "Koch Menue", font, sf::Color::Blue, sf::Color::White, soundManager);
 
-    //Fenster erstellen
-    Fenster f("Koch Menue", font); // Erstellt das Fenster "Kochfenster"
-
-    button.setOnClick([&f]() { f.setVisible(true); }); // öffnet das Fenster "Kochfenster"
-
-
-    // Buttons innerhalb der List des Kochfensters hinzuf�gen
-    // (x von f + offset, y von f + offset, width, height, Label, ... )
-    f.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
-
-    f.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
-
+    
 
 
     // Erstelle Button Start Musik
@@ -123,8 +149,6 @@ int main()
     );
 
 
-
-
     // Erstelle Button Stop Musik
     Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
 
@@ -138,134 +162,38 @@ int main()
         }
     );
 
-    
-
-   
-
-    
-
-    // Spielfeldbegrenzung (x, y, Breite, Höhe)
-    sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-
-    //erstellt Spieler
-
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
-
-
-    //Sprite für Herd
-    sf::Texture kgTexture;
-    if (!kgTexture.loadFromFile("Texturen & Musik/Herd_01.png")) 
-    {
-        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
-        return -1;
-    }
-
-
-
-    /* ALTER CODE - ALTER CODE - ALTER CODE
-
-	//Button für Herd konfigurieren
-
-    Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
-    kg.setTexture(&kgTexture); // Weise die Herd-Textur zu
-	kg.setText(" "); // Kein Text auf dem Button
-    
-	kg.setScale(1.0f);  // Skalierung des Buttons auf 90% setzen
-
-    */
-
-
-    Mapelement herd(15);
-
-    herd.setTexture(&kgTexture);
-    herd.setScale(1.0f);
-
-	Fenster herd_fenster("Herd Fenster", font); // Erstellt das Fenster "Kochfenster"
-
-    herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
-
-    // Buttons innerhalb der List des Kochfensters hinzuf�gen
-    // (x von f + offset, y von f + offset, width, height, Label, ... )
-    herd_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
-
-    herd_fenster.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
-
-
-
-
-
-    
-
-    //Sprite für Herd
-    sf::Texture placeholder;
-    if (!placeholder.loadFromFile("Texturen & Musik/temp.png"))
-    {
-        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
-        return -1;
-    }
-
-	Item* testItem = new Item("Test", placeholder);
-
-
-	Mapelement theke(16);
-	theke.setTexture(&placeholder);
-
-	Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
-	theke.setOnClick([&theke_fenster, &isPlayerInRadius]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
-    {
-            if (isPlayerInRadius == true)
-            {
-                theke_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
-            }
-    });
-
-    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 5); });
-
-
+ 
 
     //Spielschleife
     while (window.isOpen()) 
     {
 
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event)) 
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-
-
-            // Verarbeite Button-Klick
-            button.handleEvent(event, window);
-			herd.handleEvent(event, window);
-			theke.handleEvent(event, window);
-
-
-            // Handler für Fenster events wie "Close" und weitere Buttons
-            f.handleEvent(event, window);
-			herd_fenster.handleEvent(event, window);
-			theke_fenster.handleEvent(event, window);
-
-
-            // Verarbeite Button-Klick
-            button.handleEvent(event, window);
+           
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
 
+            ofen1.handleEvent(event, window);
+
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
             {
-                spieler1.addItem(testItem, 1);
+                spieler1.addItem(fertigesItem1, 0);
             }
 
         }
 
 
 
+       //Konsolen check für collision mit gerät
         //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
-        float distance = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
-        
-        isPlayerInRadius = distance <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist
-        
-		cout << isPlayerInRadius << endl; // Ausgabe, ob Spieler im Radius ist
+       //float distance = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
+       //isPlayerInRadius = distance <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
+		//cout << isPlayerInRadius << endl; // Ausgabe, ob Spieler im Radius ist
 
 
 
@@ -309,23 +237,10 @@ int main()
 
         spieler1.draw(window);
 
-        button.draw(window);
+        ofen1.draw(window);
 
-        herd.draw(window);
+       
 
-		theke.draw(window);
-
-        if (f.isVisible()) {
-            f.draw(window);
-        }
-
-        if (herd_fenster.isVisible()) {
-            herd_fenster.draw(window);
-        }
-
-        if (theke_fenster.isVisible()) {
-			theke_fenster.draw(window);
-        }
 
         buttonMusikStopp.draw(window);
 

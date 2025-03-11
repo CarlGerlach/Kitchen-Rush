@@ -14,6 +14,7 @@ std::string Item::getTyp() {
 }
 
 // Sprite abrufen
-sf::Sprite Item::getSprite() {
+sf::Sprite Item::getSprite() 
+{
     return sprite;
 }
