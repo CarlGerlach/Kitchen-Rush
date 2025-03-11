@@ -160,24 +160,16 @@ int main()
     {
 
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event)) 
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-
-
-            // Verarbeite Button-Klick
-            
-			
-
-
-            // Handler für Fenster events wie "Close" und weitere Buttons
-           
-	
-            // Verarbeite Button-Klick
            
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
+
+            ofen1.handleEvent(event, window);
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
             {

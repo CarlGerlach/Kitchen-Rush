@@ -3,7 +3,7 @@
 dasFenster::dasFenster(float x, float y) 
 {
     background.setPosition(x, y);
-    background.setSize(Vector2f(200, 200));
+    background.setSize(Vector2f(600, 800));
     background.setFillColor(Color(200, 200, 200, 255)); // Graues Fenster
     visible = false;
 }

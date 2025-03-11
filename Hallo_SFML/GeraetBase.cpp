@@ -1,10 +1,10 @@
 #include "GeraetBase.h"
 
-GeraetBase::GeraetBase(float x, float y, float width, float hight): dasFenster(x + 50, y + 50) {
+GeraetBase::GeraetBase(float x, float y, float width, float hight): dasFenster(x + 50, y + 50) 
+{
     shape.setPosition(x, y);
     shape.setSize(Vector2f(width, hight));
     shape.setPosition(Vector2f(x, y));
-    shape.setFillColor(Color::Blue);
 
     for (int i = 0; i < 5; i++) 
     {
@@ -18,8 +18,10 @@ void GeraetBase::draw(RenderWindow& window) {
     this->dasFenster.draw(window);
 }
 
-void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) {
-    if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
+void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) 
+{
+    if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) 
+    {
         Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
         if (shape.getGlobalBounds().contains(mousePos)) 
         {
@@ -60,19 +62,21 @@ void GeraetBase::removeItem()
 
 void GeraetBase::setTexture(sf::Texture* newTexture)
 {
-    if (newTexture != nullptr) // Nur setzen, wenn die Textur gültig ist
+    if (newTexture && newTexture->getSize().x > 0 && newTexture->getSize().y > 0) // Sicherstellen, dass die Textur valide ist
     {
-        texture = newTexture;
+        texture = newTexture; // Zeiger speichern
         shape.setTexture(texture);
 
-        // Skaliere die Textur passend zur Rechteckform
+        // Textur korrekt skalieren
         shape.setScale(
-            shape.getSize().x / texture->getSize().x,
-            shape.getSize().y / texture->getSize().y
+            shape.getSize().x / static_cast<float>(texture->getSize().x),
+            shape.getSize().y / static_cast<float>(texture->getSize().y)
         );
+
+        cout << "Textur gesetzt und skaliert." << endl;
     }
     else
     {
-        cout << "Fehler: Ungültige Textur!" << endl;
+        cout << "Fehler: Ungültige oder leere Textur übergeben!" << endl;
     }
 }
