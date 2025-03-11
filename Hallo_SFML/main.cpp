@@ -56,7 +56,8 @@ int main()
     sf::Texture* floor;
 
 	int radius = 100; // Radius, in dem der Spieler sein muss, um mit dem Objekt zu interagieren
-    bool isPlayerInRadius = false;
+    bool isPlayerInRadiusZuTheke = false;
+    bool isPlayerInRadiusZuHerd = false;
 
     
     brickWall = new sf::Texture();
@@ -137,15 +138,15 @@ int main()
     theke.setTexture(&placeholder);
 
     Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
-    theke.setOnClick([&theke_fenster, &isPlayerInRadius]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
+    theke.setOnClick([&theke_fenster, &isPlayerInRadiusZuTheke]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
         {
-            if (isPlayerInRadius == true)
+            if (isPlayerInRadiusZuTheke == true)
             {
                 theke_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
             }
         });
 
-    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 1); });
+    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Gib Test Item!", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 1); });
 
 
 
@@ -156,7 +157,16 @@ int main()
 
     Fenster herd_fenster("Herd Fenster", font); // Erstellt das Fenster "Kochfenster"
 
-    herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
+    //herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
+
+    herd.setOnClick([&herd_fenster, &isPlayerInRadiusZuHerd]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
+        {
+            if (isPlayerInRadiusZuHerd == true)
+            {
+                herd_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
+            }
+        });
+
 
     // Buttons innerhalb der List des Kochfensters hinzuf�gen
     // (x von f + offset, y von f + offset, width, height, Label, ... )
@@ -255,9 +265,19 @@ int main()
 
        //Konsolen check für collision mit gerät
        //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
-       float distance = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
-       isPlayerInRadius = distance <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
-	   cout << isPlayerInRadius << endl; // Ausgabe, ob Spieler im Radius ist
+       float distanceZuTheke = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
+       isPlayerInRadiusZuTheke = distanceZuTheke <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
+	   cout << isPlayerInRadiusZuTheke << endl; // Ausgabe, ob Spieler im Radius ist
+
+
+
+
+       //Konsolen check für collision mit gerät
+       //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
+       float distanceZuHerd = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - herd.getPositionY(), 2));
+       isPlayerInRadiusZuHerd = distanceZuHerd <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
+       cout << isPlayerInRadiusZuHerd << endl; // Ausgabe, ob Spieler im Radius ist
+
 
 
 
