@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp> 
 #include <iostream>
+#include <list>
+#include <cmath>
 
 #include "Grid.h"
 #include "Spielfeld.h"
@@ -8,6 +10,9 @@
 #include "Fenster.h"
 #include "mySound.h"
 #include "Spieler.h"
+#include "StartScreen.h"
+
+#include "Mapelement.h"
 
 using namespace std;
 using namespace sf;
@@ -23,9 +28,19 @@ int main()
         return -1;
     }
     
+    // Starte den Startscreen
+    StartScreen startScreen;
+    if (!startScreen.run(window))
+        return 0; // Fenster wurde z.B. geschlossen
+
+
+
+
     sf::Texture* brickWall;
     sf::Texture* floor;
-   
+
+	int radius = 100; // Radius, in dem der Spieler sein muss, um mit dem Objekt zu interagieren
+    bool isPlayerInRadius = false;
 
     
     brickWall = new sf::Texture();
@@ -33,23 +48,17 @@ int main()
 
     brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
     floor->loadFromFile("Texturen & Musik/Boden.jpg");
-    
 
-
-    
-
-
-
-
-
+    // Grafische Elemente für das Inventar
+    sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
+         
     //Erstellt SPielfeld
-    ///////////////////Singleton
     Spielfeld* playField = new Spielfeld(brickWall, floor);
-
-
 
     //Sound
     mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
+
+
 
     // Hintergrundmusik laden und abspielen
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
@@ -74,17 +83,8 @@ int main()
     // Erstelle einen Button
     Button button(300, 25, 200, 50, "Koch Menue", font, sf::Color::Blue, sf::Color::White, soundManager);
 
-    // Setze die OnClick-Funktion
-
-    //button.setOnClick([]() { cout << "Button geklickt!" << endl; });
-
-
-    //Fenster f(500, 400, 200, 50, "Hallo!", font, sf::Color::Black, sf::Color::White);
-
-
     //Fenster erstellen
     Fenster f("Koch Menue", font); // Erstellt das Fenster "Kochfenster"
-
 
     button.setOnClick([&f]() { f.setVisible(true); }); // öffnet das Fenster "Kochfenster"
 
@@ -161,15 +161,66 @@ int main()
     }
 
 
+
+    /* ALTER CODE - ALTER CODE - ALTER CODE
+
 	//Button für Herd konfigurieren
 
     Button kg(15); // Erstelle Küchengerät -> Syntax: kg(GridNum) -> Küchengerät kg wird bei Grid Nummer X erstellt.
     kg.setTexture(&kgTexture); // Weise die Herd-Textur zu
 	kg.setText(" "); // Kein Text auf dem Button
     
-	kg.setScale(0.9f);  // Skalierung des Buttons auf 90% setzen
+	kg.setScale(1.0f);  // Skalierung des Buttons auf 90% setzen
+
+    */
+
+
+    Mapelement herd(15);
+
+    herd.setTexture(&kgTexture);
+    herd.setScale(1.0f);
+
+	Fenster herd_fenster("Herd Fenster", font); // Erstellt das Fenster "Kochfenster"
+
+    herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
+
+    // Buttons innerhalb der List des Kochfensters hinzuf�gen
+    // (x von f + offset, y von f + offset, width, height, Label, ... )
+    herd_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
+
+    herd_fenster.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
+
+
+
+
 
     
+
+    //Sprite für Herd
+    sf::Texture placeholder;
+    if (!placeholder.loadFromFile("Texturen & Musik/temp.png"))
+    {
+        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
+        return -1;
+    }
+
+	Item* testItem = new Item("Test", placeholder);
+
+
+	Mapelement theke(16);
+	theke.setTexture(&placeholder);
+
+	Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
+	theke.setOnClick([&theke_fenster, &isPlayerInRadius]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
+    {
+            if (isPlayerInRadius == true)
+            {
+                theke_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
+            }
+    });
+
+    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 5); });
+
 
 
     //Spielschleife
@@ -182,12 +233,17 @@ int main()
                 window.close();
 
 
-            // Handler f�r Fenster events wie "Close" und weitere Buttons in "Kochfenster"
-            f.handleEvent(event, window);
 
             // Verarbeite Button-Klick
             button.handleEvent(event, window);
+			herd.handleEvent(event, window);
+			theke.handleEvent(event, window);
 
+
+            // Handler für Fenster events wie "Close" und weitere Buttons
+            f.handleEvent(event, window);
+			herd_fenster.handleEvent(event, window);
+			theke_fenster.handleEvent(event, window);
 
 
             // Verarbeite Button-Klick
@@ -195,14 +251,27 @@ int main()
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
 
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+            {
+                spieler1.addItem(testItem, 1);
+            }
 
         }
 
 
 
+        //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
+        float distance = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
+        
+        isPlayerInRadius = distance <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist
+        
+		cout << isPlayerInRadius << endl; // Ausgabe, ob Spieler im Radius ist
+
+
+
         // Spieler bewegen (mit WASD)
         sf::Vector2f direction(0.f, 0.f);
-      
+        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
         {
             direction.y -= 1.f; // Nach oben
@@ -215,16 +284,16 @@ int main()
         {
             spieler1.setTexture("Texturen & Musik/Char-links.png");
             
-
+        
             direction.x -= 1.f; // Nach links
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
         {
             spieler1.setTexture("Texturen & Musik/Char-rechts.png");
-
+        
             direction.x += 1.f; // Nach rechts
         }
-
+        
         spieler1.move(direction);
 
 
@@ -242,10 +311,20 @@ int main()
 
         button.draw(window);
 
-        kg.draw(window);
+        herd.draw(window);
+
+		theke.draw(window);
 
         if (f.isVisible()) {
             f.draw(window);
+        }
+
+        if (herd_fenster.isVisible()) {
+            herd_fenster.draw(window);
+        }
+
+        if (theke_fenster.isVisible()) {
+			theke_fenster.draw(window);
         }
 
         buttonMusikStopp.draw(window);
