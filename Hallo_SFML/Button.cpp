@@ -23,6 +23,7 @@ Button::Button(float x, float y, float width, float height, const std::string& l
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
 
     soundOfButton = ini_soundOfButton;
+
 }
 
 /*

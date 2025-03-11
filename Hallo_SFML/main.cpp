@@ -84,7 +84,7 @@ int main()
     }
 
     sf::Texture theke01;
-    if (!theke01.loadFromFile("Texturen & Musik/Theke_01.png"))
+    if (!theke01.loadFromFile("Texturen & Musik/Theke_03.png"))
     {
         cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
         return -1;
@@ -154,7 +154,7 @@ int main()
         });
 
     theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Gib Test Item!", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 1); });
-
+    // Set Origin der Buttons anpassen
 
 
     Mapelement herd(15);
