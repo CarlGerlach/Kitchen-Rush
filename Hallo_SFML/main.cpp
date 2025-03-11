@@ -61,7 +61,21 @@ int main()
         return -1;
     }
 
-	Item* testItem = new Item("Test", placeholder);
+
+
+
+
+
+
+    Item* fertigesItem1 = new Item("Anderer Test1", placeholder);
+    Item* fertigesItem2 = new Item("Anderer Test2", placeholder);
+
+
+
+
+
+
+
 
     // Spielfeldbegrenzung (x, y, Breite, Höhe)
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
@@ -85,9 +99,12 @@ int main()
 
 
     
-    Ofen ofen1(400, 400);
+    Ofen ofen1(400, 400, font);
     ofen1.setTexture(&placeholder);
+    ofen1.addItem(fertigesItem1);
+    ofen1.addItem(fertigesItem2);
   
+    cout << "Das ist ein Test" << endl;
 
 
 
@@ -136,24 +153,7 @@ int main()
         }
     );
 
-    
-
-   
-
-   
-
-
-
-   
-
-
-
-
-    
-
  
-
-
 
     //Spielschleife
     while (window.isOpen()) 
@@ -173,7 +173,7 @@ int main()
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
             {
-                spieler1.addItem(testItem, 1);
+                spieler1.addItem(fertigesItem1, 0);
             }
 
         }

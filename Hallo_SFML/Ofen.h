@@ -4,8 +4,8 @@
 
 class Ofen : public GeraetBase {
 protected:
-    void setupButtons() override; // Überschreibt Buttons für den Ofen
+    void setupButtons(Font& newFont) override; // Überschreibt Buttons für den Ofen
 
 public:
-    Ofen(float x, float y);
+    Ofen(float x, float y, Font& newFont);
 };

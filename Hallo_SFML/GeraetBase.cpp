@@ -2,7 +2,7 @@
 
 GeraetBase::GeraetBase(float x, float y, float width, float hight): dasFenster(x + 50, y + 50) 
 {
-    shape.setPosition(x, y);
+   
     shape.setSize(Vector2f(width, hight));
     shape.setPosition(Vector2f(x, y));
 
@@ -22,13 +22,18 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
 {
     if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) 
     {
-        Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
-        if (shape.getGlobalBounds().contains(mousePos)) 
+ 
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
         {
+            
             this->dasFenster.toggle();
+            
         }
     }
+    
     this->dasFenster.handleEvent(event, window);
+    
 }
 
 void GeraetBase::addItem(Item* item) 

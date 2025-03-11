@@ -12,11 +12,11 @@ class Knopf
 private:
     RectangleShape shape;
     Text text;
-    function<void()> onClick;
     Font font;
+    function<void()> onClick;
 
 public:
-    Knopf(float x, float y, float width, float height, const string& label, function<void()> callback);
+    Knopf(float x, float y, float width, float height, const string& label, Font& font, function<void()> callback);
     void draw(RenderWindow& window);
     void handleEvent(const Event& event, const RenderWindow& window);
 };

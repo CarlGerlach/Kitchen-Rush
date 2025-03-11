@@ -8,26 +8,30 @@ dasFenster::dasFenster(float x, float y)
     visible = false;
 }
 
-void dasFenster::addKnopf(const Knopf& knopf)
+void dasFenster::addKnopf(float x, float y, float width, float height, const string& label, Font& font, function<void()> callback)
 {
-    knoepfe.push_back(knopf);
+    knoepfe.push_back(Knopf(x, y, width, height, label, font, callback));
 }
 
-void dasFenster::draw(RenderWindow& window) 
+void dasFenster::draw(RenderWindow& window)
 {
-    if (visible) {
+    if (visible)
+    {
         window.draw(background);
-        for (auto& knopf : knoepfe) {
-            knopf.draw(window);
+       for (auto& knopf : knoepfe)
+       {
+           knopf.draw(window);
         }
     }
+    
 }
 
 void dasFenster::handleEvent(const Event& event, const RenderWindow& window) 
 {
     if (visible) 
     {
-        for (auto& knopf : knoepfe) {
+        for (auto& knopf : knoepfe) 
+        {
             knopf.handleEvent(event, window);
         }
     }
@@ -35,5 +39,16 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
 
 void dasFenster::toggle() 
 {
-    visible = !visible;
+    if (visible == true)
+    {
+        visible = false;
+        return;
+    }
+    
+    if(visible == false)
+    {
+        visible = true;
+        return;
+    }
+    
 }

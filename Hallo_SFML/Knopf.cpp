@@ -1,12 +1,15 @@
 #include "Knopf.h"
 
 
-Knopf::Knopf(float x, float y, float width, float height, const string& label, function<void()> callback) {
+Knopf::Knopf(float x, float y, float width, float height, const string& label, Font& font, function<void()> callback)
+{
     shape.setPosition(x, y);
     shape.setSize(Vector2f(width, height));
     shape.setFillColor(Color::White);
 
-    font.loadFromFile("arial.ttf"); // Stelle sicher, dass die Datei existiert
+    this->font = font;
+
+    //font.loadFromFile("arial.ttf"); // Stelle sicher, dass die Datei existiert
     text.setFont(font);
     text.setString(label);
     text.setCharacterSize(14);

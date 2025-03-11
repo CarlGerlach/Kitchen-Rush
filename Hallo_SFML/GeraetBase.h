@@ -16,7 +16,7 @@ protected:
     Item* inventar[5];
     dasFenster dasFenster;
 
-    virtual void setupButtons() = 0; // Wird von den Unterklassen implementiert
+    virtual void setupButtons(Font& newFont) = 0; // Wird von den Unterklassen implementiert
 
 public:
     GeraetBase(float x, float y, float width, float hight);
