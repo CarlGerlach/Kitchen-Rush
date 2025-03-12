@@ -78,13 +78,7 @@ void GeraetBase::setTexture(sf::Texture* newTexture)
     {
         texture = newTexture; // Zeiger speichern
         shape.setTexture(texture);
-
-
-
-        );
-
-
-   
+    }
 }
 
 void GeraetBase::itemReinlegen(Spieler& player)

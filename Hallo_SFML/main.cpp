@@ -129,14 +129,12 @@ int main()
 
 
     
-    Ofen ofen1(17, font, spieler1);
+    Ofen ofen1(23, font, spieler1);
     ofen1.setTexture(&placeholder);
     ofen1.addItem(fertigesItem1);
     ofen1.addItem(fertigesItem2);
   
     cout << "Das ist ein Test" << endl;
-
-    ofen1.setScale(0.2);
 
 
     Item* testItem = new Item("Test", placeholder);
