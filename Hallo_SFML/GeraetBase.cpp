@@ -74,11 +74,14 @@ void GeraetBase::removeItem()
 
 void GeraetBase::setTexture(sf::Texture* newTexture)
 {
-    if (newTexture && newTexture->getSize().x > 0 && newTexture->getSize().y > 0) // Sicherstellen, dass die Textur valide ist
-    {
-        texture = newTexture; // Zeiger speichern
-        shape.setTexture(texture);
-    }
+   
+    texture = newTexture;
+    shape.setTexture(texture);
+    shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons
+    );
+
+
+   
 }
 
 void GeraetBase::itemReinlegen(Spieler& player)
