@@ -2,10 +2,11 @@
 
 #include "GeraetBase.h"
 
-class Ofen : public GeraetBase {
+class Ofen : public GeraetBase 
+{
 protected:
-    void setupButtons(Font& newFont) override; // Überschreibt Buttons für den Ofen
+    void setupButtons(Font& newFont, Spieler& player) override; // Überschreibt Buttons für den Ofen
 
 public:
-    Ofen(float x, float y, Font& newFont);
+    Ofen(int Grindnumber, Font& newFont, Spieler& spieler);
 };

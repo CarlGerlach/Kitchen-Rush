@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Item.h"
 #include "dasFenster.h"
+#include "Spieler.h"
 
 using namespace sf;
 using namespace std;
@@ -16,10 +17,10 @@ protected:
     Item* inventar[5];
     dasFenster dasFenster;
 
-    virtual void setupButtons(Font& newFont) = 0; // Wird von den Unterklassen implementiert
+    virtual void setupButtons(Font& newFont, Spieler& player) = 0; // Wird von den Unterklassen implementiert
 
 public:
-    GeraetBase(float x, float y, float width, float hight);
+    GeraetBase(int gridnumber);
     virtual ~GeraetBase() {}
 
     void draw(RenderWindow& window);
@@ -27,4 +28,11 @@ public:
     void addItem(Item* item);
     void removeItem();
     void setTexture(sf::Texture* newTexture);
-};
+
+
+    void itemReinlegen(Spieler& player);
+    void itemRausnehmen(Spieler& player);
+
+    void setScale(float scale);
+
+};                           

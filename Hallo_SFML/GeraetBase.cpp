@@ -1,10 +1,17 @@
 #include "GeraetBase.h"
+#include "Grid.h"
 
-GeraetBase::GeraetBase(float x, float y, float width, float hight): dasFenster(x + 50, y + 50) 
+GeraetBase::GeraetBase(int gridNumber) : dasFenster()
 {
-   
-    shape.setSize(Vector2f(width, hight));
-    shape.setPosition(Vector2f(x, y));
+    float width = 75;
+    float height = 75;
+    
+
+    sf::Vector2f gridPos = Grid::getPosition(gridNumber);
+
+    shape.setPosition(gridPos.x - 2, gridPos.y - 2);
+    shape.setSize({ width, height });
+    
 
     for (int i = 0; i < 5; i++) 
     {
@@ -16,7 +23,7 @@ GeraetBase::GeraetBase(float x, float y, float width, float hight): dasFenster(x
 void GeraetBase::draw(RenderWindow& window) {
     window.draw(shape);
     this->dasFenster.draw(window);
-}
+}                    
 
 void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) 
 {
@@ -67,21 +74,51 @@ void GeraetBase::removeItem()
 
 void GeraetBase::setTexture(sf::Texture* newTexture)
 {
-    if (newTexture && newTexture->getSize().x > 0 && newTexture->getSize().y > 0) // Sicherstellen, dass die Textur valide ist
+   
+    texture = newTexture;
+    shape.setTexture(texture);
+    shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons
+    shape.setScale(
+        shape.getSize().x / texture->getSize().x,
+        shape.getSize().y / texture->getSize().y
+    );
+
+
+   
+}
+
+void GeraetBase::itemReinlegen(Spieler& player)
+{   
+    
+
+
+
+}
+
+void GeraetBase::itemRausnehmen(Spieler& player)
+{
+    if (inventar[4] != nullptr)
     {
-        texture = newTexture; // Zeiger speichern
-        shape.setTexture(texture);
-
-        // Textur korrekt skalieren
-        shape.setScale(
-            shape.getSize().x / static_cast<float>(texture->getSize().x),
-            shape.getSize().y / static_cast<float>(texture->getSize().y)
-        );
-
-        cout << "Textur gesetzt und skaliert." << endl;
+        player.addItem(inventar[4], 4);
+        delete inventar[4];
+        cout << inventar[4] << endl;
+        inventar[4] = nullptr;
+        cout << inventar[4] << endl;
+        cout << "Inventar5" << inventar[4]->getTyp();
+        cout << "Player5: ";  player.inventarKonsole(); cout << endl;
+   
     }
     else
     {
-        cout << "Fehler: Ungültige oder leere Textur übergeben!" << endl;
+        cout << "Kein fertiges Item vorhanden" << endl;
     }
+}
+
+void GeraetBase::setScale(float scale)
+{
+    // Aktuelle Skalierung des Buttons abrufen
+    sf::Vector2f currentScale = shape.getScale();
+
+    // Skalierung um den angegebenen Faktor erhöhen (1.5 bedeutet z.B. 50% größer)
+    shape.setScale(currentScale.x * scale, currentScale.y * scale);
 }

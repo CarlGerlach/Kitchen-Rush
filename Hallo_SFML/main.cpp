@@ -129,14 +129,14 @@ int main()
 
 
     
-    Ofen ofen1(400, 400, font);
+    Ofen ofen1(17, font, spieler1);
     ofen1.setTexture(&placeholder);
     ofen1.addItem(fertigesItem1);
     ofen1.addItem(fertigesItem2);
   
     cout << "Das ist ein Test" << endl;
 
-
+    ofen1.setScale(0.2);
 
 
     Item* testItem = new Item("Test", placeholder);
@@ -274,7 +274,7 @@ int main()
        //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
        float distanceZuTheke = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
        isPlayerInRadiusZuTheke = distanceZuTheke <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
-	   cout << isPlayerInRadiusZuTheke << endl; // Ausgabe, ob Spieler im Radius ist
+	   //cout << isPlayerInRadiusZuTheke << endl; // Ausgabe, ob Spieler im Radius ist
 
 
 
@@ -283,7 +283,7 @@ int main()
        //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
        float distanceZuHerd = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - herd.getPositionY(), 2));
        isPlayerInRadiusZuHerd = distanceZuHerd <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
-       cout << isPlayerInRadiusZuHerd << endl; // Ausgabe, ob Spieler im Radius ist
+       //cout << isPlayerInRadiusZuHerd << endl; // Ausgabe, ob Spieler im Radius ist
 
 
 
@@ -300,7 +300,7 @@ int main()
             direction.y += 1.f; // Nach unten
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
-        {
+        {                                                                                        
             spieler1.setTexture("Texturen & Musik/Char-links.png");
             
         

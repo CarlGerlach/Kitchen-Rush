@@ -3,6 +3,9 @@
 #include <iostream>
 #include "Item.h"
 
+using namespace std;
+using namespace sf;
+
 class Spieler
 {
 private:
@@ -37,6 +40,9 @@ public:
     // Inventar-Methoden
     bool addItem(Item* item, int slotIndex);
     bool removeItem(int slotIndex);
+
+    void inventarKonsole();
+
 
     int getPoints();
     void addPoints(int ini_points);

@@ -1,18 +1,16 @@
 #include "Ofen.h"
 #include "Item.h"
+#include "Spieler.h"
 
-Ofen::Ofen(float x, float y, Font& newFont) : GeraetBase(x, y, 50, 50)
+Ofen::Ofen(int gridnumber, Font& newFont, Spieler& player) : GeraetBase(gridnumber)
 {
-    setupButtons(newFont);
+    setupButtons(newFont, player);
 }
 
-void Ofen::setupButtons(Font& newFont)
+void Ofen::setupButtons(Font& newFont, Spieler& player)
 {
     dasFenster.addKnopf(
-        shape.getPosition().x + 200,
-        shape.getPosition().y + 200,
-        80, 30,
-        "Start",
+        "Mache neues Item",
         newFont,  // Font übergeben
         [this]() 
         { 
@@ -42,8 +40,6 @@ void Ofen::setupButtons(Font& newFont)
                    
                 }
 
-               ;
-
                 if (inventar[i]->getTyp() == "Anderer Test2")
                 {
                     foundSecondItem = true;
@@ -62,15 +58,37 @@ void Ofen::setupButtons(Font& newFont)
                 delete inventar[index2];
                 Item* neuestItem = new Item("dasNeueItem", platzhalter);
 
-                inventar[index1] = neuestItem;
+                inventar[4] = neuestItem;
             }
                
             cout << "Inventar ist leer!" << endl;
         
-            cout << inventar[index1]->getTyp() << endl;
+            cout << inventar[4]->getTyp() << endl;
         }
     );
 
+    dasFenster.addKnopf(
+        "Nehme Item",
+        newFont,  // Font übergeben
+        [this, & player]()
+        {
+            cout << "Starte Ofen2 " << endl;
+
+            itemRausnehmen(player);
+            
+            player.inventarKonsole();
+        }
+    );
+
+    dasFenster.addKnopf(
+        "Schließen",
+        newFont,  // Font übergeben
+        [this, &player]()
+        {
+            cout << "Fenster geschlossen" << endl;
+            dasFenster.toggle();
+        }
+    );
     
 }
                              

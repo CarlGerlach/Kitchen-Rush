@@ -134,6 +134,16 @@ bool Spieler::removeItem(int slotIndex) {
     return false;
 }
 
+void Spieler::inventarKonsole()
+{
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "Inventar" << i << inventar[i]->getTyp() << endl;
+
+    }
+    cout << "Ausgegeben" << endl;
+}
+
 
 // Punkteverwaltung
 int Spieler::getPoints()
