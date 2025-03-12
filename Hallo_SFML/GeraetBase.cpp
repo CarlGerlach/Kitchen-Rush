@@ -78,12 +78,6 @@ void GeraetBase::setTexture(sf::Texture* newTexture)
     texture = newTexture;
     shape.setTexture(texture);
     shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons
-    shape.setScale(
-        shape.getSize().x / texture->getSize().x,
-        shape.getSize().y / texture->getSize().y
-    );
-
-
    
 }
 

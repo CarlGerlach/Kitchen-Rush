@@ -136,8 +136,6 @@ int main()
   
     cout << "Das ist ein Test" << endl;
 
-    ofen1.setScale(0.2);
-
 
     Item* testItem = new Item("Test", placeholder);
 
