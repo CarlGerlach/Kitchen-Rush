@@ -78,7 +78,7 @@ void GeraetBase::setTexture(sf::Texture* newTexture)
     texture = newTexture;
     shape.setTexture(texture);
     shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons
-    );
+    
 
 
    
