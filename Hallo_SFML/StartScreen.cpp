@@ -46,7 +46,8 @@ bool StartScreen::run(sf::RenderWindow& window) {
                 window.close();
 
             if (event.type == sf::Event::MouseButtonPressed &&
-                event.mouseButton.button == sf::Mouse::Left) {
+                event.mouseButton.button == sf::Mouse::Left) 
+            {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
                 if (startButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                     started = true;

@@ -215,7 +215,7 @@ int main()
 
 
     // Erstelle Button Stop Musik
-    Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
+    Button buttonMusikStopp(300, 25, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
 
     // Stoppe die Musik und gib diesen Text in Konsole aus
     buttonMusikStopp.setOnClick
