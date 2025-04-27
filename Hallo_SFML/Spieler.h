@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Item.h"
+#include "PlayerInventar.h"
 
 using namespace std;
 using namespace sf;
@@ -13,7 +14,7 @@ private:
     float speed;               // Bewegungsgeschwindigkeit
     sf::FloatRect bounds;      // Spielfeldgrenzen
     sf::Texture texture;       // Textur für den Spieler
-    Item* inventar[5];         // Inventar mit 5 Slots
+    PlayerInventar* inventar;       // Inventar mit 5 Slots
     int points;
 
     // Grafische Elemente für das Inventar
@@ -37,11 +38,7 @@ public:
     // Zugriff auf die Position
     sf::Vector2f getPosition();
 
-    // Inventar-Methoden
-    bool addItem(Item* item, int slotIndex);
-    bool removeItem(int slotIndex);
 
-    void inventarKonsole();
 
 
     int getPoints();

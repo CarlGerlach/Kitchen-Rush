@@ -10,60 +10,19 @@ Ofen::Ofen(int gridnumber, Font& newFont, Spieler& player) : GeraetBase(gridnumb
 void Ofen::setupButtons(Font& newFont, Spieler& player)
 {
     dasFenster.addKnopf(
-        "Mache neues Item",
+        "Mache Pizza",
         newFont,  // Font übergeben
         [this]() 
         { 
-
-            cout << "Ofen startet!" << endl; 
-            bool foundFirstItem = false;
-            bool foundSecondItem = false;
-            int index1 = 0;
-            int index2 = 0;
-
-            sf::Texture platzhalter;
-            if (!platzhalter.loadFromFile("Texturen & Musik/Herd_01.png"))
+            if (devInventar->getItem(0)->getItemID() == ItemID::TOMATE && devInventar->getItem(1)->getItemID() == ItemID::TEIG || devInventar->getItem(1)->getItemID() == ItemID::TOMATE && devInventar->getItem(0)->getItemID() == ItemID::TEIG)
             {
-                cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
-                return -1;
+                devInventar->removeItem(0);
+                devInventar->removeItem(1);
+ 
+                devInventar->addItem(new Item(ItemID::PIZZA));   
             }
-           
+       
 
-            for(int i = 0; i < 5; i++) 
-            {
-                cout << inventar[i]->getTyp() << endl;
-
-                if (inventar[i]->getTyp() == "Anderer Test1")
-                {
-                    foundFirstItem = true;
-                    index1 = i;
-                   
-                }
-
-                if (inventar[i]->getTyp() == "Anderer Test2")
-                {
-                    foundSecondItem = true;
-                    index2 = i;
-                    break;
-                }
-            }
-
-            cout << foundFirstItem << endl;
-            cout << foundSecondItem << endl;
-            
-
-            if (foundFirstItem == true && foundSecondItem == true)
-            {
-                delete inventar[index1];
-                delete inventar[index2];
-                Item* neuestItem = new Item("dasNeueItem", platzhalter);
-
-                inventar[4] = neuestItem;
-            }
-               
-            cout << "Inventar ist leer!" << endl;
-        
-            cout << inventar[4]->getTyp() << endl;
         }
     );
 
@@ -72,11 +31,7 @@ void Ofen::setupButtons(Font& newFont, Spieler& player)
         newFont,  // Font übergeben
         [this, & player]()
         {
-            cout << "Starte Ofen2 " << endl;
-
-            itemRausnehmen(player);
             
-            player.inventarKonsole();
         }
     );
 

@@ -37,9 +37,54 @@ void dasFenster::draw(RenderWindow& window)
        for (auto& knopf : knoepfe)
        {
            knopf.draw(window);
+       }
+    }
+}
+
+void dasFenster::drawForDevice(RenderWindow& window, RectangleShape(&deviceInventarSlots)[3], DeviceInventar* devInventar)
+{
+    if (visible)
+    {
+        window.draw(background);
+
+        // Zeichne alle Buttons
+        for (auto& knopf : knoepfe)
+        {
+            knopf.draw(window);
+        }
+
+        // Zeichne die Slots des Geräts
+        for (int i = 0; i < 3; i++)
+        {
+            window.draw(deviceInventarSlots[i]);  // Zugriff auf Slots über das Array
+
+            // Wenn ein Item im Slot existiert, zeichne es
+            if (devInventar->getItem(i) != nullptr)
+            {
+                sf::Sprite sprite = devInventar->getItem(i)->getSprite();
+
+                // Berechne die Skalierung des Sprites basierend auf der Slot-Größe
+                float scaleX = deviceInventarSlots[i].getSize().x / sprite.getTexture()->getSize().x;
+                float scaleY = deviceInventarSlots[i].getSize().y / sprite.getTexture()->getSize().y;
+
+                // Setze die Skalierung des Sprites, um in den Slot zu passen
+                sprite.setScale(scaleX, scaleY);
+
+                // Berechne die Mitte des Slots und setze das Sprite in die Mitte des Slots
+                sf::Vector2f slotPos = deviceInventarSlots[i].getPosition();
+                sf::Vector2f slotCenter = sf::Vector2f(slotPos.x + deviceInventarSlots[i].getSize().x / 2.f,
+                    slotPos.y + deviceInventarSlots[i].getSize().y / 2.f);
+
+                // Berechne die Größe des Sprites und zentriere es
+                sf::Vector2f spriteSize = sf::Vector2f(sprite.getTexture()->getSize());
+                spriteSize *= sprite.getScale().x;  // Berücksichtige die Skalierung
+
+                sprite.setPosition(slotCenter.x - spriteSize.x / 2.f, slotCenter.y - spriteSize.y / 2.f);
+
+                window.draw(sprite);  // Zeichne das Sprite im Slot
+            }
         }
     }
-    
 }
 
 void dasFenster::handleEvent(const Event& event, const RenderWindow& window) 
@@ -52,6 +97,7 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
         }
     }
 }
+
 
 void dasFenster::toggle() 
 {

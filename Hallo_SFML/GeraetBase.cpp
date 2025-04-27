@@ -1,5 +1,6 @@
 #include "GeraetBase.h"
 #include "Grid.h"
+#include "DeviceInventar.h"
 
 GeraetBase::GeraetBase(int gridNumber) : dasFenster()
 {
@@ -11,19 +12,22 @@ GeraetBase::GeraetBase(int gridNumber) : dasFenster()
 
     shape.setPosition(gridPos.x - 2, gridPos.y - 2);
     shape.setSize({ width, height });
-    
 
-    for (int i = 0; i < 5; i++) 
+    for (int i = 0; i < 3; i++)
     {
-        inventar[i] = nullptr; // Inventar leeren
+        deviceInventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
+        deviceInventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos); // Position setzen
+        deviceInventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200)); // Graue Farbe für Slots
     }
-
+    
+    devInventar = new DeviceInventar();
 }
 
-void GeraetBase::draw(RenderWindow& window) {
+void GeraetBase::draw(RenderWindow& window)
+{
     window.draw(shape);
-    this->dasFenster.draw(window);
-}                    
+    this->dasFenster.drawForDevice(window, deviceInventarSlots, devInventar);
+}
 
 void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) 
 {
@@ -43,73 +47,16 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
     
 }
 
-void GeraetBase::addItem(Item* item) 
-{
-    for (int i = 0; i < 5; i++)
-    {
-        if (inventar[i] == nullptr) 
-        {
-            inventar[i] = item;
-            cout << "Item hinzugefügt auf Platz " << i << endl;
-            return;
-        }
-    }
-    cout << "Inventar voll!" << endl;
-}
 
-void GeraetBase::removeItem() 
-{
-    for (int i = 4; i >= 0; i--) 
-    {
-        if (inventar[i] != nullptr) 
-        {
-            cout << "Item entfernt von Platz " << i << endl;
-            delete inventar[i];
-            inventar[i] = nullptr;
-            return;
-        }
-    }
-    cout << "Inventar ist leer!" << endl;
-}
 
 void GeraetBase::setTexture(sf::Texture* newTexture)
-{
-   
+{ 
     texture = newTexture;
     shape.setTexture(texture);
-    shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons
-    
-
-
-   
+    shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons 
 }
 
-void GeraetBase::itemReinlegen(Spieler& player)
-{   
-    
 
-
-
-}
-
-void GeraetBase::itemRausnehmen(Spieler& player)
-{
-    if (inventar[4] != nullptr)
-    {
-        player.addItem(inventar[4], 4);
-        delete inventar[4];
-        cout << inventar[4] << endl;
-        inventar[4] = nullptr;
-        cout << inventar[4] << endl;
-        cout << "Inventar5" << inventar[4]->getTyp();
-        cout << "Player5: ";  player.inventarKonsole(); cout << endl;
-   
-    }
-    else
-    {
-        cout << "Kein fertiges Item vorhanden" << endl;
-    }
-}
 
 void GeraetBase::setScale(float scale)
 {
@@ -118,4 +65,10 @@ void GeraetBase::setScale(float scale)
 
     // Skalierung um den angegebenen Faktor erhöhen (1.5 bedeutet z.B. 50% größer)
     shape.setScale(currentScale.x * scale, currentScale.y * scale);
+}
+
+
+DeviceInventar* GeraetBase::getDevInventar()
+{
+    return devInventar;
 }

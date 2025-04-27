@@ -56,8 +56,7 @@ int main()
     sf::Texture* floor;
 
 	int radius = 100; // Radius, in dem der Spieler sein muss, um mit dem Objekt zu interagieren
-    bool isPlayerInRadiusZuTheke = false;
-    bool isPlayerInRadiusZuHerd = false;
+
 
     
     brickWall = new sf::Texture();
@@ -83,22 +82,8 @@ int main()
         return -1;
     }
 
-    sf::Texture theke01;
-    if (!theke01.loadFromFile("Texturen & Musik/Theke_03.png"))
-    {
-        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
-        return -1;
-    }
 
 
-
-
-
-
-
-
-    Item* fertigesItem1 = new Item("Anderer Test1", placeholder);
-    Item* fertigesItem2 = new Item("Anderer Test2", placeholder);
 
 
 
@@ -131,60 +116,7 @@ int main()
     
     Ofen ofen1(42, font, spieler1);
     ofen1.setTexture(&placeholder);
-    ofen1.addItem(fertigesItem1);
-    ofen1.addItem(fertigesItem2);
-  
-    cout << "Das ist ein Test" << endl;
-
-
-    Item* testItem = new Item("Test", placeholder);
-
-    Mapelement theke(16);
-    theke.setTexture(&theke01);
-
-    Fenster theke_fenster("Theke Fenster", font); // Erstellt das Fenster "Theken Fenster"
-    theke.setOnClick([&theke_fenster, &isPlayerInRadiusZuTheke]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
-        {
-            if (isPlayerInRadiusZuTheke == true)
-            {
-                theke_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
-            }
-        });
-
-    theke_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Gib Test Item!", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() { spieler1.addItem(testItem, 1); });
-    // Set Origin der Buttons anpassen
-
-
-    Mapelement herd(15);
-
-    herd.setTexture(&kgTexture);
-    herd.setScale(1.0f);
-
-    Fenster herd_fenster("Herd Fenster", font); // Erstellt das Fenster "Kochfenster"
-
-    //herd.setOnClick([&herd_fenster]() { herd_fenster.setVisible(true); }); // öffnet das Fenster "Kochfenster"
-
-    herd.setOnClick([&herd_fenster, &isPlayerInRadiusZuHerd]() // Öffnet das Fenster nur, wenn der Spieler im Radius ist
-        {
-            if (isPlayerInRadiusZuHerd == true)
-            {
-                herd_fenster.setVisible(true); // öffnet das Fenster "Theken Fenster"
-            }
-        });
-
-
-    // Buttons innerhalb der List des Kochfensters hinzuf�gen
-    // (x von f + offset, y von f + offset, width, height, Label, ... )
-    herd_fenster.addButton(710 + 200, 240 + 150, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() { cout << "Rezept 1 gewaehlt!" << endl; });
-
-    herd_fenster.addButton(710 + 200, 240 + 250, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() { cout << "Rezept 2 gewaehlt!" << endl; });
-
-
-
-
-
-    
-
+   
 
     // Erstelle Button Start Musik
     Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
@@ -227,7 +159,8 @@ int main()
 
 
 
-
+    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
+    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
 
 
 
@@ -252,37 +185,10 @@ int main()
 
             ofen1.handleEvent(event, window);
 
-            theke.handleEvent(event, window);
-            herd.handleEvent(event, window);
+ 
 
-            // Handler für Fenster events wie "Close" und weitere Buttons
-            theke_fenster.handleEvent(event, window);
-            herd_fenster.handleEvent(event, window);
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-            {
-                spieler1.addItem(fertigesItem1, 0);
-            }
 
         }
-
-
-
-       //Konsolen check für collision mit gerät
-       //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
-       float distanceZuTheke = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - theke.getPositionY(), 2));
-       isPlayerInRadiusZuTheke = distanceZuTheke <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
-	   //cout << isPlayerInRadiusZuTheke << endl; // Ausgabe, ob Spieler im Radius ist
-
-
-
-
-       //Konsolen check für collision mit gerät
-       //Distanz zwischen Spieler1 und Theke wird geprüft und in der Konsole in Form eines Bools ausgegeben        
-       float distanceZuHerd = std::sqrt(std::pow(spieler1.getPosition().x - theke.getPositionX(), 2) + std::pow(spieler1.getPosition().y - herd.getPositionY(), 2));
-       isPlayerInRadiusZuHerd = distanceZuHerd <= radius; // Spieler ist im Radius, wenn die Distanz kleiner/gleich dem Radius ist 
-       //cout << isPlayerInRadiusZuHerd << endl; // Ausgabe, ob Spieler im Radius ist
-
 
 
 
@@ -328,20 +234,7 @@ int main()
 
         ofen1.draw(window);
 
-        theke.draw(window);
-
-        if (theke_fenster.isVisible()) {
-            theke_fenster.draw(window);
-        }
-
-		herd.draw(window);
-        
-        if (herd_fenster.isVisible()) {
-            herd_fenster.draw(window);
-        }
-
-
-
+ 
 
         buttonMusikStopp.draw(window);
 

@@ -7,6 +7,9 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     this->bounds = bounds;
     this->points = 0;
 
+    inventar = new PlayerInventar();
+
+
     if (!texture.loadFromFile(texturPfad)) {
         std::cerr << "Fehler beim Laden der Textur: " << texturPfad << std::endl;
         exit(-1);
@@ -16,10 +19,7 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     shape.setSize(sf::Vector2f(size, size));
     shape.setPosition(startX, startY);
 
-    // Inventar initialisieren (alle Felder auf nullptr setzen)
-    for (int i = 0; i < 5; i++) {
-        inventar[i] = nullptr;
-    }
+  
 
     // Grafische Darstellung der Inventarslots (zentriert am unteren Bildschirmrand)
     float slotSize = 50.f;
@@ -33,8 +33,6 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
         inventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         inventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200));
-
-  
     }
 }
 
@@ -45,7 +43,8 @@ void Spieler::setTexture(const std::string& texturPfad)
     if (!texture.loadFromFile(texturPfad)) {
         std::cerr << "Fehler beim Laden der Textur: " << texturPfad << std::endl;
     }
-    else {
+    else 
+    {
         shape.setTexture(&texture);
     }
 }
@@ -61,12 +60,13 @@ void Spieler::draw(sf::RenderWindow& window) {
     float startXPos = (screenWidth - totalWidth) / 2.f;  // Inventar mittig platzieren
     float startYPos = window.getSize().y - slotSize - 20.f;  // Inventar am unteren Rand platzieren
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) 
+    {
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         window.draw(inventarSlots[i]);
 
-        if (inventar[i] != nullptr) {
-            sf::Sprite sprite = inventar[i]->getSprite();
+        if (inventar->getItem(i) != nullptr) {
+            sf::Sprite sprite = inventar->getItem(i)->getSprite();
 
             // Skalierung beibehalten
             sprite.setScale(3.f, 3.f);
@@ -112,37 +112,7 @@ sf::Vector2f Spieler::getPosition() {
     return shape.getPosition();
 }
 
-// Item zum Inventar hinzufügen
-bool Spieler::addItem(Item* item, int slotIndex) {
-    if (slotIndex < 0 || slotIndex >= 5) return false; // Ungültiger Slot
 
-    if (inventar[slotIndex] == nullptr) {
-        inventar[slotIndex] = item;
-        return true;
-    }
-    return false; // Slot ist voll
-}
-
-// Item aus Inventar entfernen
-bool Spieler::removeItem(int slotIndex) {
-    if (slotIndex < 0 || slotIndex >= 5) return false;
-
-    if (inventar[slotIndex] != nullptr) {
-        inventar[slotIndex] = nullptr;
-        return true;
-    }
-    return false;
-}
-
-void Spieler::inventarKonsole()
-{
-    for (int i = 0; i < 5; i++)
-    {
-        cout << "Inventar" << i << inventar[i]->getTyp() << endl;
-
-    }
-    cout << "Ausgegeben" << endl;
-}
 
 
 // Punkteverwaltung

@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include "Knopf.h"
+#include "DeviceInventar.h"
 
 using namespace sf;
 using namespace std;
@@ -26,6 +27,7 @@ public:
     dasFenster();
     void addKnopf(const string& label, Font& font, function<void()> callback);  // Neue Methode mit Font
     void draw(RenderWindow& window);
+    void drawForDevice(RenderWindow& window, RectangleShape(&deviceInventarSlots)[3], DeviceInventar* devInventar);
     void handleEvent(const Event& event, const RenderWindow& window);
     void toggle();
 };
