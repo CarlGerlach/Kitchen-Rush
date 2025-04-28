@@ -12,6 +12,7 @@ using namespace sf;
 //Erstellt ein Spielfeld
 Spielfeld::Spielfeld(Texture* t1, Texture* t2)
 {
+	
 	//Werte des Grids
 	const float gridWidth = 73.0f;
 	const float gridHight = 73.0f;
