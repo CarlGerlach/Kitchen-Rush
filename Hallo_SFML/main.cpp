@@ -18,6 +18,9 @@
 #include "GeraetBase.h"
 #include "Ofen.h"
 
+#include "Auftrag.h"
+#include "AuftraegeManager.h"
+
 using namespace std;
 using namespace sf;
 
@@ -236,6 +239,21 @@ int main()
 
 
 
+    //Aufträge liste
+	//list<Auftrag*> auftraege;
+    
+	AuftraegeManager auftraegeManager(&font);
+	auftraegeManager.setText("Auftraege:\n");
+
+
+	auftraegeManager.addAuftrag(new Auftrag("Hamburger", 2, 10));
+    auftraegeManager.addAuftrag(new Auftrag("Nudeln", 2, 10));
+
+
+
+
+
+
  
 
     //Spielschleife
@@ -342,6 +360,8 @@ int main()
             herd_fenster.draw(window);
         }
 
+
+		auftraegeManager.draw(window);
 
 
 
