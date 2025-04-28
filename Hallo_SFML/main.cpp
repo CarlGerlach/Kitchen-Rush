@@ -11,12 +11,10 @@
 #include "mySound.h"
 #include "Spieler.h"
 #include "StartScreen.h"
-
 #include "Mapelement.h"
-
-
 #include "GeraetBase.h"
 #include "Ofen.h"
+#include "PauseManager.h"
 
 using namespace std;
 using namespace sf;
@@ -28,81 +26,58 @@ int main()
 
     sf::Font font;
     if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
-    { // Stelle sicher, dass eine Schriftart geladen wird
-        return -1;
-    }
-
-    //Sprite für Herd
-    sf::Texture kgTexture;
-    if (!kgTexture.loadFromFile("Texturen & Musik/Herd_01.png"))
     {
-        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
         return -1;
     }
 
+    // Hintergrund-Bild laden
+    sf::Texture backgroundTexture;
+    if (!backgroundTexture.loadFromFile("Texturen & Musik/pausenMenue.png"))
+    {
+        cerr << "Fehler beim Laden des Pause-Hintergrunds!" << endl;
+        return -1;
+    }
+    sf::Sprite backgroundSprite(backgroundTexture);
+    backgroundSprite.setScale(
+        (float)window.getSize().x / backgroundTexture.getSize().x,
+        (float)window.getSize().y / backgroundTexture.getSize().y
+    );
 
-    
-
-    
-    // Starte den Startscreen
+    // Starte StartScreen
     StartScreen startScreen;
     if (!startScreen.run(window))
-        return 0; // Fenster wurde z.B. geschlossen
+        return 0;
 
-
-
-
-    sf::Texture* brickWall;
-    sf::Texture* floor;
-
-	int radius = 100; // Radius, in dem der Spieler sein muss, um mit dem Objekt zu interagieren
-
-
-    
-    brickWall = new sf::Texture();
-    floor = new sf::Texture();
+    // Texturen laden
+    sf::Texture* brickWall = new sf::Texture();
+    sf::Texture* floor = new sf::Texture();
 
     brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
     floor->loadFromFile("Texturen & Musik/Boden.jpg");
 
-    // Grafische Elemente für das Inventar
-    sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
-         
-    //Erstellt SPielfeld
+    // Spielfeld erstellen
     Spielfeld* playField = new Spielfeld(brickWall, floor);
 
-    //Sound
-    mySound* soundManager = new mySound(); // Unbennant von "testSound" weil cooler oder so
-
+    // Soundsystem
+    mySound* soundManager = new mySound();
 
     sf::Texture placeholder;
     if (!placeholder.loadFromFile("Texturen & Musik/temp.png"))
     {
-        cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
+        cerr << "Fehler beim Laden der Placeholder-Textur!" << endl;
         return -1;
     }
 
-
-
-
-
-
-
-
-
-
-
-    // Spielfeldbegrenzung (x, y, Breite, Höhe)
+    // Spielfeldgrenzen
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
 
-    //erstellt Spieler
+    // Spieler erstellen
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
 
-    // Hintergrundmusik laden und abspielen
+    // Hintergrundmusik
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
     {
-        soundManager->setMusicLautstaerke(10.0f); // Lautstärke auf 10 % setzen, weil sonst zu laut -.-
-
+        soundManager->setMusicLautstaerke(10.0f);
         soundManager->playHintergrundMusik();
     }
     else
@@ -110,140 +85,114 @@ int main()
         cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
     }
 
-    
-
-
-    
+    // Ofen erstellen
     Ofen ofen1(42, font, spieler1);
     ofen1.setTexture(&placeholder);
-   
-
-    // Erstelle Button Start Musik
-    Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
-
-  
-  
-    // Starte die Musik und gib diesen Text in Konsole aus
-    buttonMusikStart.setOnClick
-    ([soundManager]
-        {
-            cout << "Musik wird gestartet." << endl;
-            soundManager->getMeinSound().play(); // Spiele den Button-Klick-Sound ab
-
-
-            // nur wenn Musik nicht schon spielt
-            if (soundManager->isMusicPlaying()) // ÃberprÃ¼fen, ob Musik spielt
-            {
-                cout << "Die Musik spielt bereits." << endl;
-            }
-            else
-            {
-                soundManager->playHintergrundMusik(); // Starte die Musik
-            }
-        }
-    );
-
-
-    // Erstelle Button Stop Musik
-    Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
-
-    // Stoppe die Musik und gib diesen Text in Konsole aus
-    buttonMusikStopp.setOnClick
-    ([soundManager]
-        {
-            cout << "Musik wird gestoppt." << endl;
-            soundManager->getMeinSound().play(); // Spiele den Button-Klick-Sound ab
-            soundManager->stopHintergrundMusik(); // Stoppe die Musik
-        }
-    );
-
-
-
     ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
     ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
 
+    // Buttons Musik Start/Stop
+    Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, Color::Blue, Color::White, soundManager);
+    buttonMusikStart.setOnClick([soundManager] {
+        cout << "Musik wird gestartet." << endl;
+        soundManager->getMeinSound().play();
+        if (!soundManager->isMusicPlaying()) {
+            soundManager->playHintergrundMusik();
+        }
+        else {
+            cout << "Musik läuft bereits." << endl;
+        }
+        });
 
+    Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, Color::Blue, Color::White, soundManager);
+    buttonMusikStopp.setOnClick([soundManager] {
+        cout << "Musik wird gestoppt." << endl;
+        soundManager->getMeinSound().play();
+        soundManager->stopHintergrundMusik();
+        });
 
+    // PauseManager initialisieren
+    PauseManager pauseManager(window.getSize(), font);
 
+    sf::Clock clock;
 
-
- 
-
-    //Spielschleife
-    while (window.isOpen()) 
+    // Spielschleife
+    while (window.isOpen())
     {
-
         sf::Event event;
-        while (window.pollEvent(event)) 
+        while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-           
-            buttonMusikStopp.handleEvent(event, window);
-            buttonMusikStart.handleEvent(event, window);
+            pauseManager.handleInput(event); // ESC abfangen
 
-            ofen1.handleEvent(event, window);
+            if (!pauseManager.isPaused())
+            {
+                // NUR wenn NICHT pausiert: normale Events behandeln!
+                buttonMusikStopp.handleEvent(event, window);
+                buttonMusikStart.handleEvent(event, window);
 
- 
+                ofen1.handleEvent(event, window);
 
-
+                // Andere Event-Dinge kommen hier hin (z.B. Maus, Tastatur usw.)
+            }
         }
 
-
-
-        // Spieler bewegen (mit WASD)
-        sf::Vector2f direction(0.f, 0.f);
-        
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+        if (!pauseManager.isPaused())
         {
-            direction.y -= 1.f; // Nach oben
+            // Musik sicherstellen
+            if (!soundManager->isMusicPlaying())
+            {
+                soundManager->playHintergrundMusik();
+            }
+
+            // Spielerbewegung
+            sf::Vector2f direction(0.f, 0.f);
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) direction.y -= 1.f;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) direction.y += 1.f;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                direction.x -= 1.f;
+                spieler1.setTexture("Texturen & Musik/Char-links.png");
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                direction.x += 1.f;
+                spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+            }
+
+            spieler1.move(direction);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
+        else
         {
-            direction.y += 1.f; // Nach unten
+            // Musik anhalten oder leise machen
+            if (soundManager->isMusicPlaying())
+            {
+                soundManager->stopHintergrundMusik();
+            }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
-        {                                                                                        
-            spieler1.setTexture("Texturen & Musik/Char-links.png");
-            
-        
-            direction.x -= 1.f; // Nach links
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
-        {
-            spieler1.setTexture("Texturen & Musik/Char-rechts.png");
-        
-            direction.x += 1.f; // Nach rechts
-        }
-        
-        spieler1.move(direction);
 
-
-      
-      
-      
-      
-        // Draw Sachen
-
+        // Zeichnen
         window.clear();
 
-        playField->drawSpielfeld(window);
-
-        spieler1.draw(window);
-
-        ofen1.draw(window);
-
- 
-
-        buttonMusikStopp.draw(window);
-
-        buttonMusikStart.draw(window);
+        if (pauseManager.isPaused())
+        {
+            window.draw(backgroundSprite);
+            pauseManager.draw(window);
+        }
+        else
+        {
+            playField->drawSpielfeld(window);
+            spieler1.draw(window);
+            ofen1.draw(window);
+            buttonMusikStart.draw(window);
+            buttonMusikStopp.draw(window);
+        }
 
         window.display();
     }
 
-    // Hintergrundmusik stoppen, wenn das Programm beendet wird
+    // Musik stoppen beim Beenden
     soundManager->stopHintergrundMusik();
 
     return 0;
