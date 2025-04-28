@@ -112,6 +112,11 @@ sf::Vector2f Spieler::getPosition() {
     return shape.getPosition();
 }
 
+PlayerInventar* Spieler::getPlayerInventar()
+{
+    return inventar;
+}
+
 
 
 

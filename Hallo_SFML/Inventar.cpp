@@ -28,6 +28,17 @@ bool Inventar::removeItem(int slotIndex)
     return true;
 }
 
+bool Inventar::addItemToSlot(Item* item, int slotToAdd)
+{
+    if (slot[slotToAdd] == nullptr)
+    {
+        slot[slotToAdd] = item;
+        return true;
+    }
+    return false;
+
+}
+
 Item* Inventar::getItem(int slotIndex) const 
 {
     if (slotIndex < 0 || slotIndex >= slotAnzahl)

@@ -2,8 +2,10 @@
 #include "Grid.h"
 #include "DeviceInventar.h"
 
-GeraetBase::GeraetBase(int gridNumber) : dasFenster()
+GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player) : dasFenster()
 {
+    player = ini_player;
+
     float width = 75;
     float height = 75;
     
@@ -21,6 +23,12 @@ GeraetBase::GeraetBase(int gridNumber) : dasFenster()
     }
     
     devInventar = new DeviceInventar();
+
+    dasFenster.connectDeviceInventar(devInventar);
+    dasFenster.connectPlayer(player);
+    dasFenster.connectDeviceSlots(deviceInventarSlots);
+
+
 }
 
 void GeraetBase::draw(RenderWindow& window)

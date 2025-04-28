@@ -87,16 +87,60 @@ void dasFenster::drawForDevice(RenderWindow& window, RectangleShape(&deviceInven
     }
 }
 
-void dasFenster::handleEvent(const Event& event, const RenderWindow& window) 
+
+
+void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
 {
-    if (visible) 
+    if (!visible)
+        return;
+
+    for (auto& knopf : knoepfe)
     {
-        for (auto& knopf : knoepfe) 
+        knopf.handleEvent(event, window);
+    }
+
+    // Prüfen, ob auf einen Inventarslot geklickt wurde
+    if (connectedDeviceInventar && connectedPlayer)
+    {
+        if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
         {
-            knopf.handleEvent(event, window);
+            Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
+
+            for (int i = 0; i < 3; i++)
+            {
+                RectangleShape& slot = connectedDeviceSlots[i];
+
+                if (slot.getGlobalBounds().contains(mousePos))
+                {
+                    // Slot angeklickt
+                    Item* item = connectedDeviceInventar->getItem(i);
+                    cout << "Test 1" << endl;
+
+                    if (item != nullptr)
+                    {
+                        cout << "Test 2" << endl;
+                        // Item aus Gerät entfernen und in Spielerinventar legen
+                        connectedPlayer->getPlayerInventar()->addItem(item);  // Je nach Methode, die du hast
+                        cout << "Test 3" << endl;
+                        connectedDeviceInventar->removeItem(i);
+                        cout << "Test 4" << endl;
+                        item = nullptr;
+                        cout << "Test 5" << endl;
+
+
+                        cout << "Verbundener: " << connectedPlayer;
+                        cout << "Verbndenes Inventar: " << connectedDeviceInventar;
+
+                    }
+                }
+            }
         }
     }
 }
+
+
+
+
 
 
 void dasFenster::toggle() 
@@ -113,4 +157,22 @@ void dasFenster::toggle()
         return;
     }
     
+}
+
+void dasFenster::connectDeviceInventar(DeviceInventar* inventar)
+{
+    connectedDeviceInventar = inventar;
+}
+
+void dasFenster::connectPlayer(Spieler* player)
+{
+    connectedPlayer = player;
+}
+
+void dasFenster::connectDeviceSlots(RectangleShape (&deviceSlots)[3])
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        connectedDeviceSlots[i] = deviceSlots[i];  // Kopiere die Slots ins Fenster
+    }
 }

@@ -114,8 +114,11 @@ int main()
 
 
     
-    Ofen ofen1(42, font, spieler1);
+    Ofen ofen1(42, font, &spieler1);
     ofen1.setTexture(&placeholder);
+
+    cout << "Spieler ist: " << &spieler1 << endl;
+    cout << "Ofen Inventar ist: " << ofen1.getDevInventar() << endl;
    
 
     // Erstelle Button Start Musik

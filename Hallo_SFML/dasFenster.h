@@ -5,6 +5,7 @@
 #include <vector>
 #include "Knopf.h"
 #include "DeviceInventar.h"
+#include "Spieler.h"
 
 using namespace sf;
 using namespace std;
@@ -14,6 +15,9 @@ class dasFenster
 private:
     RectangleShape background;
     vector<Knopf> knoepfe;
+    DeviceInventar* connectedDeviceInventar = nullptr;
+    Spieler* connectedPlayer = nullptr;
+    RectangleShape connectedDeviceSlots[3];
     bool visible = false;
 
 protected:
@@ -30,4 +34,8 @@ public:
     void drawForDevice(RenderWindow& window, RectangleShape(&deviceInventarSlots)[3], DeviceInventar* devInventar);
     void handleEvent(const Event& event, const RenderWindow& window);
     void toggle();
+
+    void connectDeviceInventar(DeviceInventar* inventar);
+    void connectPlayer(Spieler* player);
+    void connectDeviceSlots(RectangleShape(&deviceSlots)[3]);
 };

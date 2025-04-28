@@ -39,6 +39,7 @@ public:
     sf::Vector2f getPosition();
 
 
+    PlayerInventar* getPlayerInventar();
 
 
     int getPoints();
