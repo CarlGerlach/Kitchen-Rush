@@ -9,4 +9,5 @@ protected:
 
 public:
     Ofen(int Grindnumber, Font& newFont, Spieler* spieler);
+    bool makePizza();
 };

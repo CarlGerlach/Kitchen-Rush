@@ -27,7 +27,7 @@ protected:
     int amountOfButtons = 0;
 
 
-public:
+public:                                           
     dasFenster();
     void addKnopf(const string& label, Font& font, function<void()> callback);  // Neue Methode mit Font
     void draw(RenderWindow& window);
@@ -38,4 +38,6 @@ public:
     void connectDeviceInventar(DeviceInventar* inventar);
     void connectPlayer(Spieler* player);
     void connectDeviceSlots(RectangleShape(&deviceSlots)[3]);
+
+    Spieler* getConnectedPlayer();
 };

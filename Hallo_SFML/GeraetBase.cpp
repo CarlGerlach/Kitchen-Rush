@@ -43,7 +43,7 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
     {
  
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
         {
             
             this->dasFenster.toggle();
@@ -73,6 +73,28 @@ void GeraetBase::setScale(float scale)
 
     // Skalierung um den angegebenen Faktor erhöhen (1.5 bedeutet z.B. 50% größer)
     shape.setScale(currentScale.x * scale, currentScale.y * scale);
+}
+
+bool GeraetBase::isPlayerInRange()
+{
+    if (!player) return false;
+
+    sf::Vector2f playerPos = player->getPosition();
+    sf::Vector2f geraetPos = shape.getPosition();
+
+    //Berechnung chatGPT
+
+    float dx = playerPos.x - geraetPos.x;
+    float dy = playerPos.y - geraetPos.y;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    if (distance <= 50)return true;
+
+
+    return false; 
+
+
+    //Wenn mehrere kg nebeneinander stehen schauen welches Näher steht
 }
 
 

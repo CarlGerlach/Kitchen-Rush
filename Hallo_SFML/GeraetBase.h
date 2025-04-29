@@ -39,6 +39,8 @@ public:
 
     void setScale(float scale);
 
+    bool isPlayerInRange();
+
     DeviceInventar* getDevInventar();
 
 };                           

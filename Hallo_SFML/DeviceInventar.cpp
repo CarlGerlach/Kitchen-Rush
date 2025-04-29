@@ -15,3 +15,15 @@ bool DeviceInventar::addItem(Item* item)
     }
     return false; // Keine freien Input-Slots
 }
+
+bool DeviceInventar::checkIfClearInventory()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        if (slot[i] != nullptr)
+        {
+            return false;
+        }
+    }
+    return true;
+}

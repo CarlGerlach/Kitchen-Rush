@@ -1,4 +1,5 @@
 #include "dasFenster.h"
+#include "Spieler.h"
 
 dasFenster::dasFenster() 
 {
@@ -134,12 +135,51 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
                     }
                 }
             }
+
+            for (int i = 0; i < 5; i++)
+            {
+                RectangleShape& playerSlot = getConnectedPlayer()->getInventarSlots(i);
+
+               if (playerSlot.getGlobalBounds().contains(mousePos))
+                {
+                    std::cout << "Geräteslot " << i << " angeklickt\n";
+
+                    PlayerInventar* playerInv = connectedPlayer->getPlayerInventar();
+                    Item* selectedItem = playerInv->getItem(i);
+
+                   if (selectedItem == nullptr)
+                    {
+                        std::cout << "Kein Item im Spielerinventar ausgewählt\n";
+                        return;
+                    }
+
+                   //Prüfe ob platz im Device Inventar ist
+                   //if (connectedDeviceInventar->checkIfClearInventory() == false)return;
+                   //Text soll aufgehen wenn eines der Inventare voll ist
+
+
+
+
+                    // Übertragung: Item von Spieler zu Gerät
+                    bool success = connectedDeviceInventar->addItem(selectedItem);
+                    if (success)
+                    {
+                        playerInv->removeItem(i); 
+                        std::cout << "Item wurde erfolgreich vom Spieler ins Gerät übertragen\n";
+                    }
+                    else
+                    {
+                        std::cout << "Fehler beim Übertragen des Items\n";
+                    }
+
+                }
+            }
         }
     }
+
+
+
 }
-
-
-
 
 
 
@@ -175,4 +215,9 @@ void dasFenster::connectDeviceSlots(RectangleShape (&deviceSlots)[3])
     {
         connectedDeviceSlots[i] = deviceSlots[i];  // Kopiere die Slots ins Fenster
     }
+}
+
+Spieler* dasFenster::getConnectedPlayer()
+{
+    return connectedPlayer;
 }

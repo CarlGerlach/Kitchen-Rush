@@ -40,6 +40,7 @@ public:
 
 
     PlayerInventar* getPlayerInventar();
+    RectangleShape& getInventarSlots(int slotIndex);
 
 
     int getPoints();

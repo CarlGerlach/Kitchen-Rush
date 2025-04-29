@@ -164,7 +164,7 @@ int main()
 
     ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
     ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
-
+    spieler1.getPlayerInventar()->addItem(new Item(ItemID::TEIG));
 
 
 

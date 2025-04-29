@@ -68,21 +68,26 @@ void Spieler::draw(sf::RenderWindow& window) {
         if (inventar->getItem(i) != nullptr) {
             sf::Sprite sprite = inventar->getItem(i)->getSprite();
 
-            // Skalierung beibehalten
-            sprite.setScale(3.f, 3.f);
+            // Berechne die Skalierung des Sprites basierend auf der Slot-Größe
+            float scaleX = inventarSlots[i].getSize().x / sprite.getTexture()->getSize().x;
+            float scaleY = inventarSlots[i].getSize().y / sprite.getTexture()->getSize().y;
 
-            // Berechnung der neuen Position für die Mitte des Slots
+            // Setze die Skalierung des Sprites, um in den Slot zu passen
+            sprite.setScale(scaleX, scaleY);
+
+            // Berechne die Mitte des Slots und setze das Sprite in die Mitte des Slots
             sf::Vector2f slotPos = inventarSlots[i].getPosition();
-            sf::Vector2f slotCenter = sf::Vector2f(slotPos.x + slotSize / 2.f, slotPos.y + slotSize / 2.f);
+            sf::Vector2f slotCenter = sf::Vector2f(slotPos.x + inventarSlots[i].getSize().x / 2.f,
+                slotPos.y + inventarSlots[i].getSize().y / 2.f);
 
-            // Sprite-Größe basierend auf Textur und Skalierung berechnen
+            // Berechne die Größe des Sprites und zentriere es
             sf::Vector2f spriteSize = sf::Vector2f(sprite.getTexture()->getSize());
-            spriteSize *= sprite.getScale().x;  // Berücksichtigt die Skalierung (3x)
+            spriteSize *= sprite.getScale().x;  // Berücksichtige die Skalierung
 
-            // Setze das Sprite mittig in den Slot
             sprite.setPosition(slotCenter.x - spriteSize.x / 2.f, slotCenter.y - spriteSize.y / 2.f);
 
-            window.draw(sprite);
+            window.draw(sprite);  // Zeichne das Sprite im Slot
+
         }
     }
 }
@@ -115,6 +120,11 @@ sf::Vector2f Spieler::getPosition() {
 PlayerInventar* Spieler::getPlayerInventar()
 {
     return inventar;
+}
+
+RectangleShape& Spieler::getInventarSlots(int slotIndex)
+{
+    return inventarSlots[slotIndex];
 }
 
 
