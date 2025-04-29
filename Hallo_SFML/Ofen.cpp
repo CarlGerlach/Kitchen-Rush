@@ -1,76 +1,87 @@
 #include "Ofen.h"
 #include "Item.h"
+#include "Spieler.h"
 
-Ofen::Ofen(float x, float y, Font& newFont) : GeraetBase(x, y, 50, 50)
+Ofen::Ofen(int gridnumber, Font& newFont, Spieler* player) : GeraetBase(gridnumber, player)
 {
-    setupButtons(newFont);
+    setupButtons(newFont, player);
 }
 
-void Ofen::setupButtons(Font& newFont)
+bool Ofen::makePizza()
+{
+    Item* item0 = devInventar->getItem(0);
+    Item* item1 = devInventar->getItem(1);
+
+    // Prüfen, ob beide Slots belegt sind
+    if (item0 == nullptr || item1 == nullptr)
+    {
+        std::cout << "Fehlende Zutat in Slot 0 oder 1!" << std::endl;
+        return false;
+    }
+
+    // Prüfen, ob beide Zutaten vorhanden sind (egal in welchem Slot)
+    bool hatTeig = (item0->getItemID() == ItemID::TEIG) || (item1->getItemID() == ItemID::TEIG);
+    bool hatTomate = (item0->getItemID() == ItemID::TOMATE) || (item1->getItemID() == ItemID::TOMATE);
+
+    if (hatTeig && hatTomate)
+    {
+        // Entferne beide Items sicher (auch wenn z.?B. Tomate in Slot 1 ist)
+        devInventar->removeItem(0);
+        devInventar->removeItem(1);
+
+        // Füge Pizza in Slot 2 ein, wenn dieser leer ist
+        if (devInventar->getItem(2) == nullptr)
+        {
+            devInventar->addItemToSlot(new Item(ItemID::PIZZA), 2);
+            return true;
+        }
+        else
+        {
+            std::cout << "Slot 2 ist belegt. Kein Platz für Pizza!" << std::endl;
+            return false;
+        }
+    }
+
+    std::cout << "Nicht die richtigen Zutaten in Slot 0 und 1!" << std::endl;
+    return false;
+}
+
+void Ofen::setupButtons(Font& newFont, Spieler* player)
 {
     dasFenster.addKnopf(
-        shape.getPosition().x + 200,
-        shape.getPosition().y + 200,
-        80, 30,
-        "Start",
+        "Mache Pizza",
         newFont,  // Font übergeben
-        [this]() 
+        [this, player]() 
         { 
-
-            cout << "Ofen startet!" << endl; 
-            bool foundFirstItem = false;
-            bool foundSecondItem = false;
-            int index1 = 0;
-            int index2 = 0;
-
-            sf::Texture platzhalter;
-            if (!platzhalter.loadFromFile("Texturen & Musik/Herd_01.png"))
-            {
-                cerr << "Fehler beim Laden der kg-Sprite-Textur!" << endl;
-                return -1;
-            }
-           
-
-            for(int i = 0; i < 5; i++) 
-            {
-                cout << inventar[i]->getTyp() << endl;
-
-                if (inventar[i]->getTyp() == "Anderer Test1")
-                {
-                    foundFirstItem = true;
-                    index1 = i;
-                   
-                }
-
-               ;
-
-                if (inventar[i]->getTyp() == "Anderer Test2")
-                {
-                    foundSecondItem = true;
-                    index2 = i;
-                    break;
-                }
-            }
-
-            cout << foundFirstItem << endl;
-            cout << foundSecondItem << endl;
-            
-
-            if (foundFirstItem == true && foundSecondItem == true)
-            {
-                delete inventar[index1];
-                delete inventar[index2];
-                Item* neuestItem = new Item("dasNeueItem", platzhalter);
-
-                inventar[index1] = neuestItem;
-            }
-               
-            cout << "Inventar ist leer!" << endl;
-        
-            cout << inventar[index1]->getTyp() << endl;
+            this->makePizza();
         }
     );
 
+    dasFenster.addKnopf(
+        "Nehme Item",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+        
+        }
+    );
+
+    dasFenster.addKnopf(
+        "Schließen",
+        newFont,  // Font übergeben
+        [this,player]()
+        {
+            cout << "Fenster geschlossen" << endl;
+            dasFenster.toggle();
+        }
+    );
+
+
     
+   
+    
+ 
+
+
 }
                              

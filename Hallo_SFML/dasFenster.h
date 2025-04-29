@@ -1,22 +1,43 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 #include <vector>
 #include "Knopf.h"
+#include "DeviceInventar.h"
+#include "Spieler.h"
 
 using namespace sf;
 using namespace std;
 
-class dasFenster {
+class dasFenster 
+{
 private:
     RectangleShape background;
     vector<Knopf> knoepfe;
+    DeviceInventar* connectedDeviceInventar = nullptr;
+    Spieler* connectedPlayer = nullptr;
+    RectangleShape connectedDeviceSlots[3];
     bool visible = false;
 
-public:
-    dasFenster(float x, float y);
-    void addKnopf(float x, float y, float width, float height, const string& label, Font& font, function<void()> callback);  // Neue Methode mit Font
+protected:
+    const int windowWidth = 600;
+    const int windowHight = 800;  
+    const int buttonDistance = 20;
+    int amountOfButtons = 0;
+
+
+public:                                           
+    dasFenster();
+    void addKnopf(const string& label, Font& font, function<void()> callback);  // Neue Methode mit Font
     void draw(RenderWindow& window);
+    void drawForDevice(RenderWindow& window, RectangleShape(&deviceInventarSlots)[3], DeviceInventar* devInventar);
     void handleEvent(const Event& event, const RenderWindow& window);
     void toggle();
+
+    void connectDeviceInventar(DeviceInventar* inventar);
+    void connectPlayer(Spieler* player);
+    void connectDeviceSlots(RectangleShape(&deviceSlots)[3]);
+
+    Spieler* getConnectedPlayer();
 };

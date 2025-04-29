@@ -1,25 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Fenster.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Mapelement.cpp" />
+    <ClCompile Include="Auftrag.cpp" />
+    <ClCompile Include="dasFenster.cpp" />
+    <ClCompile Include="Knopf.cpp" />
+    <ClCompile Include="StartScreen.cpp" />
+    <ClCompile Include="Ofen.cpp">
+      <Filter>KitchenDevices</Filter>
+    </ClCompile>
+    <ClCompile Include="GeraetBase.cpp">
+      <Filter>KitchenDevices</Filter>
+    </ClCompile>
+    <ClCompile Include="Mapelement.cpp">
+      <Filter>NichtBenötigt</Filter>
+    </ClCompile>
+    <ClCompile Include="Fenster.cpp">
+      <Filter>NichtBenötigt</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>NichtBenötigt</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInventar.cpp">
+      <Filter>Inventar</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventar.cpp">
+      <Filter>Inventar</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceInventar.cpp">
+      <Filter>Inventar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Fenster.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="mySound.h" />
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Item.h" />
-    <ClInclude Include="Mapelement.h" />
+    <ClInclude Include="Auftrag.h" />
+    <ClInclude Include="dasFenster.h" />
+    <ClInclude Include="Knopf.h" />
+    <ClInclude Include="StartScreen.h" />
+    <ClInclude Include="Ofen.h">
+      <Filter>KitchenDevices</Filter>
+    </ClInclude>
+    <ClInclude Include="GeraetBase.h">
+      <Filter>KitchenDevices</Filter>
+    </ClInclude>
+    <ClInclude Include="Mapelement.h">
+      <Filter>NichtBenötigt</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>NichtBenötigt</Filter>
+    </ClInclude>
+    <ClInclude Include="Fenster.h">
+      <Filter>NichtBenötigt</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>NichtBenötigt</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInventar.h">
+      <Filter>Inventar</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventar.h">
+      <Filter>Inventar</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceInventar.h">
+      <Filter>Inventar</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="KitchenDevices">
+      <UniqueIdentifier>{6e10520a-e7ae-41da-9b34-1b8762603667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NichtBenötigt">
+      <UniqueIdentifier>{69a9871d-777e-4965-83da-e3d23cde684a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Inventar">
+      <UniqueIdentifier>{64a44a35-9ce6-45b9-a1a9-1ac8e8be023d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
