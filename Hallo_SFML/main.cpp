@@ -15,6 +15,9 @@
 #include "GeraetBase.h"
 #include "Ofen.h"
 
+#include "Auftrag.h"
+#include "AuftraegeManager.h"
+
 using namespace std;
 using namespace sf;
 
@@ -114,7 +117,24 @@ int main()
     
     
 
-    while (window.isOpen())
+    //Aufträge liste
+	//list<Auftrag*> auftraege;
+    
+	AuftraegeManager auftraegeManager(&font);
+	auftraegeManager.setText("Auftraege:\n");
+
+
+	auftraegeManager.addAuftrag(new Auftrag("Hamburger", 2, 10));
+    auftraegeManager.addAuftrag(new Auftrag("Nudeln", 2, 10));
+
+
+
+
+
+ 
+
+    //Spielschleife
+    while (window.isOpen()) 
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -166,6 +186,8 @@ int main()
         ofen1.draw(window);
 
       
+
+		auftraegeManager.draw(window);
 
 
        

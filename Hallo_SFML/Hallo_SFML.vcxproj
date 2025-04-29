@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AuftraegeManager.cpp" />
     <ClCompile Include="Auftrag.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="dasFenster.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="StartScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AuftraegeManager.h" />
     <ClInclude Include="Auftrag.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="dasFenster.h" />

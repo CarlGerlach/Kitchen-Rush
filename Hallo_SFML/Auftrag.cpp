@@ -2,6 +2,9 @@
 
 Auftrag::Auftrag()
 {
+	gericht = "";
+	anzahlSoll = 0;
+	winPoints = 0;
 }
 
 Auftrag::Auftrag(string ini_gericht, int ini_anzahlSoll, int ini_winPoints)
@@ -24,6 +27,16 @@ int Auftrag::getAnzahlSoll()
 string Auftrag::getGericht()
 {
 	return gericht;
+}
+
+void Auftrag::setIsDone(bool done)
+{
+	this->isDone = done;
+}
+
+bool Auftrag::getIsDone()
+{
+	return this->isDone;
 }
 
 
