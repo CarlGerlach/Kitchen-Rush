@@ -2,16 +2,34 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-class Item
+using namespace std;
+
+
+
+enum class ItemID
 {
-private:
-    std::string typ;
+    WASSER = 1,
+    MEHL = 2,
+    TEIG = 3,
+    TOMATE = 4,
+    PIZZA = 5
+
+};
+
+class Item 
+{
+private: 
+    ItemID id;
+    string name;
     sf::Sprite sprite;
+    sf::Texture texture;
+
+    void setupItem(); // Hilfsfunktion: Setzt Name, Textur, etc. anhand der ID
 
 public:
-    Item();
-    Item(const std::string& type, const sf::Texture& texture);
+    Item(ItemID id);
 
-    std::string getTyp();
-    sf::Sprite getSprite();
+    void print();
+    sf::Sprite& getSprite();
+    ItemID getItemID();
 };

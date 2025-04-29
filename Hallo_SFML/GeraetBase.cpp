@@ -1,21 +1,40 @@
 #include "GeraetBase.h"
+#include "Grid.h"
+#include "DeviceInventar.h"
 
-GeraetBase::GeraetBase(float x, float y, float width, float hight): dasFenster(x + 50, y + 50) 
+GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player) : dasFenster()
 {
-   
-    shape.setSize(Vector2f(width, hight));
-    shape.setPosition(Vector2f(x, y));
+    player = ini_player;
 
-    for (int i = 0; i < 5; i++) 
+    float width = 75;
+    float height = 75;
+    
+
+    sf::Vector2f gridPos = Grid::getPosition(gridNumber);
+
+    shape.setPosition(gridPos.x - 2, gridPos.y - 2);
+    shape.setSize({ width, height });
+
+    for (int i = 0; i < 3; i++)
     {
-        inventar[i] = nullptr; // Inventar leeren
+        deviceInventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
+        deviceInventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos); // Position setzen
+        deviceInventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200)); // Graue Farbe für Slots
     }
+    
+    devInventar = new DeviceInventar();
+
+    dasFenster.connectDeviceInventar(devInventar);
+    dasFenster.connectPlayer(player);
+    dasFenster.connectDeviceSlots(deviceInventarSlots);
+
 
 }
 
-void GeraetBase::draw(RenderWindow& window) {
+void GeraetBase::draw(RenderWindow& window)
+{
     window.draw(shape);
-    this->dasFenster.draw(window);
+    this->dasFenster.drawForDevice(window, deviceInventarSlots, devInventar);
 }
 
 void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) 
@@ -24,7 +43,7 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
     {
  
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
+        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
         {
             
             this->dasFenster.toggle();
@@ -36,52 +55,50 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
     
 }
 
-void GeraetBase::addItem(Item* item) 
-{
-    for (int i = 0; i < 5; i++)
-    {
-        if (inventar[i] == nullptr) 
-        {
-            inventar[i] = item;
-            cout << "Item hinzugefügt auf Platz " << i << endl;
-            return;
-        }
-    }
-    cout << "Inventar voll!" << endl;
-}
 
-void GeraetBase::removeItem() 
-{
-    for (int i = 4; i >= 0; i--) 
-    {
-        if (inventar[i] != nullptr) 
-        {
-            cout << "Item entfernt von Platz " << i << endl;
-            delete inventar[i];
-            inventar[i] = nullptr;
-            return;
-        }
-    }
-    cout << "Inventar ist leer!" << endl;
-}
 
 void GeraetBase::setTexture(sf::Texture* newTexture)
+{ 
+    texture = newTexture;
+    shape.setTexture(texture);
+    shape.setPosition(shape.getPosition()); // Übernehme die Position des Buttons 
+}
+
+
+
+void GeraetBase::setScale(float scale)
 {
-    if (newTexture && newTexture->getSize().x > 0 && newTexture->getSize().y > 0) // Sicherstellen, dass die Textur valide ist
-    {
-        texture = newTexture; // Zeiger speichern
-        shape.setTexture(texture);
+    // Aktuelle Skalierung des Buttons abrufen
+    sf::Vector2f currentScale = shape.getScale();
 
-        // Textur korrekt skalieren
-        shape.setScale(
-            shape.getSize().x / static_cast<float>(texture->getSize().x),
-            shape.getSize().y / static_cast<float>(texture->getSize().y)
-        );
+    // Skalierung um den angegebenen Faktor erhöhen (1.5 bedeutet z.B. 50% größer)
+    shape.setScale(currentScale.x * scale, currentScale.y * scale);
+}
 
-        cout << "Textur gesetzt und skaliert." << endl;
-    }
-    else
-    {
-        cout << "Fehler: Ungültige oder leere Textur übergeben!" << endl;
-    }
+bool GeraetBase::isPlayerInRange()
+{
+    if (!player) return false;
+
+    sf::Vector2f playerPos = player->getPosition();
+    sf::Vector2f geraetPos = shape.getPosition();
+
+    //Berechnung chatGPT
+
+    float dx = playerPos.x - geraetPos.x;
+    float dy = playerPos.y - geraetPos.y;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    if (distance <= 50)return true;
+
+
+    return false; 
+
+
+    //Wenn mehrere kg nebeneinander stehen schauen welches Näher steht
+}
+
+
+DeviceInventar* GeraetBase::getDevInventar()
+{
+    return devInventar;
 }

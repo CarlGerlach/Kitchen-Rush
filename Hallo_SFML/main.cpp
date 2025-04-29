@@ -37,11 +37,24 @@ int main()
     brickWall->loadFromFile("Texturen & Musik/Wand.png");
     floor->loadFromFile("Texturen & Musik/Fliesen_Boden.png");
 
+
+    brickWall = new sf::Texture();
+    floor = new sf::Texture();
+
+    brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
+    floor->loadFromFile("Texturen & Musik/Boden.jpg");
+
+    // Grafische Elemente für das Inventar
+    sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
+         
+    //Erstellt SPielfeld
+
     Spielfeld* playField = new Spielfeld(brickWall, floor);
     mySound* soundManager = new mySound();
 
     sf::Texture placeholder;
     placeholder.loadFromFile("Texturen & Musik/temp.png");
+
 
     sf::Texture theke01;
     theke01.loadFromFile("Texturen & Musik/Theke_03.png");
@@ -58,18 +71,13 @@ int main()
     sf::Texture windowDownTexture;
     windowDownTexture.loadFromFile("Texturen & Musik/Fenster_unten.png");
 
+
     sf::Texture windowLeftTexture;
     windowLeftTexture.loadFromFile("Texturen & Musik/Fenster_links.png");
 
     sf::Texture windowRightTexture;
     windowRightTexture.loadFromFile("Texturen & Musik/Fenster_rechts.png");
 
-    int radius = 100;
-    bool isPlayerInRadiusZuTheke = false;
-    bool isPlayerInRadiusZuHerd = false;
-
-    Item* fertigesItem1 = new Item("Anderer Test1", placeholder);
-    Item* fertigesItem2 = new Item("Anderer Test2", placeholder);
 
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
@@ -79,44 +87,14 @@ int main()
         soundManager->setMusicLautstaerke(10.0f);
         soundManager->playHintergrundMusik();
     }
-
-    Ofen ofen1(400, 400, font);
+    
+    Ofen ofen1(42, font, &spieler1);
     ofen1.setTexture(&placeholder);
-    ofen1.addItem(fertigesItem1);
-    ofen1.addItem(fertigesItem2);
 
-    Item* testItem = new Item("Test", placeholder);
-
-    Mapelement theke(16);
-    theke.setTexture(&theke01);
-
-    Fenster theke_fenster("Theke Fenster", font);
-    theke.setOnClick([&theke_fenster, &isPlayerInRadiusZuTheke]() {
-        if (isPlayerInRadiusZuTheke)
-            theke_fenster.setVisible(true);
-        });
-
-    theke_fenster.addButton(910, 390, 100, 40, "Gib Test Item!", sf::Color::Cyan, sf::Color::Black, [&spieler1, &testItem]() {
-        spieler1.addItem(testItem, 1);
-        });
-
-    Mapelement herd(15);
-    herd.setTexture(&kgTexture);
-    herd.setScale(1.0f);
-
-    Fenster herd_fenster("Herd Fenster", font);
-    herd.setOnClick([&herd_fenster, &isPlayerInRadiusZuHerd]() {
-        if (isPlayerInRadiusZuHerd)
-            herd_fenster.setVisible(true);
-        });
-
-    herd_fenster.addButton(910, 390, 100, 40, "Rezept 1", sf::Color::Cyan, sf::Color::Black, []() {
-        cout << "Rezept 1 gewaehlt!" << endl;
-        });
-    herd_fenster.addButton(910, 490, 100, 40, "Rezept 2", sf::Color::Magenta, sf::Color::Black, []() {
-        cout << "Rezept 2 gewaehlt!" << endl;
-        });
-
+    cout << "Spieler ist: " << &spieler1 << endl;
+    cout << "Ofen Inventar ist: " << ofen1.getDevInventar() << endl;
+ 
+  
     Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
     buttonMusikStart.setOnClick([soundManager]() {
         cout << "Musik wird gestartet." << endl;
@@ -125,12 +103,54 @@ int main()
             soundManager->playHintergrundMusik();
         });
 
+
+    // Starte die Musik und gib diesen Text in Konsole aus
+    buttonMusikStart.setOnClick
+    ([soundManager]
+        {
+            cout << "Musik wird gestartet." << endl;
+            soundManager->getMeinSound().play(); // Spiele den Button-Klick-Sound ab
+
+
+            // nur wenn Musik nicht schon spielt
+            if (soundManager->isMusicPlaying()) // ÃberprÃ¼fen, ob Musik spielt
+            {
+                cout << "Die Musik spielt bereits." << endl;
+            }
+            else
+            {
+                soundManager->playHintergrundMusik(); // Starte die Musik
+            }
+        }
+    );
+
+
+    // Erstelle Button Stop Musik
+    Button buttonMusikStopp(300, 100, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
+
+    // Stoppe die Musik und gib diesen Text in Konsole aus
+    buttonMusikStopp.setOnClick
+    ([soundManager]
+        {
+            cout << "Musik wird gestoppt." << endl;
+            soundManager->getMeinSound().play(); // Spiele den Button-Klick-Sound ab
+            soundManager->stopHintergrundMusik(); // Stoppe die Musik
+        }
+    );
+
+
+
+    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
+    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
+    spieler1.getPlayerInventar()->addItem(new Item(ItemID::TEIG));
+
     Button buttonMusikStopp(300, 25, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);
     buttonMusikStopp.setOnClick([soundManager]() {
         cout << "Musik wird gestoppt." << endl;
         soundManager->getMeinSound().play();
         soundManager->stopHintergrundMusik();
         });
+
 
     // Fenster & Tür
     Mapelement tuer(1);
@@ -164,20 +184,37 @@ int main()
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
             ofen1.handleEvent(event, window);
-            theke.handleEvent(event, window);
-            herd.handleEvent(event, window);
-            theke_fenster.handleEvent(event, window);
-            herd_fenster.handleEvent(event, window);
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-                spieler1.addItem(fertigesItem1, 0);
         }
+      
 
-        float distanceZuTheke = sqrt(pow(spieler1.getPosition().x - theke.getPositionX(), 2) + pow(spieler1.getPosition().y - theke.getPositionY(), 2));
-        isPlayerInRadiusZuTheke = distanceZuTheke <= radius;
 
-        float distanceZuHerd = sqrt(pow(spieler1.getPosition().x - herd.getPositionX(), 2) + pow(spieler1.getPosition().y - herd.getPositionY(), 2));
         isPlayerInRadiusZuHerd = distanceZuHerd <= radius;
+
+
+        // Spieler bewegen (mit WASD)
+        sf::Vector2f direction(0.f, 0.f);
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) 
+        {
+            direction.y -= 1.f; // Nach oben
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) 
+        {
+            direction.y += 1.f; // Nach unten
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) 
+        {                                                                                        
+            spieler1.setTexture("Texturen & Musik/Char-links.png");
+            direction.x -= 1.f; // Nach links
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) 
+        {
+            spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+        
+            direction.x += 1.f; // Nach rechts
+        }
+        
+        spieler1.move(direction);
 
         sf::Vector2f direction(0.f, 0.f);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) direction.y -= 1.f;
@@ -185,30 +222,22 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { spieler1.setTexture("Texturen & Musik/Char-links.png"); direction.x -= 1.f; }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { spieler1.setTexture("Texturen & Musik/Char-rechts.png"); direction.x += 1.f; }
 
+
         spieler1.move(direction);
 
         window.clear();
         playField->drawSpielfeld(window);
         spieler1.draw(window);
         ofen1.draw(window);
-        theke.draw(window);
-        herd.draw(window);
-        tuer.draw(window);
 
+      
         fensterOben1.draw(window);
-        
-
         fensterUnten1.draw(window);
-     
-
         fensterLinks1.draw(window);
-       
-
         fensterRechts1.draw(window);
-        
 
-        if (theke_fenster.isVisible()) theke_fenster.draw(window);
-        if (herd_fenster.isVisible()) herd_fenster.draw(window);
+
+       
 
         buttonMusikStopp.draw(window);
         buttonMusikStart.draw(window);
@@ -217,5 +246,6 @@ int main()
     }
 
     soundManager->stopHintergrundMusik();
+
     return 0;
 }
