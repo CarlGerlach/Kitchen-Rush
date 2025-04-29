@@ -102,5 +102,9 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 	}
 }
 
+void AuftraegeManager::finishAuftrag(Auftrag* auftrag)
+{
+}
+
 
 
