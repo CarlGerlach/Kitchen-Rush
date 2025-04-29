@@ -249,5 +249,12 @@ int main()
     // Hintergrundmusik stoppen, wenn das Programm beendet wird
     soundManager->stopHintergrundMusik();
 
+
+
+
+
+
+    //Alle Inventare durchgehen und Items löschen (delete item)
+    //Sonst Performance schlecht
     return 0;
 }

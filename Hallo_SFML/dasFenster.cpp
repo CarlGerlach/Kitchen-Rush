@@ -108,6 +108,7 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
 
             for (int i = 0; i < 3; i++)
             {
+                std::cout << i << std::endl;
                 RectangleShape& slot = connectedDeviceSlots[i];
 
                 if (slot.getGlobalBounds().contains(mousePos))
@@ -124,12 +125,11 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
                         cout << "Test 3" << endl;
                         connectedDeviceInventar->removeItem(i);
                         cout << "Test 4" << endl;
-                        item = nullptr;
-                        cout << "Test 5" << endl;
+                        
 
 
-                        cout << "Verbundener: " << connectedPlayer;
-                        cout << "Verbndenes Inventar: " << connectedDeviceInventar;
+                        cout << "Verbundener: " << connectedPlayer << '\n';
+                        cout << "Verbndenes Inventar: " << connectedDeviceInventar << '\n';
 
                     }
                 }

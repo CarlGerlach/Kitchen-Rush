@@ -23,7 +23,6 @@ bool Inventar::removeItem(int slotIndex)
         return false;
     }
 
-    delete slot[slotIndex];
     slot[slotIndex] = nullptr;
     return true;
 }
@@ -43,6 +42,7 @@ Item* Inventar::getItem(int slotIndex) const
 {
     if (slotIndex < 0 || slotIndex >= slotAnzahl)
         return nullptr;
+
     return slot[slotIndex];
 }
 
