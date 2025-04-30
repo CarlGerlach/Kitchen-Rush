@@ -147,6 +147,7 @@
     <ClCompile Include="Knopf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapelement.cpp" />
+    <ClCompile Include="Mixer.cpp" />
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Ofen.cpp" />
     <ClCompile Include="PauseManager.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
     <ClCompile Include="StartScreen.cpp" />
+    <ClCompile Include="Storage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuftraegeManager.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Knopf.h" />
     <ClInclude Include="Mapelement.h" />
+    <ClInclude Include="Mixer.h" />
     <ClInclude Include="mySound.h" />
     <ClInclude Include="Ofen.h" />
     <ClInclude Include="PauseManager.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
     <ClInclude Include="StartScreen.h" />
+    <ClInclude Include="Storage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

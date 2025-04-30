@@ -14,7 +14,13 @@
 #include "Mapelement.h"
 #include "GeraetBase.h"
 #include "Ofen.h"
+
+#include "Storage.h"
+#include "Mixer.h"
+
+
 #include "PauseManager.h"
+
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
 
@@ -23,6 +29,7 @@ using namespace sf;
 
 int main()
 {
+    
     //Fenster erstellen-
     RenderWindow window(VideoMode(1920, 1080), "Kitchen Rush");
     window.setFramerateLimit(60);
@@ -63,9 +70,20 @@ int main()
 
     // Ofen
     Ofen ofen1(42, font, &spieler1);
+
+    ofen1.setTexture(&placeholder);        
+
+    Storage storage1(56, font, &spieler1);
+    storage1.setTexture(&placeholder);
+
+    Mixer mixer1(38, font, &spieler1);
+    mixer1.setTexture(&placeholder);
+
+
     ofen1.setTexture(&placeholder);
     ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
     ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
+
 
     // Hintergrund-Bild fürs Pausenmenü laden
     Texture backgroundTexture;
@@ -93,54 +111,74 @@ int main()
 
     Clock clock;
 
-    while (window.isOpen()) 
+    while (window.isOpen())
     {
-        
+
         Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
+            if (event.type == Event::Closed) {
                 window.close();
-            pauseManager.handleInput(event, window);
 
-            if (!pauseManager.isPaused()) {
-                ofen1.handleEvent(event, window);
-            }
-        }
-           
-
-            if (!pauseManager.isPaused()) {
-                Vector2f direction(0.f, 0.f);
-
-                if (Keyboard::isKeyPressed(Keyboard::W)) direction.y -= 1.f;
-                if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
-                if (Keyboard::isKeyPressed(Keyboard::A)) {
-                    direction.x -= 1.f;
-                    spieler1.setTexture("Texturen & Musik/Char-links.png");
-                }
-                if (Keyboard::isKeyPressed(Keyboard::D)) {
-                    direction.x += 1.f;
-                    spieler1.setTexture("Texturen & Musik/Char-rechts.png");
-                }
-
-                spieler1.move(direction);
-                
             }
 
-            window.clear();
 
             if (pauseManager.isPaused()) {
-                window.draw(backgroundSprite);
-            }
-            else {
-                playField->drawSpielfeld(window);
-                spieler1.draw(window);
-                ofen1.draw(window);
+                pauseManager.handleInput(event, window);
+
             }
 
-            pauseManager.draw(window);
-            window.display();
-        
+            if (!pauseManager.isPaused()) {
+
+                ofen1.handleEvent(event, window);
+                storage1.handleEvent(event, window);
+                mixer1.handleEvent(event, window);
+
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    // Nur pausieren/fortsetzen, wenn das Spiel nicht bereits in der Pause ist
+                    pauseManager.handleInput(event, window);
+                }
+
+            }
+
+        }
+
+
+        if (!pauseManager.isPaused()) {
+            Vector2f direction(0.f, 0.f);
+
+            if (Keyboard::isKeyPressed(Keyboard::W)) direction.y -= 1.f;
+            if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
+            if (Keyboard::isKeyPressed(Keyboard::A)) {
+                direction.x -= 1.f;
+                spieler1.setTexture("Texturen & Musik/Char-links.png");
+            }
+            if (Keyboard::isKeyPressed(Keyboard::D)) {
+                direction.x += 1.f;
+                spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+            }
+
+            spieler1.move(direction);
+
+        }
+
+        window.clear();
+
+        if (pauseManager.isPaused()) {
+            window.draw(backgroundSprite);
+        }
+        else {
+            playField->drawSpielfeld(window);
+            spieler1.draw(window);
+            ofen1.draw(window);
+            storage1.draw(window);
+            mixer1.draw(window);
+            auftraegeManager.draw(window);
+        }
+
+        pauseManager.draw(window);
+        window.display();
+
     }
 
     soundManager->stopHintergrundMusik();
