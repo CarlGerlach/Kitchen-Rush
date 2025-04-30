@@ -23,12 +23,29 @@ using namespace sf;
 
 int main()
 {
+    //Fenster erstellen------------------------------------------------------------------------
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "Kitchen Rush");
     window.setFramerateLimit(60);
 
+
+    //Alles was geladen wird--------------------------------------------------------------------
     sf::Font font;
     if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
         return -1;
+
+    sf::Texture placeholder;
+    placeholder.loadFromFile("Texturen & Musik/temp.png");
+
+    sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
+
+    mySound* soundManager = new mySound();  //Das und folgende Zeilen als eine Funktion
+    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
+    {
+        soundManager->setMusicLautstaerke(10.0f);
+        soundManager->playHintergrundMusik();
+    }
+
 
     // Starte Startscreen
     StartScreen startScreen;
@@ -40,28 +57,13 @@ int main()
 
     //Erstellt SPielfeld
     Spielfeld* playField = new Spielfeld();
-    mySound* soundManager = new mySound();
 
-    sf::Texture placeholder;
-    placeholder.loadFromFile("Texturen & Musik/temp.png");
-
-
-
-
-    sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
-
-    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg"))
-    {
-        soundManager->setMusicLautstaerke(10.0f);
-        soundManager->playHintergrundMusik();
-    }
+    
     
     Ofen ofen1(42, font, &spieler1);
     ofen1.setTexture(&placeholder);
 
-    cout << "Spieler ist: " << &spieler1 << endl;
-    cout << "Ofen Inventar ist: " << ofen1.getDevInventar() << endl;
+
  
   
     Button buttonMusikStart(550, 25, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
