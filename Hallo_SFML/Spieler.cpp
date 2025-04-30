@@ -43,46 +43,43 @@ void Spieler::setTexture(sf::Texture* newTexture)
 void Spieler::draw(sf::RenderWindow& window) {
     window.draw(shape);
 
-    // Bildschirmbreite neu berechnen für eine dynamische Mitte
-    float screenWidth = window.getSize().x;
-    float slotSize = 50.f;  // Größe eines Inventarslots
-    float spacing = 10.f;   // Abstand zwischen Slots
-    float totalWidth = 5 * slotSize + 4 * spacing;
-    float startXPos = (screenWidth - totalWidth) / 2.f;  // Inventar mittig platzieren
-    float startYPos = window.getSize().y - slotSize - 20.f;  // Inventar am unteren Rand platzieren
+    // Hole die aktuelle View
+    sf::View view = window.getView();
+    sf::Vector2f viewSize = view.getSize();
+    sf::Vector2f viewCenter = view.getCenter();
 
-    for (int i = 0; i < 5; i++) 
+    // Inventar zentriert am unteren Rand der sichtbaren View platzieren
+    float slotSize = 50.f;
+    float spacing = 10.f;
+    float totalWidth = 5 * slotSize + 4 * spacing;
+
+    // Neue Position basierend auf View
+    float startXPos = viewCenter.x - viewSize.x / 2.f + (viewSize.x - totalWidth) / 2.f;
+    float startYPos = viewCenter.y + viewSize.y / 2.f - slotSize - 100.f;
+
+    for (int i = 0; i < 5; i++)
     {
-       
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         window.draw(inventarSlots[i]);
 
-      
         if (inventar->getItem(i) != nullptr) {
             sf::Sprite sprite = inventar->getItem(i)->getSprite();
 
-        
-
-            // Berechne die Skalierung des Sprites basierend auf der Slot-Größe
             float scaleX = inventarSlots[i].getSize().x / sprite.getTexture()->getSize().x;
             float scaleY = inventarSlots[i].getSize().y / sprite.getTexture()->getSize().y;
-
-            // Setze die Skalierung des Sprites, um in den Slot zu passen
             sprite.setScale(scaleX, scaleY);
 
-            // Berechne die Mitte des Slots und setze das Sprite in die Mitte des Slots
             sf::Vector2f slotPos = inventarSlots[i].getPosition();
-            sf::Vector2f slotCenter = sf::Vector2f(slotPos.x + inventarSlots[i].getSize().x / 2.f,
-                slotPos.y + inventarSlots[i].getSize().y / 2.f);
+            sf::Vector2f slotCenter = sf::Vector2f(
+                slotPos.x + inventarSlots[i].getSize().x / 2.f,
+                slotPos.y + inventarSlots[i].getSize().y / 2.f
+            );
 
-            // Berechne die Größe des Sprites und zentriere es
             sf::Vector2f spriteSize = sf::Vector2f(sprite.getTexture()->getSize());
-            spriteSize *= sprite.getScale().x;  // Berücksichtige die Skalierung
+            spriteSize *= sprite.getScale().x;
 
             sprite.setPosition(slotCenter.x - spriteSize.x / 2.f, slotCenter.y - spriteSize.y / 2.f);
-
-            window.draw(sprite);  // Zeichne das Sprite im Slot
-
+            window.draw(sprite);
         }
     }
 }
