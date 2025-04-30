@@ -6,7 +6,8 @@ Item::Item(ItemID id): id(id)
     setupItem(); // Direkt beim Erstellen alle Werte setzen
 }
 
-void Item::setupItem() {
+void Item::setupItem() 
+{
     switch (id) {
     case ItemID::WASSER:
         name = "Wasser";

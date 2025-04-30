@@ -14,7 +14,13 @@
 #include "Mapelement.h"
 #include "GeraetBase.h"
 #include "Ofen.h"
+
+#include "Storage.h"
+#include "Mixer.h"
+
+
 #include "PauseManager.h"
+
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
 
@@ -64,9 +70,20 @@ int main()
 
     // Ofen
     Ofen ofen1(42, font, &spieler1);
+
+    ofen1.setTexture(&placeholder);        
+
+    Storage storage1(56, font, &spieler1);
+    storage1.setTexture(&placeholder);
+
+    Mixer mixer1(38, font, &spieler1);
+    mixer1.setTexture(&placeholder);
+
+
     ofen1.setTexture(&placeholder);
     ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
     ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
+
 
     // Hintergrund-Bild fürs Pausenmenü laden
     Texture backgroundTexture;
@@ -105,9 +122,19 @@ int main()
                
             }
 
+
+            buttonMusikStopp.handleEvent(event, window);
+            buttonMusikStart.handleEvent(event, window);
+            ofen1.handleEvent(event, window);
+            storage1.handleEvent(event, window);
+            mixer1.handleEvent(event, window);
+        }
+      
+
            
             if (pauseManager.isPaused()) {
                 pauseManager.handleInput(event, window);
+
 
             }
 
@@ -123,6 +150,27 @@ int main()
             }
            
         }
+   
+        spieler1.move(direction);
+
+
+
+       
+
+        window.clear();
+        playField->drawSpielfeld(window);
+        spieler1.draw(window);
+
+        //Draw der Küchengeräte
+        ofen1.draw(window);
+        storage1.draw(window);
+        mixer1.draw(window);
+
+      
+
+		auftraegeManager.draw(window);
+
+
            
 
             if (!pauseManager.isPaused()) {
@@ -142,6 +190,7 @@ int main()
                 spieler1.move(direction);
                 
             }
+
 
             window.clear();
 
