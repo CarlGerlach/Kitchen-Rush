@@ -62,11 +62,15 @@ void Spieler::draw(sf::RenderWindow& window) {
 
     for (int i = 0; i < 5; i++) 
     {
+        cout << "Test1" << endl;
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         window.draw(inventarSlots[i]);
 
+        cout << "Test2" << endl;
         if (inventar->getItem(i) != nullptr) {
             sf::Sprite sprite = inventar->getItem(i)->getSprite();
+
+            cout << "Test3" << endl;
 
             // Berechne die Skalierung des Sprites basierend auf der Slot-Größe
             float scaleX = inventarSlots[i].getSize().x / sprite.getTexture()->getSize().x;
