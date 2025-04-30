@@ -145,11 +145,17 @@ int main()
             if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
             if (Keyboard::isKeyPressed(Keyboard::A)) {
                 direction.x -= 1.f;
-                spieler1.setTexture("Texturen & Musik/Char-links.png");
+                if (!spieler1.isLookingLeft()) {
+                    spieler1.setTexture("Texturen & Musik/Char-links.png");
+                    spieler1.setLookingLeft(true);
+                }
             }
             if (Keyboard::isKeyPressed(Keyboard::D)) {
                 direction.x += 1.f;
-                spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+                if (!spieler1.isLookingRight()) {
+                    spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+                    spieler1.setLookingRight(true);
+                }
             }
 
             spieler1.move(direction);

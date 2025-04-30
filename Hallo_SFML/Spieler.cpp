@@ -144,3 +144,26 @@ void Spieler::addPoints(int ini_points)
 {
     points += ini_points;
 }
+
+void Spieler::setLookingLeft(bool lookingleft)
+{
+    lookingRight = false;
+	lookingLeft = lookingleft;
+}
+
+void Spieler::setLookingRight(bool lookingright)
+{
+    lookingLeft = false;
+	lookingRight = lookingright;
+}
+
+bool Spieler::isLookingLeft()
+{
+    return lookingLeft;
+}
+
+bool Spieler::isLookingRight()
+{
+	return lookingRight;
+}
+
