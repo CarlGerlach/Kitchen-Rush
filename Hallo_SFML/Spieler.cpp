@@ -6,6 +6,8 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     this->speed = speed;
     this->bounds = bounds;
     this->points = 0;
+    lookingLeft = false;
+    lookingRight = false;
 
     inventar = new PlayerInventar();
 
