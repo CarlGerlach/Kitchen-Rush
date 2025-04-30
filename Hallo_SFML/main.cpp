@@ -97,19 +97,17 @@ int main()
     {
         
         Event event;
-        while (window.pollEvent(event)) 
+        while (window.pollEvent(event))
         {
             if (event.type == Event::Closed)
                 window.close();
-
-
+            pauseManager.handleInput(event, window);
 
             if (!pauseManager.isPaused()) {
                 ofen1.handleEvent(event, window);
-                // Weitere Ingame-Events hier
-                
             }
-            pauseManager.handleInput(event, window);
+        }
+           
 
             if (!pauseManager.isPaused()) {
                 Vector2f direction(0.f, 0.f);
@@ -126,6 +124,7 @@ int main()
                 }
 
                 spieler1.move(direction);
+                
             }
 
             window.clear();
@@ -141,7 +140,7 @@ int main()
 
             pauseManager.draw(window);
             window.display();
-        }
+        
     }
 
     soundManager->stopHintergrundMusik();

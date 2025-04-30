@@ -29,7 +29,7 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
             paused = false;
         }
     }
-	cout << "test" << endl;
+	
     
        buttonResume->handleEvent(event, window);  
        buttonMusicStart->handleEvent(event, window);  
@@ -40,7 +40,7 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
 
        if (buttonResume->wasClicked())  
        {  
-           cout << "1";
+           
            paused = false;  
        }  
        if (buttonMusicStart->wasClicked())  
