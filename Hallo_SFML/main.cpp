@@ -113,34 +113,28 @@ int main()
 
     while (window.isOpen())
     {
-
         Event event;
+
         while (window.pollEvent(event))
         {
             if (event.type == Event::Closed) {
                 window.close();
-
             }
 
+            // ESC soll jederzeit die Pause toggeln
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                pauseManager.togglePause();  // eine Methode, die Pause-Status umschaltet
+                continue; // alle weiteren Events ignorieren in diesem Frame
+            }
 
             if (pauseManager.isPaused()) {
                 pauseManager.handleInput(event, window);
-
             }
-
-            if (!pauseManager.isPaused()) {
-
+            else {
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
-
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                    // Nur pausieren/fortsetzen, wenn das Spiel nicht bereits in der Pause ist
-                    pauseManager.handleInput(event, window);
-                }
-
             }
-
         }
 
 

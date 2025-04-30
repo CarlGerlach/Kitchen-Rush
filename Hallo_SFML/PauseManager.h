@@ -33,4 +33,14 @@ public:
     void setPaused(bool paused) {
 		this->paused = paused;
 	}
+		
+    void togglePause() {
+        if (paused == 0) {
+			paused = 1;
+		}
+        else {
+			paused = 0;
+		}
+	}
+		
 };
