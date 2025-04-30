@@ -6,6 +6,8 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     this->speed = speed;
     this->bounds = bounds;
     this->points = 0;
+    lookingLeft = false;
+    lookingRight = false;
 
     inventar = new PlayerInventar();
 
@@ -144,3 +146,26 @@ void Spieler::addPoints(int ini_points)
 {
     points += ini_points;
 }
+
+void Spieler::setLookingLeft(bool lookingleft)
+{
+    lookingRight = false;
+	lookingLeft = lookingleft;
+}
+
+void Spieler::setLookingRight(bool lookingright)
+{
+    lookingLeft = false;
+	lookingRight = lookingright;
+}
+
+bool Spieler::isLookingLeft()
+{
+    return lookingLeft;
+}
+
+bool Spieler::isLookingRight()
+{
+	return lookingRight;
+}
+

@@ -135,34 +135,28 @@ int main()
 
     while (window.isOpen())
     {
-
         Event event;
+
         while (window.pollEvent(event))
         {
             if (event.type == Event::Closed) {
                 window.close();
-
             }
 
+            // ESC soll jederzeit die Pause toggeln
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                pauseManager.togglePause();  // eine Methode, die Pause-Status umschaltet
+                continue; // alle weiteren Events ignorieren in diesem Frame
+            }
 
             if (pauseManager.isPaused()) {
                 pauseManager.handleInput(event, window);
-
             }
-
-            if (!pauseManager.isPaused()) {
-
+            else {
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
-
-                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-                    // Nur pausieren/fortsetzen, wenn das Spiel nicht bereits in der Pause ist
-                    pauseManager.handleInput(event, window);
-                }
-
             }
-
         }
 
         if (!pauseManager.isPaused()) {
@@ -172,11 +166,18 @@ int main()
             if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
             if (Keyboard::isKeyPressed(Keyboard::A)) {
                 direction.x -= 1.f;
+
                 spieler1.setTexture("Texturen & Musik/char-links.png");
+            }
+           
             }
             if (Keyboard::isKeyPressed(Keyboard::D)) {
                 direction.x += 1.f;
-                spieler1.setTexture("Texturen & Musik/char-rechts.png");
+                if (!spieler1.isLookingRight()) {
+                    spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+                    spieler1.setLookingRight(true);
+                }
+
             }
 
             spieler1.move(direction);

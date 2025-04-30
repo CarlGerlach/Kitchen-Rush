@@ -20,6 +20,8 @@ private:
     // Grafische Elemente für das Inventar
     sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
     sf::Font font;                      // Schriftart für Item-Anzahl
+    bool lookingLeft;
+    bool lookingRight;
     
 
 public:
@@ -45,4 +47,10 @@ public:
 
     int getPoints();
     void addPoints(int ini_points);
+
+    void setLookingLeft(bool lookingleft);
+    void setLookingRight(bool lookingright);
+
+    bool isLookingLeft();
+    bool isLookingRight();
 };
