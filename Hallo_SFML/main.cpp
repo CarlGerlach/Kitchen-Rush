@@ -34,7 +34,7 @@ int main()
         return -1;
 
     sf::Texture placeholder;
-    placeholder.loadFromFile("Texturen & Musik/temp.png");
+    placeholder.loadFromFile("Texturen & Musik/Ofen.png");
 
     sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
