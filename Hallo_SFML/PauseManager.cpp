@@ -88,7 +88,7 @@ void PauseManager::draw(sf::RenderWindow& window)
    }  
 }  
 
-bool PauseManager::isPaused() const  
+bool PauseManager::isPaused()   
 {  
    return paused;  
 }

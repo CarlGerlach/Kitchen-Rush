@@ -49,11 +49,11 @@ void mySound::setMusicLautstaerke(bool volume)
 {
 	if (volume == 0)
 	{
-		lautstärke -= 1.f;
+		lautstärke -= 5.f;
 	}
 	else
 	{
-		lautstärke += 1.f;
+		lautstärke += 5.f;
 	}
 	hintergrundMusik.setVolume(lautstärke);
 }

@@ -102,9 +102,10 @@ void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window)
         sf::Vector2i mousePos = sf::Mouse::getPosition(window);
         if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
         {
+            clicked = true;
             if (onClick)
             {
-                clicked = true;
+               
                 if (soundOfButton != nullptr)
                 {
                     soundOfButton->getMeinSound().play();

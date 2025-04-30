@@ -24,5 +24,5 @@ public:
 
     void handleInput(const sf::Event& event, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
-    bool isPaused() const;
+    bool isPaused() ;
 };
