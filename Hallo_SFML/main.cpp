@@ -23,6 +23,7 @@ using namespace sf;
 
 int main()
 {
+    
     //Fenster erstellen-
     RenderWindow window(VideoMode(1920, 1080), "Kitchen Rush");
     window.setFramerateLimit(60);
@@ -99,13 +100,28 @@ int main()
         Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
+            if (event.type == Event::Closed){
                 window.close();
-            pauseManager.handleInput(event, window);
+               
+            }
+
+           
+            if (pauseManager.isPaused()) {
+                pauseManager.handleInput(event, window);
+
+            }
 
             if (!pauseManager.isPaused()) {
+                
                 ofen1.handleEvent(event, window);
+
+                if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                    // Nur pausieren/fortsetzen, wenn das Spiel nicht bereits in der Pause ist
+                    pauseManager.handleInput(event, window);
+                }
+
             }
+           
         }
            
 
@@ -136,6 +152,7 @@ int main()
                 playField->drawSpielfeld(window);
                 spieler1.draw(window);
                 ofen1.draw(window);
+                auftraegeManager.draw(window);
             }
 
             pauseManager.draw(window);

@@ -5,8 +5,12 @@
 #include "mySound.h"
 
 class PauseManager {
-private:
+public:
     bool paused;
+private:
+
+    
+
     sf::RectangleShape overlay;
     sf::Font font;
 
@@ -25,4 +29,8 @@ public:
     void handleInput(const sf::Event& event, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
     bool isPaused() ;
+
+    void setPaused(bool paused) {
+		this->paused = paused;
+	}
 };
