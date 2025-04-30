@@ -68,6 +68,9 @@ int main()
         return -1;
     }
 
+
+
+
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
@@ -164,14 +167,19 @@ int main()
 
             if (Keyboard::isKeyPressed(Keyboard::W)) direction.y -= 1.f;
             if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
-            if (Keyboard::isKeyPressed(Keyboard::A)) {
+            if (Keyboard::isKeyPressed(Keyboard::A))
+            {
                 direction.x -= 1.f;
+                if(!spieler1.isLookingLeft())
+                {
 
                 spieler1.setTexture("Texturen & Musik/char-links.png");
-            }
+                spieler1.setLookingLeft(true);
+                }
            
             }
-            if (Keyboard::isKeyPressed(Keyboard::D)) {
+            if (Keyboard::isKeyPressed(Keyboard::D)) 
+            {
                 direction.x += 1.f;
                 if (!spieler1.isLookingRight()) {
                     spieler1.setTexture("Texturen & Musik/Char-rechts.png");
