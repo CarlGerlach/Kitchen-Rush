@@ -21,10 +21,23 @@ Button::Button(float x, float y, float width, float height, const std::string& l
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
     text.setPosition(x + width / 2.0f, y + height / 2.0f);
-
     soundOfButton = ini_soundOfButton;
 
+    clicked = false;
 }
+
+
+// Definition der Funktion wasClicked  
+bool Button::wasClicked() {
+    if (clicked) {
+        clicked = false;
+        return true;
+    }
+    return false;
+}
+    
+
+
 
 /*
 Button::Button(int gridNumber)
@@ -91,6 +104,7 @@ void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window)
         {
             if (onClick)
             {
+                clicked = true;
                 if (soundOfButton != nullptr)
                 {
                     soundOfButton->getMeinSound().play();

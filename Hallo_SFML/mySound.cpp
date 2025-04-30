@@ -10,6 +10,8 @@ mySound::mySound()
     }
     
     meinSound.setBuffer(buffer);
+
+	lautstärke = 10.f; // Standardlautstärke
 }
 
 Sound& mySound::getMeinSound()
@@ -43,8 +45,16 @@ bool mySound::isMusicPlaying() const
     return hintergrundMusik.getStatus() == sf::Music::Playing;
 }
 
-void mySound::setMusicLautstaerke(float volume)
+void mySound::setMusicLautstaerke(bool volume)
 {
-    hintergrundMusik.setVolume(volume);
+	if (volume == 0)
+	{
+		lautstärke -= 1.f;
+	}
+	else
+	{
+		lautstärke += 1.f;
+	}
+	hintergrundMusik.setVolume(lautstärke);
 }
 

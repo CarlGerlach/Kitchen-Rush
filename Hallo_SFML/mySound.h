@@ -14,7 +14,10 @@ private:
 	sf::Sound meinSound;
 	sf::SoundBuffer buffer; //Speichert sounds, dass diese Später nicht neu geladen werden müssen
 	sf::Music hintergrundMusik; // Für Hintergrundmusik
+	mySound *soundManager;
+	bool volume; // 0= weniger 1= mehr
 
+	float lautstärke;
 public:
 	mySound();
 	Sound& getMeinSound();
@@ -24,9 +27,12 @@ public:
 	void stopHintergrundMusik(); // Stoppt die Hintergrundmusik
 	bool isMusicPlaying() const; // Checkt den Status ob die Musik schon spielt
 
-	void setMusicLautstaerke(float volume); // Lautstärke der Hintergrundmusik setzen
+	void setMusicLautstaerke(bool volume); // Lautstärke der Hintergrundmusik setzen
 
-
+	float getMusicLautstaerke() const // Gibt die Lautstärke der Hintergrundmusik zurück
+	{
+		return lautstärke;
+	}
 
 
 };

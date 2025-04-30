@@ -1,18 +1,28 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 
-class PauseManager
-{
+#include <SFML/Graphics.hpp>
+#include "Button.h"
+#include "mySound.h"
+
+class PauseManager {
 private:
     bool paused;
     sf::RectangleShape overlay;
-    sf::Text pauseText;
+    sf::Font font;
+
+    Button* buttonResume;
+    Button* buttonMusicStart;
+    Button* buttonMusicStop;
+    Button* buttonVolumeUp;
+    Button* buttonVolumeDown;
+    Button* buttonExit;
+
+    mySound* soundManager; // SoundManager speichern
 
 public:
-    PauseManager(const sf::Vector2u& windowSize, const sf::Font& font);
+    PauseManager(const sf::Vector2u& windowSize, mySound* soundManager);
 
-    void handleInput(const sf::Event& event);
-    bool isPaused() const;
-
+    void handleInput(const sf::Event& event, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
+    bool isPaused() const;
 };

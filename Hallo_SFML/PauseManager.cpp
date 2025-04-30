@@ -1,41 +1,94 @@
-#include "PauseManager.h"
+#include "PauseManager.h"  
+#include "Button.h"  
+#include <iostream>  
 
-PauseManager::PauseManager(const sf::Vector2u& windowSize, const sf::Font& font)
-    : paused(false)
-{
-    overlay.setSize(sf::Vector2f(windowSize));
-    overlay.setFillColor(sf::Color(0, 0, 0, 150)); // halbtransparentes Schwarz
+PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr)  
+   : paused(false), soundManager(soundMgr)  
+{  
+   overlay.setSize(sf::Vector2f(windowSize));  
+   overlay.setFillColor(sf::Color(0, 0, 0, 150)); // halbtransparent schwarz  
 
-    pauseText.setFont(font);
-    pauseText.setString("PAUSIERT");
-    pauseText.setCharacterSize(100);
-    pauseText.setFillColor(sf::Color::White);
-    pauseText.setStyle(sf::Text::Bold);
+   font.loadFromFile("Texturen & Musik/arial.ttf"); // Lade Schrift  
 
-    // Zentriere den Text
-    sf::FloatRect textRect = pauseText.getLocalBounds();
-    pauseText.setOrigin(textRect.width / 2, textRect.height / 2);
-    pauseText.setPosition(windowSize.x / 2.f, windowSize.y / 2.f);
-}
+   buttonResume = new Button(860, 300, 200, 50, "Fortsetzen", font, sf::Color::Green, sf::Color::White, soundManager);  
+   buttonMusicStart = new Button(860, 370, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);  
+   buttonMusicStop = new Button(860, 440, 200, 50, "Musik Stop", font, sf::Color::Blue, sf::Color::White, soundManager);  
+   buttonVolumeUp = new Button(860, 510, 200, 50, "Lauter", font, sf::Color::Yellow, sf::Color::Black, soundManager);  
+   buttonVolumeDown = new Button(860, 580, 200, 50, "Leiser", font, sf::Color::Yellow, sf::Color::Black, soundManager);  
+   buttonExit = new Button(860, 650, 200, 50, "Beenden", font, sf::Color::Red, sf::Color::White, soundManager);  
+}  
 
-void PauseManager::handleInput(const sf::Event& event)
-{
+void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)  
+{  
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-        paused = !paused;
+        // Nur pausieren/fortsetzen, wenn das Spiel nicht bereits in der Pause ist
+        if (!paused) {
+            paused = true;
+        }
+        else {
+            paused = false;
+        }
     }
-}
+	cout << "test" << endl;
+    
+       buttonResume->handleEvent(event, window);  
+       buttonMusicStart->handleEvent(event, window);  
+       buttonMusicStop->handleEvent(event, window);  
+       buttonVolumeUp->handleEvent(event, window);  
+       buttonVolumeDown->handleEvent(event, window);  
+       buttonExit->handleEvent(event, window);  
 
-bool PauseManager::isPaused() const
-{
-    return paused;
-}
+       if (buttonResume->wasClicked())  
+       {  
+           cout << "1";
+           paused = false;  
+       }  
+       if (buttonMusicStart->wasClicked())  
+       {  
+           if (!soundManager->isMusicPlaying())  
+               soundManager->playHintergrundMusik();  
+       }  
+       if (buttonMusicStop->wasClicked())  
+       {  
+           soundManager->stopHintergrundMusik();  
+       }  
+       if (buttonVolumeUp->wasClicked())  
+       {  
+           float vol = soundManager->getMusicLautstaerke();  
+            
+           soundManager->setMusicLautstaerke(1);  
+           std::cout << "Lautstärke: " << vol << "%" << std::endl;  
+       }  
+       if (buttonVolumeDown->wasClicked())  
+       {  
+           float vol = soundManager->getMusicLautstaerke();  
+            
+           soundManager->setMusicLautstaerke(0);  
+           std::cout << "Lautstärke: " << vol << "%" << std::endl;  
+       }  
+       if (buttonExit->wasClicked())  
+       {  
+           window.close();  
+       }  
+     
+}  
 
-void PauseManager::draw(sf::RenderWindow& window)
-{
-    if (paused)
-    {
-        window.draw(overlay);
-        window.draw(pauseText);
-    }
-}
+void PauseManager::draw(sf::RenderWindow& window)  
+{  
+   if (paused)  
+   {  
+       window.draw(overlay);  
 
+       buttonResume->draw(window);  
+       buttonMusicStart->draw(window);  
+       buttonMusicStop->draw(window);  
+       buttonVolumeUp->draw(window);  
+       buttonVolumeDown->draw(window);  
+       buttonExit->draw(window);  
+   }  
+}  
+
+bool PauseManager::isPaused() const  
+{  
+   return paused;  
+}
