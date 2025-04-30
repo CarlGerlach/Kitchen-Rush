@@ -15,19 +15,57 @@
 #include "GeraetBase.h"
 #include "Ofen.h"
 #include "PauseManager.h"
+#include "Auftrag.h"
+#include "AuftraegeManager.h"
 
 using namespace std;
 using namespace sf;
 
 int main()
 {
-	
+    //Fenster erstellen-
     RenderWindow window(VideoMode(1920, 1080), "Kitchen Rush");
     window.setFramerateLimit(60);
 
+
+    //Alles was geladen wird
     Font font;
     if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
         return -1;
+
+    Texture placeholder;
+    if (!placeholder.loadFromFile("Texturen & Musik/Ofen.png")) {
+        cerr << "Fehler beim Laden der Placeholder-Textur!" << endl;
+        return -1;
+    }
+
+    // Spielfeldbegrenzung und Spieler
+    FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
+
+    //Sound
+    mySound* soundManager = new mySound();
+    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
+        soundManager->setMusicLautstaerke(10.f);
+        soundManager->playHintergrundMusik();
+    }
+    else {
+        cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
+    }
+
+    // Startscreen
+    StartScreen startScreen;
+    if (!startScreen.run(window))
+        return 0;
+
+    // Spielfeld
+    Spielfeld* playField = new Spielfeld();
+
+    // Ofen
+    Ofen ofen1(42, font, &spieler1);
+    ofen1.setTexture(&placeholder);
+    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
+    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
 
     // Hintergrund-Bild fürs Pausenmenü laden
     Texture backgroundTexture;
@@ -41,55 +79,26 @@ int main()
         (float)window.getSize().y / backgroundTexture.getSize().y
     );
 
-    // Startscreen
-    StartScreen startScreen;
-    if (!startScreen.run(window))
-        return 0;
+    
+    AuftraegeManager auftraegeManager(&font);
+    auftraegeManager.setText("Auftraege:\n");
 
-    // Texturen
-    Texture* brickWall = new Texture();
-    Texture* floor = new Texture();
-    brickWall->loadFromFile("Texturen & Musik/BrickWall.jpg");
-    floor->loadFromFile("Texturen & Musik/Boden.jpg");
 
-    // Spielfeld
-    Spielfeld* playField = new Spielfeld(brickWall, floor);
-
-    // Sound
-    mySound* soundManager = new mySound();
-    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
-        soundManager->setMusicLautstaerke(10.f);
-        soundManager->playHintergrundMusik();
-    }
-    else {
-        cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
-    }
-
-    // Spielfeldbegrenzung und Spieler
-    FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
-
-    // Platzhalter-Textur
-    Texture placeholder;
-    if (!placeholder.loadFromFile("Texturen & Musik/temp.png")) {
-        cerr << "Fehler beim Laden der Placeholder-Textur!" << endl;
-        return -1;
-    }
-
-    // Ofen
-    Ofen ofen1(42, font, spieler1);
-    ofen1.setTexture(&placeholder);
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
+    auftraegeManager.addAuftrag(new Auftrag("Hamburger", 2, 10));
+    auftraegeManager.addAuftrag(new Auftrag("Nudeln", 2, 10));
+    
 
     // PauseManager mit Musiksteuerung
     PauseManager pauseManager(window.getSize(), soundManager);
 
     Clock clock;
 
-    while (window.isOpen()) {
+    while (window.isOpen()) 
+    {
+        
         Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event)) 
+        {
             if (event.type == Event::Closed)
                 window.close();
 
