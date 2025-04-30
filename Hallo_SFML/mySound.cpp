@@ -47,11 +47,11 @@ bool mySound::isMusicPlaying() const
 
 void mySound::setMusicLautstaerke(bool volume)
 {
-	if (volume == 0)
+	if (volume == 0 && lautstärke > 0)
 	{
 		lautstärke -= 5.f;
 	}
-	else
+	else if (volume == 1 && lautstärke<100)
 	{
 		lautstärke += 5.f;
 	}
