@@ -40,8 +40,30 @@ int main()
     if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
         return -1;
 
+    //Ofen
+	Texture ofenTexture;
+    if (!ofenTexture.loadFromFile("Texturen & Musik/Ofen.png")) {
+        cerr << "Fehler beim Laden der Ofen-Textur!" << endl;
+        return -1;
+    }
+    
+    //Lager
+    Texture lagerTexture;
+    if (!lagerTexture.loadFromFile("Texturen & Musik/Lager.png")) {
+        cerr << "Fehler beim Laden der Lager-Textur!" << endl;
+        return -1;
+    }
+
+    //Mixer
+    Texture mixerTexture;
+    if (!mixerTexture.loadFromFile("Texturen & Musik/Mixer.png")) {
+        cerr << "Fehler beim Laden der Mixer-Textur!" << endl;
+        return -1;
+    }
+
+	//Placeholder
     Texture placeholder;
-    if (!placeholder.loadFromFile("Texturen & Musik/Ofen.png")) {
+    if (!placeholder.loadFromFile("Texturen & Musik/temp.png")) {
         cerr << "Fehler beim Laden der Placeholder-Textur!" << endl;
         return -1;
     }
@@ -70,19 +92,19 @@ int main()
 
     // Ofen
     Ofen ofen1(42, font, &spieler1);
+    ofen1.setTexture(&ofenTexture);        
 
-    ofen1.setTexture(&placeholder);        
+	// Lager
+    Storage storage1(182, font, &spieler1);
+    storage1.setTexture(&lagerTexture);
 
-    Storage storage1(56, font, &spieler1);
-    storage1.setTexture(&placeholder);
-
-    Mixer mixer1(38, font, &spieler1);
-    mixer1.setTexture(&placeholder);
+	// Mixer
+    Mixer mixer1(172, font, &spieler1);
+    mixer1.setTexture(&mixerTexture);
 
 
-    ofen1.setTexture(&placeholder);
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
+   
+   
 
 
     // Hintergrund-Bild fürs Pausenmenü laden
@@ -143,7 +165,6 @@ int main()
 
         }
 
-
         if (!pauseManager.isPaused()) {
             Vector2f direction(0.f, 0.f);
 
@@ -151,11 +172,11 @@ int main()
             if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
             if (Keyboard::isKeyPressed(Keyboard::A)) {
                 direction.x -= 1.f;
-                spieler1.setTexture("Texturen & Musik/Char-links.png");
+                spieler1.setTexture("Texturen & Musik/char-links.png");
             }
             if (Keyboard::isKeyPressed(Keyboard::D)) {
                 direction.x += 1.f;
-                spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+                spieler1.setTexture("Texturen & Musik/char-rechts.png");
             }
 
             spieler1.move(direction);
