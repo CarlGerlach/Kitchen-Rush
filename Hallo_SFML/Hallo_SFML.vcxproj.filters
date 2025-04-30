@@ -35,6 +35,10 @@
     <ClCompile Include="DeviceInventar.cpp">
       <Filter>Inventar</Filter>
     </ClCompile>
+    <ClCompile Include="AuftraegeManager.cpp" />
+    <ClCompile Include="Storage.cpp">
+      <Filter>KitchenDevices</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -72,6 +76,10 @@
     </ClInclude>
     <ClInclude Include="DeviceInventar.h">
       <Filter>Inventar</Filter>
+    </ClInclude>
+    <ClInclude Include="AuftraegeManager.h" />
+    <ClInclude Include="Storage.h">
+      <Filter>KitchenDevices</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

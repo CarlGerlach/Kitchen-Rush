@@ -14,6 +14,7 @@
 #include "Mapelement.h"
 #include "GeraetBase.h"
 #include "Ofen.h"
+#include "Storage.h"
 
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
@@ -61,7 +62,10 @@ int main()
     
     
     Ofen ofen1(42, font, &spieler1);
-    ofen1.setTexture(&placeholder);
+    ofen1.setTexture(&placeholder);        
+
+    Storage storage1(56, font, &spieler1);
+    storage1.setTexture(&placeholder);
 
 
  
@@ -112,7 +116,7 @@ int main()
     ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
     ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
     spieler1.getPlayerInventar()->addItem(new Item(ItemID::TEIG));
-
+    cout << "Adresse Storage Inventar in Main" << storage1.getDevInventar() << endl;
     
 
 
@@ -147,6 +151,7 @@ int main()
             buttonMusikStopp.handleEvent(event, window);
             buttonMusikStart.handleEvent(event, window);
             ofen1.handleEvent(event, window);
+            storage1.handleEvent(event, window);
         }
       
 
@@ -185,7 +190,10 @@ int main()
         window.clear();
         playField->drawSpielfeld(window);
         spieler1.draw(window);
+
+        //Draw der Küchengeräte
         ofen1.draw(window);
+        storage1.draw(window);
 
       
 
