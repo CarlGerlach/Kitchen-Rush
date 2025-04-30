@@ -9,7 +9,7 @@ Storage::Storage(int gridnumber, Font& newFont, Spieler* player) : GeraetBase(gr
 void Storage::setupButtons(Font& newFont, Spieler* player)
 {
     dasFenster.addKnopf(
-        "Mehl nehmen",
+        "Nehme Mehl",
         newFont,  // Font übergeben
         [this, player]()
         {
