@@ -99,7 +99,8 @@ void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window)
 {
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
     {
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
         if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
         {
             clicked = true;
