@@ -68,12 +68,25 @@ int main()
         return -1;
     }
 
+	//Texturen für den Spieler nach Links
+    Texture playerLeftTexture;
+    if (!playerLeftTexture.loadFromFile("Texturen & Musik/Char-links.png")) {
+        cerr << "Fehler beim Laden der linken Textur!" << endl;
+        return -1;
+    }
+
+	//Texturen für den Spieler nach Rechts
+    Texture playerRightTexture;
+    if (!playerRightTexture.loadFromFile("Texturen & Musik/Char-rechts.png")) {
+        cerr << "Fehler beim Laden der rechten Textur!" << endl;
+        return -1;
+    }
 
 
 
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
 
     //Sound
     mySound* soundManager = new mySound();
@@ -94,15 +107,15 @@ int main()
     Spielfeld* playField = new Spielfeld();
 
     // Ofen
-    Ofen ofen1(42, font, &spieler1);
+    Ofen ofen1(32, font, &spieler1);
     ofen1.setTexture(&ofenTexture);        
 
 	// Lager
-    Storage storage1(182, font, &spieler1);
+    Storage storage1(12, font, &spieler1);
     storage1.setTexture(&lagerTexture);
 
 	// Mixer
-    Mixer mixer1(172, font, &spieler1);
+    Mixer mixer1(22, font, &spieler1);
     mixer1.setTexture(&mixerTexture);
 
 
@@ -135,6 +148,10 @@ int main()
     PauseManager pauseManager(window.getSize(), soundManager);
 
     Clock clock;
+
+
+    
+
 
     while (window.isOpen())
     {
@@ -173,7 +190,7 @@ int main()
                 if(!spieler1.isLookingLeft())
                 {
 
-                spieler1.setTexture("Texturen & Musik/char-links.png");
+                spieler1.setTexture(&playerLeftTexture);
                 spieler1.setLookingLeft(true);
                 }
            
@@ -182,7 +199,7 @@ int main()
             {
                 direction.x += 1.f;
                 if (!spieler1.isLookingRight()) {
-                    spieler1.setTexture("Texturen & Musik/Char-rechts.png");
+                    spieler1.setTexture(&playerRightTexture);
                     spieler1.setLookingRight(true);
                 }
 

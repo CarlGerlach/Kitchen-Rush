@@ -26,10 +26,10 @@ private:
 
 public:
     // Konstruktor
-    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, const std::string& texturPfad);
+    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture);
 
     // Methode zum Ändern der Textur
-    void setTexture(const std::string& texturPfad);
+    void setTexture(sf::Texture* newTexture);
 
     // Funktion zum Zeichnen des Spielers und Inventars
     void draw(sf::RenderWindow& window);

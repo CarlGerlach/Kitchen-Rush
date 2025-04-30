@@ -1,7 +1,7 @@
 #include "Spieler.h"
 
 // Konstruktor
-Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, const std::string& texturPfad)
+Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture)
 {
     this->speed = speed;
     this->bounds = bounds;
@@ -11,13 +11,7 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
 
     inventar = new PlayerInventar();
 
-
-    if (!texture.loadFromFile(texturPfad)) {
-        std::cerr << "Fehler beim Laden der Textur: " << texturPfad << std::endl;
-        exit(-1);
-    }
-
-    shape.setTexture(&texture);
+    shape.setTexture(newTexture);
     shape.setSize(sf::Vector2f(size, size));
     shape.setPosition(startX, startY);
 
@@ -40,16 +34,11 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
 
 
 // Methode zum Ändern der Textur
-void Spieler::setTexture(const std::string& texturPfad)
+void Spieler::setTexture(sf::Texture* newTexture)
 {
-    if (!texture.loadFromFile(texturPfad)) {
-        std::cerr << "Fehler beim Laden der Textur: " << texturPfad << std::endl;
-    }
-    else 
-    {
-        shape.setTexture(&texture);
-    }
+    shape.setTexture(newTexture);
 }
+
 
 void Spieler::draw(sf::RenderWindow& window) {
     window.draw(shape);
