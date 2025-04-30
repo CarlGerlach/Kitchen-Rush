@@ -39,6 +39,8 @@ public:
     sf::Vector2f getPosition();
 
 
+    PlayerInventar* getPlayerInventar();
+    RectangleShape& getInventarSlots(int slotIndex);
 
 
     int getPoints();

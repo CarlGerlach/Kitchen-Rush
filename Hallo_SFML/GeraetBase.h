@@ -17,6 +17,7 @@ protected:
     Texture* texture;
     dasFenster dasFenster;
     DeviceInventar* devInventar;
+    Spieler* player;
 
     RectangleShape deviceInventarSlots[3]; // 3 Slots für das Gerät-Inventar
     const float slotSize = 50.f;
@@ -25,10 +26,10 @@ protected:
     const float startYPos = 700.f;  // Fest definierte Position von unten
 
 
-    virtual void setupButtons(Font& newFont, Spieler& player) = 0; // Wird von den Unterklassen implementiert
+    virtual void setupButtons(Font& newFont, Spieler* player) = 0; // Wird von den Unterklassen implementiert
 
 public:
-    GeraetBase(int gridnumber);
+    GeraetBase(int gridnumber, Spieler* ini_player);
     virtual ~GeraetBase() {}
 
     void draw(RenderWindow& window);
@@ -37,6 +38,8 @@ public:
     void setTexture(sf::Texture* newTexture);
 
     void setScale(float scale);
+
+    bool isPlayerInRange();
 
     DeviceInventar* getDevInventar();
 

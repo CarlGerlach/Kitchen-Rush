@@ -5,8 +5,9 @@
 class Ofen : public GeraetBase 
 {
 protected:
-    void setupButtons(Font& newFont, Spieler& player) override; // Überschreibt Buttons für den Ofen
+    void setupButtons(Font& newFont, Spieler* player) override; // Überschreibt Buttons für den Ofen
 
 public:
-    Ofen(int Grindnumber, Font& newFont, Spieler& spieler);
+    Ofen(int Grindnumber, Font& newFont, Spieler* spieler);
+    bool makePizza();
 };
