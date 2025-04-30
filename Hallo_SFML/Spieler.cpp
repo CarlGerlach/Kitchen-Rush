@@ -108,7 +108,8 @@ void Spieler::move(sf::Vector2f direction) {
 }
 
 // Zugriff auf die Position
-sf::Vector2f Spieler::getPosition() {
+sf::Vector2f Spieler::getPosition() 
+{
     return shape.getPosition();
 }
 

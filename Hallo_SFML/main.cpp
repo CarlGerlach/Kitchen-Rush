@@ -169,13 +169,18 @@ int main()
                 continue; // alle weiteren Events ignorieren in diesem Frame
             }
 
-            if (pauseManager.isPaused()) {
+            if (pauseManager.isPaused()) 
+            {
                 pauseManager.handleInput(event, window);
             }
-            else {
+            else 
+            {
+                cout << "Test 2 " << endl;
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
-                mixer1.handleEvent(event, window);
+                mixer1.handleEvent(event, window); 
+
+                cout << "Test 3 " << endl;
             }
         }
 
@@ -209,6 +214,8 @@ int main()
 
         }
 
+        //Low key keine Ahnung wieso update, aber es hat das Fenster nicht schnell genug geschlossen, wenn man weggegangen ist deshalb update()
+
         window.clear();
 
         if (pauseManager.isPaused()) {
@@ -216,10 +223,18 @@ int main()
         }
         else {
             playField->drawSpielfeld(window);
+            
             spieler1.draw(window);
+
+            ofen1.update();
             ofen1.draw(window);
+
+            storage1.update();
             storage1.draw(window);
+
+            mixer1.update();
             mixer1.draw(window);
+
             auftraegeManager.draw(window);
         }
 
