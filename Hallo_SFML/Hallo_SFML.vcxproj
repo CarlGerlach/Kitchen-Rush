@@ -147,6 +147,7 @@
     <ClCompile Include="Knopf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapelement.cpp" />
+    <ClCompile Include="Mixer.cpp" />
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Ofen.cpp" />
     <ClCompile Include="PlayerInventar.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Knopf.h" />
     <ClInclude Include="Mapelement.h" />
+    <ClInclude Include="Mixer.h" />
     <ClInclude Include="mySound.h" />
     <ClInclude Include="Ofen.h" />
     <ClInclude Include="PlayerInventar.h" />

@@ -15,6 +15,7 @@
 #include "GeraetBase.h"
 #include "Ofen.h"
 #include "Storage.h"
+#include "Mixer.h"
 
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
@@ -67,6 +68,8 @@ int main()
     Storage storage1(56, font, &spieler1);
     storage1.setTexture(&placeholder);
 
+    Mixer mixer1(38, font, &spieler1);
+    mixer1.setTexture(&placeholder);
 
  
   
@@ -113,10 +116,6 @@ int main()
         }
     );
 
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
-    spieler1.getPlayerInventar()->addItem(new Item(ItemID::TEIG));
-    cout << "Adresse Storage Inventar in Main" << storage1.getDevInventar() << endl;
     
 
 
@@ -152,6 +151,7 @@ int main()
             buttonMusikStart.handleEvent(event, window);
             ofen1.handleEvent(event, window);
             storage1.handleEvent(event, window);
+            mixer1.handleEvent(event, window);
         }
       
 
@@ -194,6 +194,7 @@ int main()
         //Draw der Küchengeräte
         ofen1.draw(window);
         storage1.draw(window);
+        mixer1.draw(window);
 
       
 
