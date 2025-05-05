@@ -3,7 +3,7 @@
 
 class Inventar {
 protected:
-    static const int MAX_SLOTS = 10; // Maximale Anzahl, aus Sicherheitsgründen (chatgpt)
+    static constexpr int MAX_SLOTS = 10; // Maximale Anzahl, aus Sicherheitsgründen (chatgpt)
     Item* slot[MAX_SLOTS]; // (chatgpt)
     int slotAnzahl; // Tatsächliche Slotanzahl
 
