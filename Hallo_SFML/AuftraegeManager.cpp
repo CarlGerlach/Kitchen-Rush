@@ -1,10 +1,10 @@
 #include "AuftraegeManager.h"
 
-AuftraegeManager::AuftraegeManager(sf::Font *font)
+AuftraegeManager::AuftraegeManager(sf::Font font)
 {
 
 
-	text.setFont(*font);
+	text.setFont(font);
 	text.setCharacterSize(20);
 	text.setFillColor(sf::Color::White);
 }
@@ -78,7 +78,7 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 
 	// Überschrift setzen und zeichnen
 	text.setString("Aufträge:");
-	text.setPosition(10, 10);
+	text.setPosition(70, 70);
 	window.draw(text);
 
 	i++; // Damit die Aufträge unter der Überschrift anfangen (z.B. bei 30 Pixel Höhe statt 10)
@@ -86,7 +86,6 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 	// Alle Aufträge durchgehen
 	for (Auftrag* auftrag : alleAuftraege)
 	{
-		
 		text.setPosition(10, 10 + i * 20); // Abstand von 20 Pixel pro Zeile
 		window.draw(text); // Text direkt zeichnen
 		i++;

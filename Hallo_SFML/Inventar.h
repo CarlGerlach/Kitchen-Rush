@@ -17,4 +17,7 @@ public:
     Item* getItem(int slot) const;
     void swapItems(int slotA, Inventar& anderesInventar, int slotB);
     void print();
+
+    void setSlotAnzahl(int ini_newSlotSize);
+    int getSlotAnzahl();
 };

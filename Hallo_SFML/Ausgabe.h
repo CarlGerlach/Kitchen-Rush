@@ -1,15 +1,14 @@
 #pragma once
 #include "GeraetBase.h"
 
-class Storage : public GeraetBase
+class Ausgabe : public GeraetBase
 {
 protected:
 	void setupButtons(Font& newFont, Spieler* player) override;
 
 
 public:
-	Storage(int Grindnumber, Font& newFont, Spieler* player, int ini_inventorySize);
-
+	Ausgabe(int Grindnumber, Font& newFont, Spieler* player, int ini_inventorySize);
+	
 
 };
-

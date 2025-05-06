@@ -18,6 +18,7 @@ enum class ItemID
 
 };
 
+
 class Item 
 {
 private: 
@@ -35,4 +36,6 @@ public:
     void print();
     sf::Sprite& getSprite();
     ItemID getItemID();
+
+   static string enumToString(ItemID ini_id);
 };

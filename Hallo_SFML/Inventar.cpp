@@ -67,3 +67,13 @@ void Inventar::print()
         }
     }
 }
+
+void Inventar::setSlotAnzahl(int ini_newSlotSize)
+{
+    slotAnzahl = ini_newSlotSize;
+}
+
+int Inventar::getSlotAnzahl()
+{
+    return slotAnzahl;
+}

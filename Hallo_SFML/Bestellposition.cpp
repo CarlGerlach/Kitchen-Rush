@@ -1,4 +1,6 @@
 #include "Bestellposition.h"
+#include "Item.h"
+
 
 Bestellposition::Bestellposition(ItemID id, int ini_anzahl)
 {		
@@ -7,12 +9,16 @@ Bestellposition::Bestellposition(ItemID id, int ini_anzahl)
 	case ItemID::PIZZA:
 		position = ItemID::PIZZA;
 		break;
+	case ItemID::SALAT:
+		position = ItemID::SALAT;
+		break;
+	case ItemID::COLA:
+		position = ItemID::COLA;
+		break;
 	default:
 		break;
-
 	}
-
-
+	anzahl = ini_anzahl;
 }
 
 ItemID Bestellposition::getPosition()
@@ -24,3 +30,6 @@ int Bestellposition::getAnzahl()
 {
 	return anzahl;
 }
+
+
+

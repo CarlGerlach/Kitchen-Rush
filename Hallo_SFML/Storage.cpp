@@ -1,6 +1,6 @@
 #include "Storage.h"
 
-Storage::Storage(int gridnumber, Font& newFont, Spieler* player) : GeraetBase(gridnumber, player)
+Storage::Storage(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize) : GeraetBase(gridnumber, player, ini_inventorySize)
 {
 	setupButtons(newFont, player);
 }

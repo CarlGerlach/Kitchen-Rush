@@ -15,7 +15,7 @@ private:
 	sf::Text text; // Das ist der Text, der die Aufträge anzeigt
 
 public:
-	AuftraegeManager(sf::Font *font);
+	AuftraegeManager(sf::Font font);
 	~AuftraegeManager();
 
 	void addAuftrag(Auftrag* auftrag);

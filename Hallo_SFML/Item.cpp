@@ -12,22 +12,22 @@ void Item::setupItem()
     {
     case ItemID::WASSER:
         name = "Wasser";
-        points = 1;
+        //points = 1;
         texture.loadFromFile("Texturen & Musik/Wasser.png"); // Pfad zur Bilddatei
         break;
     case ItemID::MEHL:
         name = "Mehl";
-        points = 1;
+        //points = 1;
         texture.loadFromFile("Texturen & Musik/Mehl.png");
         break;
     case ItemID::TEIG:
         name = "Teig";
-        points = 1;
+        //points = 1;
         texture.loadFromFile("Texturen & Musik/Teig.png");
         break;
     case ItemID::TOMATE:
         name = "Tomate";
-        points = 1;
+        //points = 1;
         texture.loadFromFile("Texturen & Musik/Tomate.png");
         break;
     case ItemID::PIZZA:
@@ -55,4 +55,20 @@ sf::Sprite& Item::getSprite()
 ItemID Item::getItemID()
 {
     return id;
+}
+
+string Item::enumToString(ItemID ini_id)
+{
+    switch (ini_id) 
+    {
+    case ItemID::WASSER: return "Wasser";
+    case ItemID::MEHL: return "Mehl";
+    case ItemID::TEIG: return "Teig";
+    case ItemID::TOMATE: return "Tomate";
+    case ItemID::PIZZA: return "Pizza";
+    case ItemID::COLA: return "Cola";
+    case ItemID::SALAT: return "Salat";
+
+    default: return "Unbekannt";
+    }
 }

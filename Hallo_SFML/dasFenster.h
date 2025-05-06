@@ -17,7 +17,7 @@ private:
     vector<Knopf> knoepfe;
     DeviceInventar* connectedDeviceInventar = nullptr;
     Spieler* connectedPlayer = nullptr;
-    RectangleShape connectedDeviceSlots[3];
+    vector<RectangleShape> connectedDeviceSlots;
     bool visible = false;
   
 
@@ -32,13 +32,13 @@ public:
     dasFenster();
     void addKnopf(const string& label, Font& font, function<void()> callback);  // Neue Methode mit Font
     void draw(RenderWindow& window);
-    void drawForDevice(RenderWindow& window, RectangleShape(&deviceInventarSlots)[3], DeviceInventar* devInventar);
+    void drawForDevice(RenderWindow& window, vector<RectangleShape>& deviceInventorySlots, DeviceInventar* devInventar);
     void handleEvent(const Event& event, const RenderWindow& window);
     void toggle();
 
     void connectDeviceInventar(DeviceInventar* inventar);
     void connectPlayer(Spieler* player);
-    void connectDeviceSlots(RectangleShape(&deviceSlots)[3]);
+    void connectDeviceSlots(vector<RectangleShape> ini_connectedDeviceSlots);
 
     Spieler* getConnectedPlayer();
     bool getIsVisible();

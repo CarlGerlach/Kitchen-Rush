@@ -12,15 +12,18 @@
 #include "Spieler.h"
 #include "StartScreen.h"
 #include "Mapelement.h"
+
 #include "GeraetBase.h"
 #include "Ofen.h"
-
 #include "Storage.h"
 #include "Mixer.h"
+#include "Ausgabe.h"
 
+#include "Item.h"
 
 #include "PauseManager.h"
 
+#include "Bestellposition.h"
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
 
@@ -107,19 +110,44 @@ int main()
     Spielfeld* playField = new Spielfeld();
 
     // Ofen
-    Ofen ofen1(32, font, &spieler1);
+    Ofen ofen1(32, font, &spieler1, 3);
     ofen1.setTexture(&ofenTexture);        
 
 	// Lager
-    Storage storage1(12, font, &spieler1);
+    Storage storage1(12, font, &spieler1, 4);
     storage1.setTexture(&lagerTexture);
 
 	// Mixer
-    Mixer mixer1(22, font, &spieler1);
+    Mixer mixer1(22, font, &spieler1, 3);
     mixer1.setTexture(&mixerTexture);
 
+    //Ausgabe
+    Ausgabe ausgabe1(56, font, &spieler1, 20);
+    ausgabe1.setTexture(&placeholder);
 
+    cout << "Test 1 Main" << endl;
    
+
+    Bestellposition* bestellposition1 = new Bestellposition(ItemID::COLA, 2);
+    Bestellposition* bestellposition2 = new Bestellposition(ItemID::PIZZA, 1);
+ 
+    cout << "Bestellposition1: "; 
+    cout << Item::enumToString(bestellposition1->getPosition()) << endl;
+    cout << "Anzahl: " << bestellposition1->getAnzahl() << endl;
+
+    cout << "Bestellposition2: ";
+    cout << Item::enumToString(bestellposition2->getPosition()) << endl;
+    cout << "Anzahl: " << bestellposition2->getAnzahl() << endl;
+   
+    Auftrag* auftrag1 = new Auftrag(bestellposition1);
+    auftrag1->addBestellposition(bestellposition2);
+
+    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font);
+    derAuftraegeManager->addAuftrag(auftrag1);
+    
+
+    cout << "Test 2 Main" << endl;
+
    
 
 
@@ -136,7 +164,7 @@ int main()
     );
 
     
-   
+    cout << "Test 3 Main" << endl;
     
 
     // PauseManager mit Musiksteuerung
@@ -170,14 +198,14 @@ int main()
             }
             else 
             {
-                cout << "Test 2 " << endl;
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
-                mixer1.handleEvent(event, window); 
-
-                cout << "Test 3 " << endl;
+                mixer1.handleEvent(event, window);
+                ausgabe1.handleEvent(event, window);
             }
         }
+
+        cout << "Test 4 main" << endl;
 
         if (!pauseManager.isPaused()) {
             Vector2f direction(0.f, 0.f);
@@ -230,14 +258,22 @@ int main()
             mixer1.update();
             mixer1.draw(window);
 
+            ausgabe1.update();
+            ausgabe1.draw(window);
+
+            derAuftraegeManager->draw(window);
+
            
         }
+        
+        cout << "Test 5 Main" << endl;
 
         pauseManager.draw(window);
         window.display();
 
     }
 
+    derAuftraegeManager->clearAuftraege();
     soundManager->stopHintergrundMusik();
     return 0;
 }

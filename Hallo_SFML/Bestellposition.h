@@ -1,6 +1,7 @@
 #pragma once 
 #include "Item.h"
 
+
 class Bestellposition
 {
 private:
@@ -12,6 +13,9 @@ public:
 
 	ItemID getPosition();
 	int getAnzahl();
+
+
+
 
 
 

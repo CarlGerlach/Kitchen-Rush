@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="AuftraegeManager.cpp" />
     <ClCompile Include="Auftrag.cpp" />
+    <ClCompile Include="Ausgabe.cpp" />
     <ClCompile Include="Bestellposition.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="dasFenster.cpp" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClInclude Include="AuftraegeManager.h" />
     <ClInclude Include="Auftrag.h" />
+    <ClInclude Include="Ausgabe.h" />
     <ClInclude Include="Bestellposition.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="dasFenster.h" />

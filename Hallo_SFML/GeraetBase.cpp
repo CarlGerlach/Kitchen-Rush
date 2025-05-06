@@ -2,7 +2,7 @@
 #include "Grid.h"
 #include "DeviceInventar.h"
 
-GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player) : dasFenster()
+GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player, int ini_inventorySize) : dasFenster()
 {
     player = ini_player;
 
@@ -15,18 +15,25 @@ GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player) : dasFenster()
     shape.setPosition(gridPos.x - 2, gridPos.y - 2);
     shape.setSize({ width, height });
 
-    for (int i = 0; i < 3; i++)
+
+    for (int i = 0; i < ini_inventorySize; i++)
     {
-        deviceInventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
-        deviceInventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos); // Position setzen
-        deviceInventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200)); // Graue Farbe für Slots
+        RectangleShape slot;
+        slot.setSize(Vector2f(slotSize, slotSize));
+        slot.setPosition(startXPos + i * (slotSize + spacing), startYPos);
+        slot.setFillColor(sf::Color(100, 100, 100, 200));
+
+        deviceInventorySlots.push_back(slot);
     }
+
+
     
     devInventar = new DeviceInventar();
+    devInventar->setSlotAnzahl(ini_inventorySize);
 
     dasFenster.connectDeviceInventar(devInventar);
     dasFenster.connectPlayer(player);
-    dasFenster.connectDeviceSlots(deviceInventarSlots);
+    dasFenster.connectDeviceSlots(deviceInventorySlots);
 
 
 }
@@ -34,13 +41,15 @@ GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player) : dasFenster()
 void GeraetBase::draw(RenderWindow& window)
 {
     window.draw(shape);
-    this->dasFenster.drawForDevice(window, deviceInventarSlots, devInventar);
+    this->dasFenster.drawForDevice(window, deviceInventorySlots, devInventar);
 }
 
 void GeraetBase::update()
 {
+    cout << "Update Test " << endl;
     // Wenn Spieler nicht mehr in Reichweite und Fenster offen ? schließen
-    if (!isPlayerInRange() && dasFenster.getIsVisible()) {
+    if (!isPlayerInRange() && dasFenster.getIsVisible()) 
+    {
         dasFenster.toggle();
     }
 }
@@ -55,23 +64,16 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
 
         if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
         {
-            this->dasFenster.toggle();
-            
+            this->dasFenster.toggle();        
         }
-       
-
-
     }
-    cout << "Test 4" << endl;
 
     if (!isPlayerInRange() && this->dasFenster.getIsVisible() == true)
     {
         this->dasFenster.toggle();
     }
-    cout << "Test 5" << endl;
-    
+  
     this->dasFenster.handleEvent(event, window);
-    
 }
 
 

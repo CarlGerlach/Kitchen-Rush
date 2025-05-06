@@ -5,7 +5,7 @@ Auftrag::Auftrag(Bestellposition* ini_position)
 	this->derAuftrag[0] = ini_position;
 }
 
-void Auftrag::addAuftrag(Bestellposition* ini_position)
+void Auftrag::addBestellposition(Bestellposition* ini_position)
 { 
 	for (int i = 0; i < 5; i++)
 	{

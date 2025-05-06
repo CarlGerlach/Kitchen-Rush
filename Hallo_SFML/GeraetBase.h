@@ -19,7 +19,7 @@ protected:
     DeviceInventar* devInventar;
     Spieler* player;
 
-    RectangleShape deviceInventarSlots[3]; // 3 Slots für das Gerät-Inventar
+    vector<RectangleShape> deviceInventorySlots;
     const float slotSize = 50.f;
     const float spacing = 10.f;
     const float startXPos = 800.f;  // Fest definierte Position von links
@@ -29,7 +29,7 @@ protected:
     virtual void setupButtons(Font& newFont, Spieler* player) = 0; // Wird von den Unterklassen implementiert
 
 public:
-    GeraetBase(int gridnumber, Spieler* ini_player);
+    GeraetBase(int gridnumber, Spieler* ini_player, int ini_inventorySize);
     virtual ~GeraetBase() {}
 
     void draw(RenderWindow& window);
