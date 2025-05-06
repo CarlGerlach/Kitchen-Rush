@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Item.h"
+#include "Bestellposition.h"
 
 using namespace std;
 
@@ -8,25 +9,13 @@ using namespace std;
 class Auftrag
 {
 private:
-	string gericht;
-	int anzahlSoll;
-	int winPoints;
+	Bestellposition* derAuftrag[5];
 
-	bool isDone;
-
-	//Items als Gerüst bereit halten, speichern in Liste, abfragen per ENUM und SWITCH CASE damit der string "gericht" und die benötigten items automatisch je nach case bestimmt werden
-
+	
 public:
-	Auftrag();
-	Auftrag(string ini_gericht, int ini_anzahlSoll, int ini_winPoints);
+	Auftrag(Bestellposition* ini_position);
 
-	int getPoints();
-	int getAnzahlSoll();
-	string getGericht();
-
-
-	void setIsDone(bool done);
-	bool getIsDone();
+	void addAuftrag(Bestellposition* ini_position);
 
 
 };
