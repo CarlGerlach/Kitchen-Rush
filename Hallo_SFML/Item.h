@@ -12,7 +12,9 @@ enum class ItemID
     MEHL = 2,
     TEIG = 3,
     TOMATE = 4,
-    PIZZA = 5
+    PIZZA = 5,
+    COLA = 6,
+    SALAT = 7
 
 };
 
