@@ -8,7 +8,8 @@ Item::Item(ItemID id): id(id)
 
 void Item::setupItem() 
 {
-    switch (id) {
+    switch (id) 
+    {
     case ItemID::WASSER:
         name = "Wasser";
         points = 1;

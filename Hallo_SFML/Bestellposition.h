@@ -4,9 +4,16 @@
 class Bestellposition
 {
 private:
-	string itemName;
+	ItemID position;
 	int anzahl;
-	int points;
+
+public:
+	Bestellposition(ItemID id, int ini_anzahl);
+
+	ItemID getPosition();
+	int getAnzahl();
+
+
 
 };
 
