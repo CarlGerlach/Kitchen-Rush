@@ -40,6 +40,8 @@
       <Filter>KitchenDevices</Filter>
     </ClCompile>
     <ClCompile Include="Mixer.cpp" />
+    <ClCompile Include="PauseManager.cpp" />
+    <ClCompile Include="Bestellposition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -83,6 +85,8 @@
       <Filter>KitchenDevices</Filter>
     </ClInclude>
     <ClInclude Include="Mixer.h" />
+    <ClInclude Include="PauseManager.h" />
+    <ClInclude Include="Bestellposition.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="KitchenDevices">

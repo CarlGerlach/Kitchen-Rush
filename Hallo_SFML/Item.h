@@ -21,6 +21,7 @@ class Item
 private: 
     ItemID id;
     string name;
+    int points;
     sf::Sprite sprite;
     sf::Texture texture;
 
