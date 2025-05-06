@@ -18,3 +18,8 @@ void Auftrag::addAuftrag(Bestellposition* ini_position)
 
 	cout << "maximale Anzahl an Bestellpositionen erreicht" << endl;
 }
+
+Bestellposition* Auftrag::getBestellposition(int index)
+{
+	return this->derAuftrag[index];
+}

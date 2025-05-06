@@ -136,12 +136,7 @@ int main()
     );
 
     
-    AuftraegeManager auftraegeManager(&font);
-    auftraegeManager.setText("Auftraege:\n");
-
-
-    auftraegeManager.addAuftrag(new Auftrag("Hamburger", 2, 10));
-    auftraegeManager.addAuftrag(new Auftrag("Nudeln", 2, 10));
+   
     
 
     // PauseManager mit Musiksteuerung
@@ -235,7 +230,7 @@ int main()
             mixer1.update();
             mixer1.draw(window);
 
-            auftraegeManager.draw(window);
+           
         }
 
         pauseManager.draw(window);

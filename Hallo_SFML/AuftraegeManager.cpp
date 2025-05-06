@@ -2,8 +2,7 @@
 
 AuftraegeManager::AuftraegeManager(sf::Font *font)
 {
-	anzahlAuftraege = 0;
-	auftraege.clear();
+
 
 	text.setFont(*font);
 	text.setCharacterSize(20);
@@ -14,60 +13,52 @@ AuftraegeManager::~AuftraegeManager()
 {
 }
 
-void AuftraegeManager::addAuftrag(Auftrag* auftrag)
+void AuftraegeManager::addAuftrag(Auftrag* ini_auftrag)
 {
-	auftraege.push_back(auftrag);
-	anzahlAuftraege++;
-	// cout << auftraege.size() << endl;
-	// cout << auftrag->getGericht() << endl;
-	// cout << auftrag->getAnzahlSoll() << endl;
-	// cout << auftrag->getPoints() << endl;
+	alleAuftraege.push_back(ini_auftrag);
 }
 
-void AuftraegeManager::removeAuftrag(Auftrag* auftrag)
+// Chatgpt
+void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 {
-	auftraege.remove(auftrag);
-	anzahlAuftraege--;
-	// cout << auftraege.size() << endl;
-	// cout << auftrag->getGericht() << endl;
-	// cout << auftrag->getAnzahlSoll() << endl;
-	// cout << auftrag->getPoints() << endl;
-	delete auftrag;
-	auftrag = nullptr;
+	auto it = std::find(alleAuftraege.begin(), alleAuftraege.end(), ini_auftrag);
+	if (it != alleAuftraege.end())
+	{
+		delete* it;                    // Speicher freigeben
+		alleAuftraege.erase(it);      // Zeiger aus dem Vektor entfernen
+	}
 }
+
+
 
 void AuftraegeManager::clearAuftraege()
 {
-	for (Auftrag* auftrag : auftraege)
+	for (Auftrag* auftrag : alleAuftraege)
 	{
 		delete auftrag;
 	}
-	auftraege.clear();
-	anzahlAuftraege = 0;
-	// cout << auftraege.size() << endl;
-	// cout << auftrag->getGericht() << endl;
-	// cout << auftrag->getAnzahlSoll() << endl;
-	// cout << auftrag->getPoints() << endl;
+	alleAuftraege.clear();
+	
 }
 
 int AuftraegeManager::getAnzahlAuftraege()
 {
-	return auftraege.size();
+	return alleAuftraege.size();
 }
 
-list<Auftrag*> AuftraegeManager::getAuftraege()
+vector<Auftrag*> AuftraegeManager::getAuftraege()
 {
-	return list<Auftrag*>();
+	return alleAuftraege;
 }
 
 Auftrag* AuftraegeManager::getAuftrag(int index)
 {
-	if (index < 0 || index >= auftraege.size())
+	if (index < 0 || index >= alleAuftraege.size())
 	{
 		return nullptr;
 	}
-	auto it = auftraege.begin();
-	advance(it, index);
+	auto it = alleAuftraege.begin();
+	advance(it, index);	 //Gehe bis zum Auftrag des index
 	return *it;
 }
 
@@ -93,9 +84,9 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 	i++; // Damit die Aufträge unter der Überschrift anfangen (z.B. bei 30 Pixel Höhe statt 10)
 
 	// Alle Aufträge durchgehen
-	for (Auftrag* auftrag : auftraege)
+	for (Auftrag* auftrag : alleAuftraege)
 	{
-		text.setString(auftrag->getGericht() + "  ||  " + std::to_string(auftrag->getAnzahlSoll()) + "x " + std::to_string(auftrag->getPoints()) + "p");
+		
 		text.setPosition(10, 10 + i * 20); // Abstand von 20 Pixel pro Zeile
 		window.draw(text); // Text direkt zeichnen
 		i++;

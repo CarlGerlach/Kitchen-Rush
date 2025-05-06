@@ -16,7 +16,8 @@ public:
 	Auftrag(Bestellposition* ini_position);
 
 	void addAuftrag(Bestellposition* ini_position);
-
+	
+	Bestellposition* getBestellposition(int index);
 
 };
 

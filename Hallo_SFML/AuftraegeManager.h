@@ -1,13 +1,16 @@
 #pragma once
 
+#include <vector>
 #include "list"
-#include "Auftrag.h"
+#include "Auftrag.h" 
+
+using namespace std;
+using namespace sf;
 
 class AuftraegeManager
 {
 private:
-	list<Auftrag*> auftraege;
-	int anzahlAuftraege;
+	vector<Auftrag*> alleAuftraege;
 
 	sf::Text text; // Das ist der Text, der die Aufträge anzeigt
 
@@ -19,11 +22,11 @@ public:
 	void removeAuftrag(Auftrag* auftrag);
 	void clearAuftraege();
 	int getAnzahlAuftraege();
-	list<Auftrag*> getAuftraege();
+	vector<Auftrag*> getAuftraege();
 	Auftrag* getAuftrag(int index);
 
 	void setText(string text);
-	sf::Text getText();
+	Text getText();
 	void draw(sf::RenderWindow& window);
 
 	void finishAuftrag(Auftrag* auftrag);
