@@ -117,10 +117,10 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
                 }
             }
 
-            // Spielerinventar: Vermutlich noch Array oder auch Vector?
+           
             for (int i = 0; i < 5; i++)
             {
-                RectangleShape& playerSlot = getConnectedPlayer()->getInventarSlots(i);  // ? ggf. anpassen!
+                RectangleShape& playerSlot = getConnectedPlayer()->getInventarSlots(i);
 
                 if (playerSlot.getGlobalBounds().contains(mousePos))
                 {

@@ -19,9 +19,34 @@ GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player, int ini_inventorySiz
     for (int i = 0; i < ini_inventorySize; i++)
     {
         RectangleShape slot;
-        slot.setSize(Vector2f(slotSize, slotSize));
-        slot.setPosition(startXPos + i * (slotSize + spacing), startYPos);
-        slot.setFillColor(sf::Color(100, 100, 100, 200));
+
+        if (i < 5)
+        {
+            slot.setSize(Vector2f(slotSize, slotSize));
+            slot.setPosition(startXPos + i * (slotSize + spacing), startYPos);
+            slot.setFillColor(sf::Color(100, 100, 100, 200));
+        }
+        else if (i < 10)
+        {
+            slot.setSize(Vector2f(slotSize, slotSize));
+            slot.setPosition(startXPos + (i - 5) * (slotSize + spacing), startYPos + slotSize + spacing);
+            slot.setFillColor(sf::Color(100, 100, 100, 200));
+        }
+        else if (i < 15)
+        {
+            cout << "Test Erstellung Slots 1" << endl;
+            slot.setSize(Vector2f(slotSize, slotSize));
+            slot.setPosition(startXPos + (i - 10) * (slotSize + spacing), startYPos + slotSize + spacing);
+            slot.setFillColor(sf::Color(100, 100, 100, 200));
+        }
+        else if (i < 20)
+        {
+            cout << "Test Erstellung Slots 2" << endl;
+            slot.setSize(Vector2f(slotSize, slotSize));
+            slot.setPosition(startXPos + (i - 15) * (slotSize + spacing), startYPos + slotSize + spacing);
+            slot.setFillColor(sf::Color(100, 100, 100, 200));
+        }
+        
 
         deviceInventorySlots.push_back(slot);
     }

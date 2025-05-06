@@ -13,7 +13,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            
+           
         }
     );
 }
