@@ -221,3 +221,8 @@ Spieler* dasFenster::getConnectedPlayer()
 {
     return connectedPlayer;
 }
+
+bool dasFenster::getIsVisible()
+{
+    return visible;
+}

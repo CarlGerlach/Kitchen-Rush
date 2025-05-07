@@ -33,6 +33,8 @@ public:
     virtual ~GeraetBase() {}
 
     void draw(RenderWindow& window);
+    void update();
+
     void handleEvent(const Event& event, const RenderWindow& window);
    
     void setTexture(sf::Texture* newTexture);

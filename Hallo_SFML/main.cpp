@@ -14,7 +14,13 @@
 #include "Mapelement.h"
 #include "GeraetBase.h"
 #include "Ofen.h"
+
+#include "Storage.h"
+#include "Mixer.h"
+
+
 #include "PauseManager.h"
+
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
 
@@ -23,6 +29,7 @@ using namespace sf;
 
 int main()
 {
+    
     //Fenster erstellen-
     RenderWindow window(VideoMode(1920, 1080), "Kitchen Rush");
     window.setFramerateLimit(60);
@@ -33,15 +40,53 @@ int main()
     if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
         return -1;
 
+    //Ofen
+	Texture ofenTexture;
+    if (!ofenTexture.loadFromFile("Texturen & Musik/Ofen.png")) {
+        cerr << "Fehler beim Laden der Ofen-Textur!" << endl;
+        return -1;
+    }
+    
+    //Lager
+    Texture lagerTexture;
+    if (!lagerTexture.loadFromFile("Texturen & Musik/Lager.png")) {
+        cerr << "Fehler beim Laden der Lager-Textur!" << endl;
+        return -1;
+    }
+
+    //Mixer
+    Texture mixerTexture;
+    if (!mixerTexture.loadFromFile("Texturen & Musik/Mixer.png")) {
+        cerr << "Fehler beim Laden der Mixer-Textur!" << endl;
+        return -1;
+    }
+
+	//Placeholder
     Texture placeholder;
-    if (!placeholder.loadFromFile("Texturen & Musik/Ofen.png")) {
+    if (!placeholder.loadFromFile("Texturen & Musik/temp.png")) {
         cerr << "Fehler beim Laden der Placeholder-Textur!" << endl;
         return -1;
     }
 
+	//Texturen für den Spieler nach Links
+    Texture playerLeftTexture;
+    if (!playerLeftTexture.loadFromFile("Texturen & Musik/Char-links.png")) {
+        cerr << "Fehler beim Laden der linken Textur!" << endl;
+        return -1;
+    }
+
+	//Texturen für den Spieler nach Rechts
+    Texture playerRightTexture;
+    if (!playerRightTexture.loadFromFile("Texturen & Musik/Char-rechts.png")) {
+        cerr << "Fehler beim Laden der rechten Textur!" << endl;
+        return -1;
+    }
+
+
+
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, "Texturen & Musik/Char-links.png");
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
 
     //Sound
     mySound* soundManager = new mySound();
@@ -62,10 +107,21 @@ int main()
     Spielfeld* playField = new Spielfeld();
 
     // Ofen
-    Ofen ofen1(42, font, &spieler1);
-    ofen1.setTexture(&placeholder);
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TEIG));
-    ofen1.getDevInventar()->addItem(new Item(ItemID::TOMATE));
+    Ofen ofen1(32, font, &spieler1);
+    ofen1.setTexture(&ofenTexture);        
+
+	// Lager
+    Storage storage1(12, font, &spieler1);
+    storage1.setTexture(&lagerTexture);
+
+	// Mixer
+    Mixer mixer1(22, font, &spieler1);
+    mixer1.setTexture(&mixerTexture);
+
+
+   
+   
+
 
     // Hintergrund-Bild fürs Pausenmenü laden
     Texture backgroundTexture;
@@ -93,55 +149,98 @@ int main()
 
     Clock clock;
 
-    while (window.isOpen()) 
+
+    
+
+
+    while (window.isOpen())
     {
-        
         Event event;
-        while (window.pollEvent(event)) 
+
+        while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
+            if (event.type == Event::Closed) {
                 window.close();
+            }
 
+            // ESC soll jederzeit die Pause toggeln
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+                pauseManager.togglePause();  // eine Methode, die Pause-Status umschaltet
+                continue; // alle weiteren Events ignorieren in diesem Frame
+            }
 
-
-            if (!pauseManager.isPaused()) {
+            if (pauseManager.isPaused()) 
+            {
+                pauseManager.handleInput(event, window);
+            }
+            else 
+            {
+                cout << "Test 2 " << endl;
                 ofen1.handleEvent(event, window);
-                // Weitere Ingame-Events hier
-                
+                storage1.handleEvent(event, window);
+                mixer1.handleEvent(event, window); 
+
+                cout << "Test 3 " << endl;
             }
-            pauseManager.handleInput(event, window);
-
-            if (!pauseManager.isPaused()) {
-                Vector2f direction(0.f, 0.f);
-
-                if (Keyboard::isKeyPressed(Keyboard::W)) direction.y -= 1.f;
-                if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
-                if (Keyboard::isKeyPressed(Keyboard::A)) {
-                    direction.x -= 1.f;
-                    spieler1.setTexture("Texturen & Musik/Char-links.png");
-                }
-                if (Keyboard::isKeyPressed(Keyboard::D)) {
-                    direction.x += 1.f;
-                    spieler1.setTexture("Texturen & Musik/Char-rechts.png");
-                }
-
-                spieler1.move(direction);
-            }
-
-            window.clear();
-
-            if (pauseManager.isPaused()) {
-                window.draw(backgroundSprite);
-            }
-            else {
-                playField->drawSpielfeld(window);
-                spieler1.draw(window);
-                ofen1.draw(window);
-            }
-
-            pauseManager.draw(window);
-            window.display();
         }
+
+        if (!pauseManager.isPaused()) {
+            Vector2f direction(0.f, 0.f);
+
+            if (Keyboard::isKeyPressed(Keyboard::W)) direction.y -= 1.f;
+            if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
+            if (Keyboard::isKeyPressed(Keyboard::A))
+            {
+                direction.x -= 1.f;
+                if(!spieler1.isLookingLeft())
+                {
+
+                spieler1.setTexture(&playerLeftTexture);
+                spieler1.setLookingLeft(true);
+                }
+           
+            }
+            if (Keyboard::isKeyPressed(Keyboard::D)) 
+            {
+                direction.x += 1.f;
+                if (!spieler1.isLookingRight()) {
+                    spieler1.setTexture(&playerRightTexture);
+                    spieler1.setLookingRight(true);
+                }
+
+            }
+
+            spieler1.move(direction);
+
+        }
+
+        //Low key keine Ahnung wieso update, aber es hat das Fenster nicht schnell genug geschlossen, wenn man weggegangen ist deshalb update()
+
+        window.clear();
+
+        if (pauseManager.isPaused()) {
+            window.draw(backgroundSprite);
+        }
+        else {
+            playField->drawSpielfeld(window);
+            
+            spieler1.draw(window);
+
+            ofen1.update();
+            ofen1.draw(window);
+
+            storage1.update();
+            storage1.draw(window);
+
+            mixer1.update();
+            mixer1.draw(window);
+
+            auftraegeManager.draw(window);
+        }
+
+        pauseManager.draw(window);
+        window.display();
+
     }
 
     soundManager->stopHintergrundMusik();

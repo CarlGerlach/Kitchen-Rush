@@ -37,19 +37,38 @@ void GeraetBase::draw(RenderWindow& window)
     this->dasFenster.drawForDevice(window, deviceInventarSlots, devInventar);
 }
 
+void GeraetBase::update()
+{
+    // Wenn Spieler nicht mehr in Reichweite und Fenster offen ? schlieﬂen
+    if (!isPlayerInRange() && dasFenster.getIsVisible()) {
+        dasFenster.toggle();
+    }
+}
+
+
 void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) 
 {
     if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) 
     {
  
-        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
         if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
         {
-            
             this->dasFenster.toggle();
             
         }
+       
+
+
     }
+    cout << "Test 4" << endl;
+
+    if (!isPlayerInRange() && this->dasFenster.getIsVisible() == true)
+    {
+        this->dasFenster.toggle();
+    }
+    cout << "Test 5" << endl;
     
     this->dasFenster.handleEvent(event, window);
     

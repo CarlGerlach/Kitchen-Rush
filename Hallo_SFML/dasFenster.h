@@ -19,6 +19,7 @@ private:
     Spieler* connectedPlayer = nullptr;
     RectangleShape connectedDeviceSlots[3];
     bool visible = false;
+  
 
 protected:
     const int windowWidth = 600;
@@ -40,4 +41,5 @@ public:
     void connectDeviceSlots(RectangleShape(&deviceSlots)[3]);
 
     Spieler* getConnectedPlayer();
+    bool getIsVisible();
 };
