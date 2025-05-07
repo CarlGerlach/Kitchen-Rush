@@ -122,7 +122,7 @@ int main()
     mixer1.setTexture(&mixerTexture);
 
     //Ausgabe
-    Ausgabe ausgabe1(56, font, &spieler1, 13);
+    Ausgabe ausgabe1(56, font, &spieler1, 20);
     ausgabe1.setTexture(&placeholder);
 
     cout << "Test 1 Main" << endl;
@@ -261,7 +261,7 @@ int main()
             ausgabe1.update();
             ausgabe1.draw(window);
 
-            derAuftraegeManager->draw(window);
+           // derAuftraegeManager->draw(window);
 
            
         }

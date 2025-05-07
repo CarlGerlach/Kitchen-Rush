@@ -16,4 +16,13 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
            
         }
     );
+
+    dasFenster.addKnopf(
+        "Schließen",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            dasFenster.toggle();
+        }
+    );
 }
