@@ -1,7 +1,10 @@
 #include "Auftrag.h"
 
-Auftrag::Auftrag(Bestellposition* ini_position)
+Auftrag::Auftrag(Bestellposition* ini_position, Texture* ini_texture)
 {
+	if (texture == nullptr)return;
+	fensterAuftrag.setSize(Vector2f(100.f, 50.f));
+	
 	this->derAuftrag[0] = ini_position;
 }
 
