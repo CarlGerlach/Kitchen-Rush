@@ -23,7 +23,7 @@ protected:
     const float slotSize = 50.f;
     const float spacing = 10.f;
     const float startXPos = 800.f;  // Fest definierte Position von links
-    const float startYPos = 700.f;  // Fest definierte Position von unten
+    const float startYPos = 600.f;  // Fest definierte Position von unten
 
 
     virtual void setupButtons(Font& newFont, Spieler* player) = 0; // Wird von den Unterklassen implementiert

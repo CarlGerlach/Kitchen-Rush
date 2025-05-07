@@ -23,7 +23,7 @@ private:
 
 protected:
     const int windowWidth = 600;
-    const int windowHight = 800;  
+    const int windowHight = 700;  
     const int buttonDistance = 20;
     int amountOfButtons = 0;
 
