@@ -1,6 +1,10 @@
 #pragma once 
+#include <random>
+#include <iostream>
 #include "Item.h"
 
+using namespace std;
+using namespace sf;
 
 class Bestellposition
 {
@@ -13,6 +17,8 @@ public:
 
 	ItemID getPosition();
 	int getAnzahl();
+
+
 
 
 

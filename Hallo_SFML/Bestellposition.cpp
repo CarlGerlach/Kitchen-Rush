@@ -1,5 +1,7 @@
+#include <random>
 #include "Bestellposition.h"
 #include "Item.h"
+
 
 
 Bestellposition::Bestellposition(ItemID id, int ini_anzahl)
@@ -14,6 +16,9 @@ Bestellposition::Bestellposition(ItemID id, int ini_anzahl)
 		break;
 	case ItemID::COLA:
 		position = ItemID::COLA;
+		break;
+	case ItemID::WASSER:
+		position = ItemID::WASSER;
 		break;
 	default:
 		break;
@@ -30,6 +35,8 @@ int Bestellposition::getAnzahl()
 {
 	return anzahl;
 }
+
+
 
 
 

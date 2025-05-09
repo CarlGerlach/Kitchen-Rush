@@ -1,5 +1,6 @@
 #include "Item.h"
 #include <iostream>
+#include <random>
 
 Item::Item(ItemID id): id(id)
 {
@@ -71,4 +72,30 @@ string Item::enumToString(ItemID ini_id)
 
     default: return "Unbekannt";
     }
+}
+
+ItemID Item::randomItem()
+{
+    //Chatgpt
+    // Direkt in der Methode
+    static mt19937 rng(std::random_device{}());  // Initialisiert nur EINMAL
+    std::uniform_int_distribution<int> dist(1, 4); // beliebig oft neu definierbar
+    int randomZahl = dist(rng);  // schnell und effizient
+
+    switch (randomZahl)
+    {
+    case 1:
+        return ItemID::PIZZA;
+    case 2:
+        return ItemID::SALAT;
+    case 3:
+        return ItemID::WASSER;
+    case 4:
+        return ItemID::COLA;
+    defalt:
+        cout << "Fehler bei Random Item für Bestellposition" << endl;
+
+    }
+
+
 }

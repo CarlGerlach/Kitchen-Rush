@@ -12,11 +12,11 @@ class AuftraegeManager
 private:
 	vector<Auftrag*> alleAuftraege;
 	Texture* textureHintergrundAuftrag;
+	Font font;
 
-	sf::Text text; // Das ist der Text, der die Aufträge anzeigt
 
 public:
-	AuftraegeManager(sf::Font font, Texture* ini_textureHintergrundAuftrag);
+	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag);
 	~AuftraegeManager();
 
 	void addAuftrag(Auftrag* auftrag);
@@ -26,9 +26,10 @@ public:
 	vector<Auftrag*> getAuftraege();
 	Auftrag* getAuftrag(int index);
 
-	void setText(string text);
-	Text getText();
+
 	void draw(sf::RenderWindow& window);
+
+	void updateAuftraege();
 
 	void finishAuftrag(Auftrag* auftrag);
 

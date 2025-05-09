@@ -34,3 +34,20 @@ void DeviceInventar::changeInventorySize(int ini_newInventorySize)
 {
     this->setSlotAnzahl(ini_newInventorySize);
 }
+
+int DeviceInventar::getItemAnzahl(ItemID id)
+{
+    int summe = 0;
+
+    for (int i = 0; i < slotAnzahl; ++i)
+    {
+        Item* item = slot[i];
+
+        if (item != nullptr && item->getItemID() == id)
+        {
+            summe += 1; // genau ein Item in jedem belegten Slot
+        }
+    }
+
+    return summe;
+}

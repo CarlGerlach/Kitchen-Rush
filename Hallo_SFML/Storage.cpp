@@ -38,6 +38,24 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
     );
 
     dasFenster.addKnopf(
+        "Nehme Salat",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            this->getDevInventar()->addItem(new Item(ItemID::SALAT));
+        }
+    );
+
+    dasFenster.addKnopf(
+        "Nehme Cola",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            this->getDevInventar()->addItem(new Item(ItemID::COLA));
+        }
+    );
+
+    dasFenster.addKnopf(
         "Schließen",
         newFont,  // Font übergeben
         [this, player]()

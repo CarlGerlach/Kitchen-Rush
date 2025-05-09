@@ -34,14 +34,14 @@ GeraetBase::GeraetBase(int gridNumber, Spieler* ini_player, int ini_inventorySiz
         }
         else if (i < 15)
         {
-            cout << "Test Erstellung Slots 1" << endl;
+
             slot.setSize(Vector2f(slotSize, slotSize));
             slot.setPosition(startXPos + (i - 10) * (slotSize + spacing), startYPos + 2* slotSize + 2 * spacing);
             slot.setFillColor(sf::Color(100, 100, 100, 200));
         }
         else if (i < 21)
         {
-            cout << "Test Erstellung Slots 2" << endl;
+
             slot.setSize(Vector2f(slotSize, slotSize));
             slot.setPosition(startXPos + (i - 15) * (slotSize + spacing), startYPos + 3* slotSize + 3* spacing);
             slot.setFillColor(sf::Color(100, 100, 100, 200));
@@ -71,7 +71,6 @@ void GeraetBase::draw(RenderWindow& window)
 
 void GeraetBase::update()
 {
-    cout << "Update Test " << endl;
     // Wenn Spieler nicht mehr in Reichweite und Fenster offen ? schließen
     if (!isPlayerInRange() && dasFenster.getIsVisible()) 
     {

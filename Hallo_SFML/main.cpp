@@ -85,8 +85,8 @@ int main()
         return -1;
     }     
 
-    Texture textureDisplayAuftrag;
-    if (!textureDisplayAuftrag.loadFromFile("Texturen & Musik/HintergrundAuftrag.png")) 
+    Texture tasksTexture;
+    if (!tasksTexture.loadFromFile("Texturen & Musik/tasks.png")) 
     {
         cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
         return -1;
@@ -117,6 +117,8 @@ int main()
     // Spielfeld
     Spielfeld* playField = new Spielfeld();
 
+    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture);
+
     // Ofen
     Ofen ofen1(32, font, &spieler1, 3);
     ofen1.setTexture(&ofenTexture);        
@@ -130,31 +132,14 @@ int main()
     mixer1.setTexture(&mixerTexture);
 
     //Ausgabe
-    Ausgabe ausgabe1(56, font, &spieler1, 20);
+    Ausgabe ausgabe1(56, font, &spieler1, 20, derAuftraegeManager);
     ausgabe1.setTexture(&placeholder);
 
-    cout << "Test 1 Main" << endl;
    
 
-    Bestellposition* bestellposition1 = new Bestellposition(ItemID::COLA, 2);
-    Bestellposition* bestellposition2 = new Bestellposition(ItemID::PIZZA, 1);
- 
-    cout << "Bestellposition1: "; 
-    cout << Item::enumToString(bestellposition1->getPosition()) << endl;
-    cout << "Anzahl: " << bestellposition1->getAnzahl() << endl;
 
-    cout << "Bestellposition2: ";
-    cout << Item::enumToString(bestellposition2->getPosition()) << endl;
-    cout << "Anzahl: " << bestellposition2->getAnzahl() << endl;
-   
-    Auftrag* auftrag1 = new Auftrag(bestellposition1);
-    auftrag1->addBestellposition(bestellposition2);
-
-    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font);
-    derAuftraegeManager->addAuftrag(auftrag1);
     
 
-    cout << "Test 2 Main" << endl;
 
    
 
@@ -171,9 +156,7 @@ int main()
         (float)window.getSize().y / backgroundTexture.getSize().y
     );
 
-    
-    cout << "Test 3 Main" << endl;
-    
+
 
     // PauseManager mit Musiksteuerung
     PauseManager pauseManager(window.getSize(), soundManager);
@@ -213,7 +196,7 @@ int main()
             }
         }
 
-        cout << "Test 4 main" << endl;
+     
 
         if (!pauseManager.isPaused()) {
             Vector2f direction(0.f, 0.f);
@@ -269,12 +252,15 @@ int main()
             ausgabe1.update();
             ausgabe1.draw(window);
 
-           // derAuftraegeManager->draw(window);
+            //auftrag1->draw(window);
+            //auftrag2->draw(window);
+
+
+            derAuftraegeManager->draw(window);
 
            
         }
-        
-        cout << "Test 5 Main" << endl;
+
 
         pauseManager.draw(window);
         window.display();

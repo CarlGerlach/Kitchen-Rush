@@ -7,4 +7,7 @@ public:
     bool addItem(Item* item) override;
     bool checkIfClearInventory();
     void changeInventorySize(int ini_newInventorySize);
+
+    int getItemAnzahl(ItemID id);
+   
 };

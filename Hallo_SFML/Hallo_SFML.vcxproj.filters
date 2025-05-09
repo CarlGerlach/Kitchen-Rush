@@ -39,9 +39,14 @@
     <ClCompile Include="Storage.cpp">
       <Filter>KitchenDevices</Filter>
     </ClCompile>
-    <ClCompile Include="Mixer.cpp" />
     <ClCompile Include="PauseManager.cpp" />
     <ClCompile Include="Bestellposition.cpp" />
+    <ClCompile Include="Ausgabe.cpp">
+      <Filter>KitchenDevices</Filter>
+    </ClCompile>
+    <ClCompile Include="Mixer.cpp">
+      <Filter>KitchenDevices</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -84,9 +89,14 @@
     <ClInclude Include="Storage.h">
       <Filter>KitchenDevices</Filter>
     </ClInclude>
-    <ClInclude Include="Mixer.h" />
     <ClInclude Include="PauseManager.h" />
     <ClInclude Include="Bestellposition.h" />
+    <ClInclude Include="Ausgabe.h">
+      <Filter>KitchenDevices</Filter>
+    </ClInclude>
+    <ClInclude Include="Mixer.h">
+      <Filter>KitchenDevices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="KitchenDevices">

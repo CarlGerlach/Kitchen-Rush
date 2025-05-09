@@ -27,6 +27,23 @@ bool Inventar::removeItem(int slotIndex)
     return true;
 }
 
+bool Inventar::removeItems(ItemID id, int menge)
+{
+    int entfernt = 0;
+
+    for (int i = 0; i < slotAnzahl && entfernt < menge; ++i)
+    {
+        if (slot[i] != nullptr && slot[i]->getItemID() == id)
+        {
+            delete slot[i];        // Speicher freigeben
+            slot[i] = nullptr;     // Slot leeren
+            entfernt++;
+        }
+    }
+
+    return entfernt == menge; // Erfolg nur bei vollständiger Entfernung
+}
+
 bool Inventar::addItemToSlot(Item* item, int slotToAdd)
 {
     if (slot[slotToAdd] == nullptr)

@@ -38,4 +38,6 @@ public:
     ItemID getItemID();
 
    static string enumToString(ItemID ini_id);
+
+   static ItemID randomItem();
 };
