@@ -12,15 +12,19 @@ class Auftrag
 private:
 	Bestellposition* derAuftrag[5];
 	RectangleShape fensterAuftrag;
-	Texture* texture;
+	Font font;
+	static int anzahlAktiv;
 
-	
-public:
-	Auftrag(Bestellposition* ini_position, Texture* ini_texture);
+	Auftrag(Bestellposition* ini_position, Texture* ini_texture, Font ini_font);
 
 	void addBestellposition(Bestellposition* ini_position);
 	
 	Bestellposition* getBestellposition(int index);
+
+	int getAnzahlBestellopsitionen();
+
+
+	void draw(RenderWindow& window);
 
 };
 

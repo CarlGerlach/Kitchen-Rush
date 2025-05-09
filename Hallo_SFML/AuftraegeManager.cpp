@@ -1,8 +1,13 @@
 #include "AuftraegeManager.h"
 
-AuftraegeManager::AuftraegeManager(sf::Font font)
-{
 
+
+AuftraegeManager::AuftraegeManager(sf::Font font, Texture* ini_textureHintergrundAuftrag)
+{	
+	if (ini_textureHintergrundAuftrag != nullptr)
+	{
+		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
+	}
 
 	text.setFont(font);
 	text.setCharacterSize(20);

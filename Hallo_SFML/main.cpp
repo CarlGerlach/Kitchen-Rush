@@ -83,7 +83,15 @@ int main()
     if (!playerRightTexture.loadFromFile("Texturen & Musik/Char-rechts.png")) {
         cerr << "Fehler beim Laden der rechten Textur!" << endl;
         return -1;
+    }     
+
+    Texture textureDisplayAuftrag;
+    if (!textureDisplayAuftrag.loadFromFile("Texturen & Musik/HintergrundAuftrag.png")) 
+    {
+        cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
+        return -1;
     }
+  
 
 
 
