@@ -15,9 +15,12 @@ private:
 	RectangleShape fensterAuftrag;
 	Font font;
 	static int anzahlAktiv;
+	int id;
+	bool wurdeInitialisiert;
 
 public:
 	Auftrag(Texture* ini_texture, Font ini_font);
+	Auftrag(Texture* ini_texture, Font ini_font, int id);
 	~Auftrag();
 
 
@@ -28,6 +31,7 @@ public:
 	int getAnzahlBestellopsitionen();
 	static int getAnzahlAktiveAuftraege();
 	Vector2f getFensterAuftrag();
+	int getId();
 	
 	static void decrementAnzahlAktiv();
 

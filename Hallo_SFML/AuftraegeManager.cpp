@@ -12,6 +12,7 @@ AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHinter
 		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
 	}
 
+	letzterAuftragId = 0;
 	font = ini_font;
 }
 
@@ -32,6 +33,9 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 	{
 		//Ändern auf Getter und dann set um nicht Static
 		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
+
+		letzterAuftragId = ini_auftrag->getId();
+		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();
 		delete* it;                    // Speicher freigeben
@@ -103,6 +107,10 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 	}
 }
 
+
+
+
+
 void AuftraegeManager::updateAuftraege()
 {
 
@@ -114,12 +122,27 @@ void AuftraegeManager::updateAuftraege()
 		seeded = true;
 	}
 
+	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5)
 	{
+		cout << "Neuer Auftrag wird erstellt " << endl;
+
 		// Anzahl der Positionen pro Auftrag: 1–3
 		int anzahlPositionen = rand() % 3 + 1;
 
-		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font);
+
+		//Auftrag* neuerAuftrag = nullptr;
+
+	
+		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
+	
+		
+	
+		//Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font);
+	
+		
+
 
 		for (int i = 0; i < anzahlPositionen; ++i)
 		{
@@ -131,16 +154,29 @@ void AuftraegeManager::updateAuftraege()
 			cout << "Menge: " << menge << endl;
 
 			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
+
+			cout << "Test 1" << endl;
+			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
 			neuerAuftrag->addBestellposition(pos);
+			cout << "Test 2" << endl;
 		}
 
+
 		addAuftrag(neuerAuftrag);
+
+		cout << "Neuer Auftrag wurde erstellt" << endl;
 	}
 }
 
 void AuftraegeManager::finishAuftrag(Auftrag* auftrag)
 {
+
 }
+
+
+
+
+
 
 
 

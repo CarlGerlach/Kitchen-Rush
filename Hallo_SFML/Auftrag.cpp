@@ -7,14 +7,39 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font)
 {
 	if (ini_texture == nullptr)return;
 
-
 	font = ini_font;
 	fensterAuftrag.setPosition(Vector2f(500 + anzahlAktiv * 170, -5));
 	fensterAuftrag.setTexture(ini_texture);
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
 	anzahlAktiv++;
 
+	if (anzahlAktiv == 5)
+	{
+		wurdeInitialisiert = true;
+	}
+
 }
+
+Auftrag::Auftrag(Texture* ini_texture, Font ini_font, int id)
+{
+	if (ini_texture == nullptr)return;
+
+	if (id == 0)
+	{
+		fensterAuftrag.setPosition(Vector2f(500 + anzahlAktiv * 170, -5));
+	}
+	else
+	{
+		fensterAuftrag.setPosition(Vector2f(500 + id * 170, -5));
+	}
+
+	font = ini_font;
+	fensterAuftrag.setTexture(ini_texture);
+	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
+	anzahlAktiv++;
+}
+
+
 
 Auftrag::~Auftrag()
 {
@@ -71,10 +96,17 @@ Vector2f Auftrag::getFensterAuftrag()
 	return fensterAuftrag.getPosition();
 }
 
+int Auftrag::getId()
+{
+	return id;
+}
+
 void Auftrag::decrementAnzahlAktiv()
 {
 	anzahlAktiv--;
 }
+
+
 
 void Auftrag::draw(RenderWindow& window)
 {

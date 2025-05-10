@@ -12,6 +12,7 @@ class AuftraegeManager
 private:
 	vector<Auftrag*> alleAuftraege;
 	Texture* textureHintergrundAuftrag;
+	int letzterAuftragId;
 	Font font;
 
 
