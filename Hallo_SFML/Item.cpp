@@ -36,6 +36,16 @@ void Item::setupItem()
         points = 2;
         texture.loadFromFile("Texturen & Musik/Pizza.png");
         break;
+    case ItemID::COLA:
+        name = "Cola";
+        points = 2;
+        texture.loadFromFile("Texturen & Musik/Cola.png");
+        break;
+    case ItemID::SALAT:
+        name = "Salat";
+        points = 2;
+        texture.loadFromFile("Texturen & Musik/Salat.png");
+        break;
     default:
         name = "Unbekannt";
         break;

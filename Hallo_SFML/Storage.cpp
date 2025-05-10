@@ -56,6 +56,15 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
     );
 
     dasFenster.addKnopf(
+        "Nehme Pizza",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            this->getDevInventar()->addItem(new Item(ItemID::PIZZA));
+        }
+    );
+
+    dasFenster.addKnopf(
         "Schließen",
         newFont,  // Font übergeben
         [this, player]()

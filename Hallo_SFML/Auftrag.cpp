@@ -13,10 +13,7 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font)
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
 	anzahlAktiv++;
 
-	if (anzahlAktiv == 5)
-	{
-		wurdeInitialisiert = true;
-	}
+
 
 }
 
@@ -24,13 +21,25 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font, int id)
 {
 	if (ini_texture == nullptr)return;
 
-	if (id == 0)
+	if(id == 0)
 	{
+		cout << "Test 1 Auftrag erstellung" << endl;
+		this->id = anzahlAktiv;
 		fensterAuftrag.setPosition(Vector2f(500 + anzahlAktiv * 170, -5));
+		cout << "Id Auftrag erstellung: " << id << endl;
 	}
-	else
+	else																							
 	{
-		fensterAuftrag.setPosition(Vector2f(500 + id * 170, -5));
+		cout << "Test 2 Auftrag erstellen" << endl;
+		this->id = id;
+		if (this->id == 1)
+		{
+			fensterAuftrag.setPosition(Vector2f(500 + 0 * 170, -5));
+		}
+		else
+		{
+			fensterAuftrag.setPosition(Vector2f(500 + id * 170, -5));
+		}
 	}
 
 	font = ini_font;
@@ -111,6 +120,21 @@ void Auftrag::decrementAnzahlAktiv()
 void Auftrag::draw(RenderWindow& window)
 {
 	window.draw(fensterAuftrag);
+
+	Text text;
+	text.setFont(font);
+	text.setCharacterSize(18);
+	text.setFillColor(sf::Color::Green);
+	
+	stringstream idStream;
+	idStream << this->getId() + 1;
+	text.setString(idStream.str());
+
+
+	// Position der ID (oben links im Auftrag)
+	text.setPosition(fensterAuftrag.getPosition().x + 35,
+		fensterAuftrag.getPosition().y + 20); // ID-Text etwas versetzt
+	window.draw(text);
 
 	
 	for (int i = 0; i < 5; i++)

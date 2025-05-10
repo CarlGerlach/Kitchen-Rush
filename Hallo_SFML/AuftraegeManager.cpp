@@ -34,7 +34,8 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 		//Ändern auf Getter und dann set um nicht Static
 		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
 
-		letzterAuftragId = ini_auftrag->getId();
+		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
+		letzterAuftragId = ini_auftrag->getId() + 1;
 		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();
@@ -81,28 +82,14 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 {
 	updateAuftraege();
 
-	// Schriftgröße für den Auftragstext und die ID setzen
-	Text text;
-	text.setFont(font);
-	text.setCharacterSize(18);
-	text.setFillColor(sf::Color::Black);
 
 	for (size_t i = 0; i < alleAuftraege.size(); ++i)
 	{
 		if (alleAuftraege[i] != nullptr)
 		{
-			// Zeige die ID (Index) des Auftrags an
-			stringstream idStream;
-			idStream << "ID: " << i + 1;  // ID = Index im Vektor
-			text.setString(idStream.str());
 
 			// Position für den Auftrag und die ID
 			alleAuftraege[i]->draw(window);
-
-			// Position der ID (oben links im Auftrag)
-			text.setPosition(alleAuftraege[i]->getFensterAuftrag().x + 5,
-				alleAuftraege[i]->getFensterAuftrag().y + 20); // ID-Text etwas versetzt
-			window.draw(text);
 		}
 	}
 }
@@ -134,7 +121,7 @@ void AuftraegeManager::updateAuftraege()
 
 		//Auftrag* neuerAuftrag = nullptr;
 
-	
+		cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
 		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
 	
 		
