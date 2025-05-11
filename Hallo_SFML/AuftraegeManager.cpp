@@ -35,7 +35,7 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
 
 		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
-		letzterAuftragId = ini_auftrag->getId() + 1;
+		letzterAuftragId = ini_auftrag->getId();
 		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();
@@ -77,6 +77,18 @@ Auftrag* AuftraegeManager::getAuftrag(int index)
 	return *it;
 }
 
+Auftrag* AuftraegeManager::getAuftragMitID(int gesuchteID)
+{
+	for (Auftrag* auftrag : alleAuftraege)
+	{
+		if (auftrag != nullptr && auftrag->getId() == gesuchteID)
+		{
+			return auftrag;
+		}
+	}
+	return nullptr; // Kein passender Auftrag gefunden
+}
+
 
 void AuftraegeManager::draw(sf::RenderWindow& window)
 {
@@ -113,7 +125,6 @@ void AuftraegeManager::updateAuftraege()
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5)
 	{
-		cout << "Neuer Auftrag wird erstellt " << endl;
 
 		// Anzahl der Positionen pro Auftrag: 1–3
 		int anzahlPositionen = rand() % 3 + 1;
@@ -142,10 +153,10 @@ void AuftraegeManager::updateAuftraege()
 
 			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
 
-			cout << "Test 1" << endl;
+		
 			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
 			neuerAuftrag->addBestellposition(pos);
-			cout << "Test 2" << endl;
+			
 		}
 
 

@@ -26,6 +26,7 @@ public:
 	int getAnzahlAuftraege();
 	vector<Auftrag*> getAuftraege();
 	Auftrag* getAuftrag(int index);
+	Auftrag* getAuftragMitID(int gesuchteID);
 
 
 	void draw(sf::RenderWindow& window);

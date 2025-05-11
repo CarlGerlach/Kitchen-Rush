@@ -21,31 +21,28 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font, int id)
 {
 	if (ini_texture == nullptr)return;
 
+	anzahlAktiv++;
+
 	if(id == 0)
 	{
-		cout << "Test 1 Auftrag erstellung" << endl;
+		cout << "Anzahl Aktiv vor erstellung: " << anzahlAktiv << endl;
 		this->id = anzahlAktiv;
-		fensterAuftrag.setPosition(Vector2f(500 + anzahlAktiv * 170, -5));
+
+		fensterAuftrag.setPosition(Vector2f(500 + (anzahlAktiv - 1) * 170, -5));
+		
 		cout << "Id Auftrag erstellung: " << id << endl;
 	}
 	else																							
 	{
 		cout << "Test 2 Auftrag erstellen" << endl;
 		this->id = id;
-		if (this->id == 1)
-		{
-			fensterAuftrag.setPosition(Vector2f(500 + 0 * 170, -5));
-		}
-		else
-		{
-			fensterAuftrag.setPosition(Vector2f(500 + id * 170, -5));
-		}
+
+		fensterAuftrag.setPosition(Vector2f(500 + (id - 1) * 170, -5));
 	}
 
 	font = ini_font;
 	fensterAuftrag.setTexture(ini_texture);
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
-	anzahlAktiv++;
 }
 
 
@@ -127,7 +124,7 @@ void Auftrag::draw(RenderWindow& window)
 	text.setFillColor(sf::Color::Green);
 	
 	stringstream idStream;
-	idStream << this->getId() + 1;
+	idStream << this->getId();
 	text.setString(idStream.str());
 
 

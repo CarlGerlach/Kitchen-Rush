@@ -11,6 +11,7 @@ protected:
 
 public:
 	Ausgabe(int Grindnumber, Font& newFont, Spieler* player, int ini_inventorySize, AuftraegeManager* ini_derAuftraegeManager);
-	bool checkAuftragErfüllbar(int auftragIndex);
+	bool checkAuftragErfüllbar(int gesuchteID);
+	bool versucheAuftragZuErfüllen(int auftragIndex);
 
 };
