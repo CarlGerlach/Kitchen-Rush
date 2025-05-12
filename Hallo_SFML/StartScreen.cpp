@@ -1,6 +1,9 @@
 #include "StartScreen.h"
 
-StartScreen::StartScreen() {
+StartScreen::StartScreen(mySound* soundManager) 
+{
+    this->soundManager = soundManager; // Zeiger merken
+
     // Hintergrundbild laden 
     if (!backgroundTexture.loadFromFile("Texturen & Musik/background.png")) {
         std::cerr << "Fehler: Hintergrundbild konnte nicht geladen werden!\n";
@@ -52,6 +55,7 @@ bool StartScreen::run(sf::RenderWindow& window) {
                 if (startButton.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
                     started = true;
                 }
+
             }
         }
 
@@ -63,4 +67,10 @@ bool StartScreen::run(sf::RenderWindow& window) {
         window.display();
     }
     return started;
+}
+
+void StartScreen::playStartSound() {
+    if (soundManager) {
+        soundManager->playGameStartSound(); // Zugriff möglich!
+    }
 }

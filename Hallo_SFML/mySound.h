@@ -35,5 +35,23 @@ public:
 	}
 
 
+	//Neuer Sound game start
+	sf::SoundBuffer gameStartBuffer;
+	sf::Sound gameStartSound;
+
+	bool loadGameStartSound(const std::string& filePath);
+	void playGameStartSound();
+
+
+	sf::SoundBuffer gameOverBuffer;
+	sf::Sound gameOverSound;
+
+	bool loadGameOverSound(const std::string& filePath);
+	void playGameOverSound();
+
+	void setGameOverVolume(float volume);
+
+
+
 };
 
