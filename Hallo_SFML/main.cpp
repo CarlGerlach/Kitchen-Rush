@@ -113,6 +113,13 @@ int main()
     soundManager->setGameOverVolume(30.f); // 20 % Lautstärke
 
 
+    // Lade den Soundmanager und den Auftrag-Abgeschlossen-Sound
+    if (!soundManager->loadAuftragAbgeschlossenSound("Texturen & Musik/auftrag abgeschlossen.ogg")) {
+        std::cerr << "Fehler beim Laden von auftrag abgeschlossen.ogg!" << std::endl;
+    }
+
+
+
 
 
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
@@ -139,7 +146,9 @@ int main()
     // Spielfeld
     Spielfeld* playField = new Spielfeld();
 
-    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture);
+    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager);
+
+
 
     // Ofen
     Ofen ofen1(32, font, &spieler1, 3);

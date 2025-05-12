@@ -3,6 +3,7 @@
 #include <vector>
 #include "list"
 #include "Auftrag.h" 
+#include "mySound.h"
 
 using namespace std;
 using namespace sf;
@@ -15,9 +16,11 @@ private:
 	int letzterAuftragId;
 	Font font;
 
+	mySound* soundManager;
+
 
 public:
-	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag);
+	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager);
 	~AuftraegeManager();
 
 	void addAuftrag(Auftrag* auftrag);

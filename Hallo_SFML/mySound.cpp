@@ -93,5 +93,18 @@ void mySound::setGameOverVolume(float volume) {
 
 
 
+// Methode zum Laden des Auftrag-Abgeschlossen-Sounds
+bool mySound::loadAuftragAbgeschlossenSound(const std::string& filePath) {
+    if (!auftragAbgeschlossenBuffer.loadFromFile(filePath)) {
+        return false; // Falls der Sound nicht geladen werden kann
+    }
+    auftragAbgeschlossenSound.setBuffer(auftragAbgeschlossenBuffer);
+    return true; // Sound erfolgreich geladen
+}
 
+// Methode zum Abspielen des Auftrag-Abgeschlossen-Sounds
+void mySound::playAuftragAbgeschlossenSound() {
+    auftragAbgeschlossenSound.setVolume(100.f);  // Lautstärke auf 100% setzen
+    auftragAbgeschlossenSound.play();  // Sound abspielen
+}
 

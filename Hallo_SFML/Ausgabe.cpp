@@ -127,8 +127,9 @@ bool Ausgabe::versucheAuftragZuErfüllen(int auftragIndex)
                 devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
             }
 
-            // Auftrag entfernen
-            derAuftraegeManager->removeAuftrag(auftrag);
+            // Auftrag abschließen (inkl. Sound und entfernen)
+            derAuftraegeManager->finishAuftrag(auftrag);
+
 
             std::cout << "Auftrag " << auftragIndex << " erfolgreich erfüllt und entfernt." << std::endl;
             return true;

@@ -51,7 +51,13 @@ public:
 
 	void setGameOverVolume(float volume);
 
+	// Neue Variablen für den "Auftrag abgeschlossen"-Sound
+	sf::SoundBuffer auftragAbgeschlossenBuffer;
+	sf::Sound auftragAbgeschlossenSound;
+
+	bool loadAuftragAbgeschlossenSound(const std::string& filePath);
+	void playAuftragAbgeschlossenSound();
+
 
 
 };
-
