@@ -2,7 +2,7 @@
 #include "Item.h"
 #include "Spieler.h"
 
-Ofen::Ofen(int gridnumber, Font& newFont, Spieler* player) : GeraetBase(gridnumber, player)
+Ofen::Ofen(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize) : GeraetBase(gridnumber, player,ini_inventorySize)
 {
     setupButtons(newFont, player);
 }

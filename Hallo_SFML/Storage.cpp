@@ -1,6 +1,6 @@
 #include "Storage.h"
 
-Storage::Storage(int gridnumber, Font& newFont, Spieler* player) : GeraetBase(gridnumber, player)
+Storage::Storage(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize) : GeraetBase(gridnumber, player, ini_inventorySize)
 {
 	setupButtons(newFont, player);
 }
@@ -34,6 +34,33 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         [this, player]()
         {
             this->getDevInventar()->addItem(new Item(ItemID::TOMATE));
+        }
+    );
+
+    dasFenster.addKnopf(
+        "Nehme Salat",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            this->getDevInventar()->addItem(new Item(ItemID::SALAT));
+        }
+    );
+
+    dasFenster.addKnopf(
+        "Nehme Cola",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            this->getDevInventar()->addItem(new Item(ItemID::COLA));
+        }
+    );
+
+    dasFenster.addKnopf(
+        "Nehme Pizza",
+        newFont,  // Font übergeben
+        [this, player]()
+        {
+            this->getDevInventar()->addItem(new Item(ItemID::PIZZA));
         }
     );
 

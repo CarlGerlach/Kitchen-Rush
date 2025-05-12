@@ -12,15 +12,19 @@ enum class ItemID
     MEHL = 2,
     TEIG = 3,
     TOMATE = 4,
-    PIZZA = 5
+    PIZZA = 5,
+    COLA = 6,
+    SALAT = 7
 
 };
+
 
 class Item 
 {
 private: 
     ItemID id;
     string name;
+    int points;
     sf::Sprite sprite;
     sf::Texture texture;
 
@@ -32,4 +36,8 @@ public:
     void print();
     sf::Sprite& getSprite();
     ItemID getItemID();
+
+   static string enumToString(ItemID ini_id);
+
+   static ItemID randomItem();
 };

@@ -8,7 +8,7 @@ protected:
 
 
 public:
-	Mixer(int Grindnumber, Font& newFont, Spieler* player);
+	Mixer(int Grindnumber, Font& newFont, Spieler* player, int ini_inventorySize);
 	bool makeTeig();
 
 };
