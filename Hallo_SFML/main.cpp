@@ -110,7 +110,7 @@ int main()
     if (!soundManager->loadGameOverSound("Texturen & Musik/game over.ogg")) {
         std::cerr << "Fehler beim Laden von game over.ogg!" << std::endl;
     }
-    soundManager->setGameOverVolume(30.f); // z. B. 20 % Lautstärke
+    soundManager->setGameOverVolume(30.f); // 20 % Lautstärke
 
 
 
