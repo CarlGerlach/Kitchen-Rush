@@ -40,8 +40,11 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
 
        if (buttonResume->wasClicked())  
        {  
-           
-           paused = false;  
+           paused = false;
+
+           if (soundManager) {
+               soundManager->playGameStartSound(); // -> Hier wird der Sound abgespielt
+           }
        }  
        if (buttonMusicStart->wasClicked())  
        {  

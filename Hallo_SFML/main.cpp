@@ -180,6 +180,7 @@ int main()
             // ESC soll jederzeit die Pause toggeln
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
                 pauseManager.togglePause();  // eine Methode, die Pause-Status umschaltet
+
                 continue; // alle weiteren Events ignorieren in diesem Frame
             }
 
