@@ -36,6 +36,7 @@ int main()
 
 
     //Alles was geladen wird
+    
     Font font;
     if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
         return -1;
@@ -90,6 +91,11 @@ int main()
 
     //Sound
     mySound* soundManager = new mySound();
+
+    if (!soundManager->loadGameStartSound("Texturen & Musik/game start.ogg")) {
+        std::cerr << "Fehler beim Laden von game start.ogg!" << std::endl;
+    }
+
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
         soundManager->setMusicLautstaerke(10.f);
         soundManager->playHintergrundMusik();
@@ -98,10 +104,18 @@ int main()
         cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
     }
 
-    // Startscreen
-    StartScreen startScreen;
+
+    // übergebe soundManager an StartScreen
+    StartScreen startScreen(soundManager);
+
     if (!startScreen.run(window))
-        return 0;
+		return 0; // Starte das Spiel, wenn der Button gedrückt wird
+
+    startScreen.playStartSound(); // -> Spiel beginnt, Sound abspielen
+
+
+   
+
 
     // Spielfeld
     Spielfeld* playField = new Spielfeld();
@@ -214,7 +228,7 @@ int main()
 
         }
 
-        //Low key keine Ahnung wieso update, aber es hat das Fenster nicht schnell genug geschlossen, wenn man weggegangen ist deshalb update()
+        //Lowkey keine Ahnung wieso update, aber es hat das Fenster nicht schnell genug geschlossen, wenn man weggegangen ist deshalb update()
 
         window.clear();
 

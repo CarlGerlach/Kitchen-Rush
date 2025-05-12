@@ -58,3 +58,20 @@ void mySound::setMusicLautstaerke(bool volume)
 	hintergrundMusik.setVolume(lautstärke);
 }
 
+
+//Neuer Sound game start
+bool mySound::loadGameStartSound(const std::string& filePath) {
+    if (!gameStartBuffer.loadFromFile(filePath)) {
+        std::cerr << "Fehler beim Laden von game start.ogg" << std::endl;
+        return false;
+    }
+    gameStartSound.setBuffer(gameStartBuffer);
+    return true;
+}
+
+void mySound::playGameStartSound() {
+    gameStartSound.play();
+}
+
+
+
