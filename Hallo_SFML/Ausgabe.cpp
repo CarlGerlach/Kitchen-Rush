@@ -19,29 +19,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         {
             cout << "Klickt auf Auftrag1" << endl;
             versucheAuftragZuErfüllen(1);
-            
-            
-            //if (checkAuftragErfüllbar(0))
-            //{
-            //    Auftrag* auftrag = derAuftraegeManager->getAuftrag(0);
-            //
-            //    if (auftrag != nullptr)
-            //    {
-            //        // Entferne die Items
-            //        for (int i = 0; i < auftrag->getAnzahlBestellopsitionen(); ++i)
-            //        {
-            //            Bestellposition* bp = auftrag->getBestellposition(i);
-            //            devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
-            //        }
-            //
-            //        derAuftraegeManager->removeAuftrag(auftrag);
-            //    }
-            //}
-            //else
-            //{
-            //    std::cout << "Nicht genügend Items im Inventar für Auftrag 1." << std::endl;
-            //}
-            
+           
         }
     );
 
@@ -53,28 +31,6 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
             cout << "Klickt auf Auftrag2" << endl;
             versucheAuftragZuErfüllen(2);
 
-
-            //if (checkAuftragErfüllbar(1))
-            //{
-
-            //    Auftrag* auftrag = derAuftraegeManager->getAuftrag(1);
-
-            //    if (auftrag != nullptr)
-            //    {
-            //        // Entferne die Items
-            //        for (int i = 0; i < auftrag->getAnzahlBestellopsitionen(); ++i)
-            //        {
-            //            Bestellposition* bp = auftrag->getBestellposition(i);
-            //            devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
-            //        }
-
-            //        derAuftraegeManager->removeAuftrag(auftrag);
-            //    }
-            //}
-            //else
-            //{
-            //    std::cout << "Nicht genügend Items im Inventar für Auftrag 2." << std::endl;
-            //}
         }
     );
 
@@ -86,29 +42,6 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
             cout << "Klickt auf Auftrag3" << endl;
             versucheAuftragZuErfüllen(3);
 
-
-
-            //if (checkAuftragErfüllbar(2))
-            //{
-
-            //    Auftrag* auftrag = derAuftraegeManager->getAuftrag(2);
-
-            //    if (auftrag != nullptr)
-            //    {
-            //        // Entferne die Items
-            //        for (int i = 0; i < auftrag->getAnzahlBestellopsitionen(); ++i)
-            //        {
-            //            Bestellposition* bp = auftrag->getBestellposition(i);
-            //            devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
-            //        }
-
-            //        derAuftraegeManager->removeAuftrag(auftrag);
-            //    }
-            //}
-            //else
-            //{
-            //    std::cout << "Nicht genügend Items im Inventar für Auftrag 3." << std::endl;
-            //}
         }
     );
 
@@ -120,29 +53,6 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
             cout << "Klickt auf Auftrag4" << endl;
             versucheAuftragZuErfüllen(4);
 
-
-
-            //if (checkAuftragErfüllbar(3))
-            //{
-
-            //    Auftrag* auftrag = derAuftraegeManager->getAuftrag(3);
-
-            //    if (auftrag != nullptr)
-            //    {
-            //        // Entferne die Items
-            //        for (int i = 0; i < auftrag->getAnzahlBestellopsitionen(); ++i)
-            //        {
-            //            Bestellposition* bp = auftrag->getBestellposition(i);
-            //            devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
-            //        }
-
-            //        derAuftraegeManager->removeAuftrag(auftrag);
-            //    }
-            //}
-            //else
-            //{
-            //    std::cout << "Nicht genügend Items im Inventar für Auftrag 4." << std::endl;
-            //}
         }
     );
 
@@ -154,30 +64,6 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
             cout << "Klickt auf Auftrag5" << endl;
             versucheAuftragZuErfüllen(5);
 
-
-
-            //if (checkAuftragErfüllbar(4))
-            //{
-
-            //    Auftrag* auftrag = derAuftraegeManager->getAuftrag(4);
-
-            //    if (auftrag != nullptr)
-            //    {
-            //        // Entferne die Items
-            //        for (int i = 0; i < auftrag->getAnzahlBestellopsitionen(); ++i)
-            //        {
-            //            Bestellposition* bp = auftrag->getBestellposition(i);
-            //            devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
-            //        }
-
-            //        derAuftraegeManager->removeAuftrag(auftrag);
-            //    }
-            //    
-            //}
-            //else
-            //{
-            //    std::cout << "Nicht genügend Items im Inventar für Auftrag 5." << std::endl;
-            //}
         }
     );
 
@@ -227,10 +113,17 @@ bool Ausgabe::versucheAuftragZuErfüllen(int auftragIndex)
         Auftrag* auftrag = derAuftraegeManager->getAuftragMitID(auftragIndex);
         if (auftrag != nullptr)
         {
+          
+
             // Items aus dem Inventar entfernen
             for (int i = 0; i < auftrag->getAnzahlBestellopsitionen(); ++i)
             {
+                int punkte = 0;
                 Bestellposition* bp = auftrag->getBestellposition(i);
+
+                punkte =  bp->getPointsForItem(bp->getPosition()) * bp->getAnzahl();
+                this->player->addPoints(punkte);
+
                 devInventar->removeItems(bp->getPosition(), bp->getAnzahl());
             }
 

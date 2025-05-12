@@ -252,8 +252,6 @@ int main()
             ausgabe1.update();
             ausgabe1.draw(window);
 
-            //auftrag1->draw(window);
-            //auftrag2->draw(window);
 
 
             derAuftraegeManager->draw(window);

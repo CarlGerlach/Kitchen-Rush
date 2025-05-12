@@ -6,6 +6,9 @@
 using namespace std;
 using namespace sf;
 
+
+
+
 class Bestellposition
 {
 private:
@@ -15,6 +18,7 @@ private:
 public:
 	Bestellposition(ItemID id, int ini_anzahl);
 
+	int getPointsForItem(ItemID searchedId);
 	ItemID getPosition();
 	int getAnzahl();
 

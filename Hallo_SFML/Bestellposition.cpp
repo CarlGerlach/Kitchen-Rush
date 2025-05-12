@@ -26,6 +26,22 @@ Bestellposition::Bestellposition(ItemID id, int ini_anzahl)
 	anzahl = ini_anzahl;
 }
 
+int Bestellposition::getPointsForItem(ItemID searchedId)
+{
+	switch (searchedId)
+	{
+	case ItemID::WASSER: return 1;
+	//case ItemID::MEHL:   return 2;
+	//case ItemID::TEIG:   return 3;
+	//case ItemID::TOMATE: return 2;
+	case ItemID::PIZZA:  return 5;
+	case ItemID::COLA:   return 2;
+	case ItemID::SALAT:  return 3;
+	default:             return 0;
+	}
+
+}
+
 ItemID Bestellposition::getPosition()
 {
 	return position;

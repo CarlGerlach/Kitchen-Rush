@@ -1,8 +1,13 @@
+#include <sstream>
 #include "Spieler.h"
+
 
 // Konstruktor
 Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture)
 {
+    if (!font.loadFromFile("Texturen & Musik/arial.ttf")) {
+        std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
+    }
     this->speed = speed;
     this->bounds = bounds;
     this->points = 0;
@@ -39,7 +44,8 @@ void Spieler::setTexture(sf::Texture* newTexture)
 }
 
 
-void Spieler::draw(sf::RenderWindow& window) {
+void Spieler::draw(sf::RenderWindow& window) 
+{
     window.draw(shape);
 
     // Inventar fest an Position X = 800 platzieren, unabhängig von der View
@@ -47,6 +53,17 @@ void Spieler::draw(sf::RenderWindow& window) {
     float spacing = 10.f;
     float startXPos = 800.f;
     float startYPos = window.getSize().y - slotSize - 100.f; // Feste Y-Position relativ zum Fenster
+
+    
+
+    Text text;
+    text.setFont(font);
+    text.setCharacterSize(30);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(Vector2f(1800.f, 70.f));
+
+    text.setString(std::to_string(points));
+    window.draw(text);
 
     for (int i = 0; i < 5; i++)
     {
