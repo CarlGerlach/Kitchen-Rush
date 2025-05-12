@@ -1,7 +1,7 @@
 #include "Mixer.h"
 
 
-Mixer::Mixer(int gridnumber, Font& newFont, Spieler* player) : GeraetBase(gridnumber, player)
+Mixer::Mixer(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize) : GeraetBase(gridnumber, player, ini_inventorySize)
 {
 	setupButtons(newFont, player);
 }
@@ -31,10 +31,8 @@ bool Mixer::makeTeig()
         // Füge Pizza in Slot 2 ein, wenn dieser leer ist
         if (devInventar->getItem(2) == nullptr)
         {
-            cout << "Test" << endl;
-            //devInventar->addItemToSlot(new Item(ItemID::TEIG), 2);
-            devInventar->addItem(new Item(ItemID::TEIG));
-            cout << "Test 2" << endl;
+            devInventar->addItemToSlot(new Item(ItemID::TEIG), 2);
+
             return true;
         }
         else

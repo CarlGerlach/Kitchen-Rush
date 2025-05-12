@@ -8,6 +8,6 @@ protected:
     void setupButtons(Font& newFont, Spieler* player) override; // Überschreibt Buttons für den Ofen
 
 public:
-    Ofen(int Grindnumber, Font& newFont, Spieler* spieler);
+    Ofen(int Grindnumber, Font& newFont, Spieler* spieler, int ini_inventorySize);
     bool makePizza();
 };

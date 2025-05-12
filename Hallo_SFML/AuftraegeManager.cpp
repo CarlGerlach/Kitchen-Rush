@@ -1,110 +1,180 @@
 #include "AuftraegeManager.h"
+#include <sstream>
+using namespace std;
+using namespace sf;
 
-AuftraegeManager::AuftraegeManager(sf::Font *font)
-{
-	anzahlAuftraege = 0;
-	auftraege.clear();
 
-	text.setFont(*font);
-	text.setCharacterSize(20);
-	text.setFillColor(sf::Color::White);
+
+AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag)
+{	
+	if (ini_textureHintergrundAuftrag != nullptr)
+	{
+		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
+	}
+
+	letzterAuftragId = 0;
+	font = ini_font;
 }
 
 AuftraegeManager::~AuftraegeManager()
 {
 }
 
-void AuftraegeManager::addAuftrag(Auftrag* auftrag)
+void AuftraegeManager::addAuftrag(Auftrag* ini_auftrag)
 {
-	auftraege.push_back(auftrag);
-	anzahlAuftraege++;
-	// cout << auftraege.size() << endl;
-	// cout << auftrag->getGericht() << endl;
-	// cout << auftrag->getAnzahlSoll() << endl;
-	// cout << auftrag->getPoints() << endl;
+	alleAuftraege.push_back(ini_auftrag);
 }
 
-void AuftraegeManager::removeAuftrag(Auftrag* auftrag)
+// Chatgpt
+void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 {
-	auftraege.remove(auftrag);
-	anzahlAuftraege--;
-	// cout << auftraege.size() << endl;
-	// cout << auftrag->getGericht() << endl;
-	// cout << auftrag->getAnzahlSoll() << endl;
-	// cout << auftrag->getPoints() << endl;
-	delete auftrag;
-	auftrag = nullptr;
+	auto it = std::find(alleAuftraege.begin(), alleAuftraege.end(), ini_auftrag);
+	if (it != alleAuftraege.end())
+	{
+		//Ändern auf Getter und dann set um nicht Static
+		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
+
+		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
+		letzterAuftragId = ini_auftrag->getId();
+		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
+
+		Auftrag::decrementAnzahlAktiv();
+		delete* it;                    // Speicher freigeben
+		alleAuftraege.erase(it);      // Zeiger aus dem Vektor entfernen
+	}
 }
+
+
 
 void AuftraegeManager::clearAuftraege()
 {
-	for (Auftrag* auftrag : auftraege)
+	for (Auftrag* auftrag : alleAuftraege)
 	{
 		delete auftrag;
 	}
-	auftraege.clear();
-	anzahlAuftraege = 0;
-	// cout << auftraege.size() << endl;
-	// cout << auftrag->getGericht() << endl;
-	// cout << auftrag->getAnzahlSoll() << endl;
-	// cout << auftrag->getPoints() << endl;
+	alleAuftraege.clear();
+	
 }
 
 int AuftraegeManager::getAnzahlAuftraege()
 {
-	return auftraege.size();
+	return alleAuftraege.size();
 }
 
-list<Auftrag*> AuftraegeManager::getAuftraege()
+vector<Auftrag*> AuftraegeManager::getAuftraege()
 {
-	return list<Auftrag*>();
+	return alleAuftraege;
 }
 
 Auftrag* AuftraegeManager::getAuftrag(int index)
 {
-	if (index < 0 || index >= auftraege.size())
+	if (index < 0 || index >= alleAuftraege.size())
 	{
 		return nullptr;
 	}
-	auto it = auftraege.begin();
-	advance(it, index);
+	auto it = alleAuftraege.begin();
+	advance(it, index);	 //Gehe bis zum Auftrag des index
 	return *it;
 }
 
-void AuftraegeManager::setText(string text)
+Auftrag* AuftraegeManager::getAuftragMitID(int gesuchteID)
 {
-	this->text.setString(text);
+	for (Auftrag* auftrag : alleAuftraege)
+	{
+		if (auftrag != nullptr && auftrag->getId() == gesuchteID)
+		{
+			return auftrag;
+		}
+	}
+	return nullptr; // Kein passender Auftrag gefunden
 }
 
-sf::Text AuftraegeManager::getText()
-{
-	return text; // Könnte probleme machen bitte später testen
-}
 
 void AuftraegeManager::draw(sf::RenderWindow& window)
 {
-	int i = 0;
+	updateAuftraege();
 
-	// Überschrift setzen und zeichnen
-	text.setString("Aufträge:");
-	text.setPosition(10, 10);
-	window.draw(text);
 
-	i++; // Damit die Aufträge unter der Überschrift anfangen (z.B. bei 30 Pixel Höhe statt 10)
-
-	// Alle Aufträge durchgehen
-	for (Auftrag* auftrag : auftraege)
+	for (size_t i = 0; i < alleAuftraege.size(); ++i)
 	{
-		text.setString(auftrag->getGericht() + "  ||  " + std::to_string(auftrag->getAnzahlSoll()) + "x " + std::to_string(auftrag->getPoints()) + "p");
-		text.setPosition(10, 10 + i * 20); // Abstand von 20 Pixel pro Zeile
-		window.draw(text); // Text direkt zeichnen
-		i++;
+		if (alleAuftraege[i] != nullptr)
+		{
+
+			// Position für den Auftrag und die ID
+			alleAuftraege[i]->draw(window);
+		}
+	}
+}
+
+
+
+
+
+void AuftraegeManager::updateAuftraege()
+{
+
+	//Zufallsinitialisierung nur einmal
+	static bool seeded = false;
+	if (!seeded) 
+	{
+		srand(static_cast<unsigned>(time(0)));
+		seeded = true;
+	}
+
+	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+
+	while (Auftrag::getAnzahlAktiveAuftraege() < 5)
+	{
+
+		// Anzahl der Positionen pro Auftrag: 1–3
+		int anzahlPositionen = rand() % 3 + 1;
+
+
+		//Auftrag* neuerAuftrag = nullptr;
+
+		cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
+		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
+	
+		
+	
+		//Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font);
+	
+		
+
+
+		for (int i = 0; i < anzahlPositionen; ++i)
+		{
+			// Zufällige ItemID wählen
+			ItemID zufallsItem = Item::randomItem();
+
+			// Zufällige Menge 1–5
+			int menge = rand() % 5 + 1;
+			cout << "Menge: " << menge << endl;
+
+			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
+
+		
+			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
+			neuerAuftrag->addBestellposition(pos);
+			
+		}
+
+
+		addAuftrag(neuerAuftrag);
+
+		cout << "Neuer Auftrag wurde erstellt" << endl;
 	}
 }
 
 void AuftraegeManager::finishAuftrag(Auftrag* auftrag)
 {
+
 }
+
+
+
+
+
 
 
 

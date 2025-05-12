@@ -1,33 +1,42 @@
 #pragma once
 #include <iostream>
 #include "Item.h"
+#include "Bestellposition.h"
 
 using namespace std;
+using namespace sf;
 
 
 class Auftrag
 {
+
 private:
-	string gericht;
-	int anzahlSoll;
-	int winPoints;
-
-	bool isDone;
-
-	//Items als Gerüst bereit halten, speichern in Liste, abfragen per ENUM und SWITCH CASE damit der string "gericht" und die benötigten items automatisch je nach case bestimmt werden
+	Bestellposition* derAuftrag[5];
+	RectangleShape fensterAuftrag;
+	Font font;
+	static int anzahlAktiv;
+	int id;
+	bool wurdeInitialisiert;
 
 public:
-	Auftrag();
-	Auftrag(string ini_gericht, int ini_anzahlSoll, int ini_winPoints);
-
-	int getPoints();
-	int getAnzahlSoll();
-	string getGericht();
+	Auftrag(Texture* ini_texture, Font ini_font);
+	Auftrag(Texture* ini_texture, Font ini_font, int id);
+	~Auftrag();
 
 
-	void setIsDone(bool done);
-	bool getIsDone();
+	void addBestellposition(Bestellposition* ini_position);
+	
+	Bestellposition* getBestellposition(int index);
 
+	int getAnzahlBestellopsitionen();
+	static int getAnzahlAktiveAuftraege();
+	Vector2f getFensterAuftrag();
+	int getId();
+	
+	static void decrementAnzahlAktiv();
+
+
+	void draw(RenderWindow& window);
 
 };
 

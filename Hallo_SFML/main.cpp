@@ -12,15 +12,18 @@
 #include "Spieler.h"
 #include "StartScreen.h"
 #include "Mapelement.h"
+
 #include "GeraetBase.h"
 #include "Ofen.h"
-
 #include "Storage.h"
 #include "Mixer.h"
+#include "Ausgabe.h"
 
+#include "Item.h"
 
 #include "PauseManager.h"
 
+#include "Bestellposition.h"
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
 
@@ -81,7 +84,15 @@ int main()
     if (!playerRightTexture.loadFromFile("Texturen & Musik/Char-rechts.png")) {
         cerr << "Fehler beim Laden der rechten Textur!" << endl;
         return -1;
+    }     
+
+    Texture tasksTexture;
+    if (!tasksTexture.loadFromFile("Texturen & Musik/tasks.png")) 
+    {
+        cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
+        return -1;
     }
+  
 
 
 
@@ -128,20 +139,30 @@ int main()
     // Spielfeld
     Spielfeld* playField = new Spielfeld();
 
+    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture);
+
     // Ofen
-    Ofen ofen1(32, font, &spieler1);
+    Ofen ofen1(32, font, &spieler1, 3);
     ofen1.setTexture(&ofenTexture);        
 
 	// Lager
-    Storage storage1(12, font, &spieler1);
+    Storage storage1(12, font, &spieler1, 5);
     storage1.setTexture(&lagerTexture);
 
 	// Mixer
-    Mixer mixer1(22, font, &spieler1);
+    Mixer mixer1(22, font, &spieler1, 3);
     mixer1.setTexture(&mixerTexture);
 
+    //Ausgabe
+    Ausgabe ausgabe1(56, font, &spieler1, 20, derAuftraegeManager);
+    ausgabe1.setTexture(&placeholder);
 
    
+
+
+    
+
+
    
 
 
@@ -157,14 +178,7 @@ int main()
         (float)window.getSize().y / backgroundTexture.getSize().y
     );
 
-    
-    AuftraegeManager auftraegeManager(&font);
-    auftraegeManager.setText("Auftraege:\n");
 
-
-    auftraegeManager.addAuftrag(new Auftrag("Hamburger", 2, 10));
-    auftraegeManager.addAuftrag(new Auftrag("Nudeln", 2, 10));
-    
 
     // PauseManager mit Musiksteuerung
     PauseManager pauseManager(window.getSize(), soundManager);
@@ -209,14 +223,14 @@ int main()
             }
             else 
             {
-                cout << "Test 2 " << endl;
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
-                mixer1.handleEvent(event, window); 
-
-                cout << "Test 3 " << endl;
+                mixer1.handleEvent(event, window);
+                ausgabe1.handleEvent(event, window);
             }
         }
+
+     
 
         if (!pauseManager.isPaused()) {
             Vector2f direction(0.f, 0.f);
@@ -269,14 +283,23 @@ int main()
             mixer1.update();
             mixer1.draw(window);
 
-            auftraegeManager.draw(window);
+            ausgabe1.update();
+            ausgabe1.draw(window);
+
+
+
+            derAuftraegeManager->draw(window);
+
+           
         }
+
 
         pauseManager.draw(window);
         window.display();
 
     }
 
+    derAuftraegeManager->clearAuftraege();
     soundManager->stopHintergrundMusik();
     return 0;
 }

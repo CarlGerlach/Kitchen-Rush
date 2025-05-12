@@ -1,8 +1,13 @@
+#include <sstream>
 #include "Spieler.h"
+
 
 // Konstruktor
 Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture)
 {
+    if (!font.loadFromFile("Texturen & Musik/arial.ttf")) {
+        std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
+    }
     this->speed = speed;
     this->bounds = bounds;
     this->points = 0;
@@ -20,11 +25,10 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     // Grafische Darstellung der Inventarslots (zentriert am unteren Bildschirmrand)
     float slotSize = 50.f;
     float spacing = 10.f;
-    float totalWidth = 5 * slotSize + 4 * spacing; // Gesamtbreite des Inventars
-    float startXPos = (bounds.width - totalWidth) / 2.f; // Zentrierte Position
-    float startYPos = bounds.height - slotSize - 20.f; // Etwas über dem unteren Rand
+    float startXPos = 800.f; // Feste X-Position des ersten Inventarslots
+    float startYPos = bounds.height - slotSize - 20.f; // Y-Position bleibt gleich
 
-    for (int i = 0; i < 5; i++) 
+    for (int i = 0; i < 5; i++)
     {
         inventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
@@ -40,22 +44,26 @@ void Spieler::setTexture(sf::Texture* newTexture)
 }
 
 
-void Spieler::draw(sf::RenderWindow& window) {
+void Spieler::draw(sf::RenderWindow& window) 
+{
     window.draw(shape);
 
-    // Hole die aktuelle View
-    sf::View view = window.getView();
-    sf::Vector2f viewSize = view.getSize();
-    sf::Vector2f viewCenter = view.getCenter();
-
-    // Inventar zentriert am unteren Rand der sichtbaren View platzieren
+    // Inventar fest an Position X = 800 platzieren, unabhängig von der View
     float slotSize = 50.f;
     float spacing = 10.f;
-    float totalWidth = 5 * slotSize + 4 * spacing;
+    float startXPos = 800.f;
+    float startYPos = window.getSize().y - slotSize - 100.f; // Feste Y-Position relativ zum Fenster
 
-    // Neue Position basierend auf View
-    float startXPos = viewCenter.x - viewSize.x / 2.f + (viewSize.x - totalWidth) / 2.f;
-    float startYPos = viewCenter.y + viewSize.y / 2.f - slotSize - 100.f;
+    
+
+    Text text;
+    text.setFont(font);
+    text.setCharacterSize(30);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(Vector2f(1800.f, 70.f));
+
+    text.setString(std::to_string(points));
+    window.draw(text);
 
     for (int i = 0; i < 5; i++)
     {

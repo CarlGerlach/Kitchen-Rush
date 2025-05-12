@@ -8,7 +8,7 @@ protected:
 
 
 public:
-	Storage(int Grindnumber, Font& newFont, Spieler* player);
+	Storage(int Grindnumber, Font& newFont, Spieler* player, int ini_inventorySize);
 
 
 };
