@@ -49,6 +49,9 @@ public:
 	bool loadGameOverSound(const std::string& filePath);
 	void playGameOverSound();
 
+	void setGameOverVolume(float volume);
+
+
 
 };
 

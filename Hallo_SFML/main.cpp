@@ -99,6 +99,8 @@ int main()
     if (!soundManager->loadGameOverSound("Texturen & Musik/game over.ogg")) {
         std::cerr << "Fehler beim Laden von game over.ogg!" << std::endl;
     }
+    soundManager->setGameOverVolume(30.f); // z. B. 20 % Lautstärke
+
 
 
 
@@ -181,10 +183,14 @@ int main()
         {
             if (event.type == sf::Event::Closed)
             {
+				// Musik stoppen
+                soundManager->stopHintergrundMusik();
+
+                // Sound spielen
                 soundManager->playGameOverSound();
 
                 // Warte kurz, damit der Sound hörbar ist
-                sf::sleep(sf::seconds(2.8)); // optional: anpassen je nach Soundlänge
+                sf::sleep(sf::seconds(2.8)); // anpassen je nach Soundlänge
 
                 window.close();
             }

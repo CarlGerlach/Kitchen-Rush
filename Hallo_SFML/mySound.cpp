@@ -87,6 +87,11 @@ void mySound::playGameOverSound() {
     gameOverSound.play();
 }
 
+void mySound::setGameOverVolume(float volume) {
+    gameOverSound.setVolume(volume); // Wertebereich 0–100
+}
+
+
 
 
 
