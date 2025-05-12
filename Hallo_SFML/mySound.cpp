@@ -73,5 +73,20 @@ void mySound::playGameStartSound() {
     gameStartSound.play();
 }
 
+bool mySound::loadGameOverSound(const std::string& filePath) 
+{
+    if (!gameOverBuffer.loadFromFile(filePath)) {
+        std::cerr << "Fehler beim Laden von game over.ogg!" << std::endl;
+        return false;
+    }
+    gameOverSound.setBuffer(gameOverBuffer);
+    return true;
+}
+
+void mySound::playGameOverSound() {
+    gameOverSound.play();
+}
+
+
 
 

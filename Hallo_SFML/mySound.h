@@ -43,6 +43,11 @@ public:
 	void playGameStartSound();
 
 
+	sf::SoundBuffer gameOverBuffer;
+	sf::Sound gameOverSound;
+
+	bool loadGameOverSound(const std::string& filePath);
+	void playGameOverSound();
 
 
 };

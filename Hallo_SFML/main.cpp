@@ -96,6 +96,12 @@ int main()
         std::cerr << "Fehler beim Laden von game start.ogg!" << std::endl;
     }
 
+    if (!soundManager->loadGameOverSound("Texturen & Musik/game over.ogg")) {
+        std::cerr << "Fehler beim Laden von game over.ogg!" << std::endl;
+    }
+
+
+
     if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
         soundManager->setMusicLautstaerke(10.f);
         soundManager->playHintergrundMusik();
@@ -173,9 +179,16 @@ int main()
 
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed) {
+            if (event.type == sf::Event::Closed)
+            {
+                soundManager->playGameOverSound();
+
+                // Warte kurz, damit der Sound hörbar ist
+                sf::sleep(sf::seconds(2.8)); // optional: anpassen je nach Soundlänge
+
                 window.close();
             }
+
 
             // ESC soll jederzeit die Pause toggeln
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
