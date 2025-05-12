@@ -1,19 +1,20 @@
 #include "AuftraegeManager.h"
+#include "Auftrag.h"
+#include "mySound.h"
 #include <sstream>
 using namespace std;
 using namespace sf;
 
 
 
-AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag)
-{	
+AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager)
+{
 	if (ini_textureHintergrundAuftrag != nullptr)
-	{
 		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
-	}
 
 	letzterAuftragId = 0;
 	font = ini_font;
+	soundManager = ini_soundManager;  // <--- Soundmanager speichern
 }
 
 AuftraegeManager::~AuftraegeManager()
@@ -168,13 +169,15 @@ void AuftraegeManager::updateAuftraege()
 
 void AuftraegeManager::finishAuftrag(Auftrag* auftrag)
 {
+	if (auftrag == nullptr) return;
 
+	// Auftrag aus der Liste entfernen
+	removeAuftrag(auftrag);
+
+	// Sound abspielen
+	if (soundManager)
+		soundManager->playAuftragAbgeschlossenSound();
 }
-
-
-
-
-
 
 
 
