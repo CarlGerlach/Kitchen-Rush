@@ -65,6 +65,14 @@ int main()
         return -1;
     }
 
+	//Auftrag Objekt
+    Texture auftragObjektTexture;
+    if (!auftragObjektTexture.loadFromFile("Texturen & Musik/Auftrag Objekt.png")) {
+        cerr << "Fehler beim Laden der AuftragObjekt-Textur!" << endl;
+        return -1;
+    }
+
+
 	//Placeholder
     Texture placeholder;
     if (!placeholder.loadFromFile("Texturen & Musik/temp.png")) {
@@ -164,7 +172,7 @@ int main()
 
     //Ausgabe
     Ausgabe ausgabe1(56, font, &spieler1, 20, derAuftraegeManager);
-    ausgabe1.setTexture(&placeholder);
+    ausgabe1.setTexture(&auftragObjektTexture);
 
    
 
