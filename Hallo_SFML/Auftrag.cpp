@@ -131,13 +131,13 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 	if (abgelaufen == true) return;
 
 	timer += deltaTime;
-	if (timer >= lebensdauer) 
+	if (timer >= lebensdauer)
 	{
 		abgelaufen = true;
 		GameMessage::setText("Ein Auftrag ist abgelaufen!");
 
 		pauseManager.togglePause();        // Spiel pausieren
-		pauseManager.setGameOver(true); // Game Over Zustand aktivieren
+		pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
 	}
 }
 
