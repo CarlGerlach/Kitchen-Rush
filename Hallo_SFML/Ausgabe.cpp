@@ -1,5 +1,6 @@
 #include "Ausgabe.h"
-
+#include "GameMessage.h"
+#include <sstream>
 
 Ausgabe::Ausgabe(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize, AuftraegeManager* ini_derAuftraegeManager) : GeraetBase(gridnumber, player, ini_inventorySize)
 {
@@ -131,17 +132,20 @@ bool Ausgabe::versucheAuftragZuErfüllen(int auftragIndex)
             derAuftraegeManager->finishAuftrag(auftrag);
 
 
-            std::cout << "Auftrag " << auftragIndex << " erfolgreich erfüllt und entfernt." << std::endl;
             return true;
         }
         else
         {
-            std::cout << "Auftrag mit Index " << auftragIndex << " nicht gefunden." << std::endl;
+            //std::cout << "Auftrag mit Index " << auftragIndex << " nicht gefunden." << std::endl;
         }
     }
     else
     {
-        std::cout << "Nicht genügend Items im Inventar für Auftrag " << auftragIndex << "." << std::endl;
+        stringstream text; 
+        text << "Nicht genügend Items im Inventar für Auftrag: " << auftragIndex;
+        GameMessage::setText(text.str());
+
+    
     }
 
     return false;

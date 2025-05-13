@@ -150,7 +150,7 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
                     }
                     else
                     {
-                        std::cout << "Fehler beim Übertragen des Items\n";
+                        //std::cout << "Fehler beim Übertragen des Items\n";
                     }
                 }
             }

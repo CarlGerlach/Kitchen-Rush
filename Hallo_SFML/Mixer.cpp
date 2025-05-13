@@ -1,4 +1,5 @@
 #include "Mixer.h"
+#include "GameMessage.h"
 
 
 Mixer::Mixer(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize) : GeraetBase(gridnumber, player, ini_inventorySize)
@@ -12,9 +13,14 @@ bool Mixer::makeTeig()
     Item* item1 = devInventar->getItem(1);
 
     // Prüfen, ob beide Slots belegt sind
-    if (item0 == nullptr || item1 == nullptr)
+    if (item0 == nullptr)
     {
-        std::cout << "Fehlende Zutat in Slot 0 oder 1!" << std::endl;
+        GameMessage::setText("Fehlende Zutat in Slot 1");
+        return false;
+    }
+    if (item1 == nullptr)
+    {
+        GameMessage::setText("Fehlende Zutat in Slot 2");
         return false;
     }
 
@@ -34,12 +40,12 @@ bool Mixer::makeTeig()
         }
         else
         {
-            std::cout << "Slot 2 ist belegt. Kein Platz für Pizza!" << std::endl;
+            GameMessage::setText("Kein Platz für Pizza in Slot 3");
             return false;
         }
     }
 
-    std::cout << "Nicht die richtigen Zutaten in Slot 0 und 1!" << std::endl;
+    GameMessage::setText("Nicht die richtigen Zutaten in Slot 1 und/oder 2");
     return false;
 }
 
@@ -60,7 +66,6 @@ void Mixer::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Fenster geschlossen" << endl;
             dasFenster.toggle();
         }
     );

@@ -67,7 +67,6 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Fenster geschlossen" << endl;
             dasFenster.toggle();
         }
     );

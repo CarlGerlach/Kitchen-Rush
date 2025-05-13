@@ -1,6 +1,8 @@
 #include "PauseManager.h"  
 #include "Button.h"  
+#include "GameMessage.h"
 #include <iostream>  
+#include <sstream>
 
 PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr)  
    : paused(false), soundManager(soundMgr)  
@@ -59,15 +61,20 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
        {  
            float vol = soundManager->getMusicLautstaerke();  
             
-           soundManager->setMusicLautstaerke(1);  
-           std::cout << "Lautstärke: " << vol << "%" << std::endl;  
+           soundManager->setMusicLautstaerke(1);
+           stringstream text;
+           text << "Lautstärke: " << vol << "%";
+           GameMessage::setText(text.str());  
        }  
        if (buttonVolumeDown->wasClicked())  
        {  
            float vol = soundManager->getMusicLautstaerke();  
             
            soundManager->setMusicLautstaerke(0);  
-           std::cout << "Lautstärke: " << vol << "%" << std::endl;  
+         
+           stringstream text;
+           text << "Lautstärke: " << vol << "%";
+           GameMessage::setText(text.str());
        }  
        if (buttonExit->wasClicked())  
        {   
