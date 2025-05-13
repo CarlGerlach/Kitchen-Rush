@@ -281,11 +281,11 @@ int main()
 
             derAuftraegeManager->draw(window, deltaTime, pauseManager); 
 
-            GameMessage::draw(window);
         }
 
 
         pauseManager.draw(window);
+        GameMessage::draw(window);
         window.display();
 
     }
