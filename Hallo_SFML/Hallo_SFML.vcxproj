@@ -141,6 +141,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="dasFenster.cpp" />
     <ClCompile Include="DeviceInventar.cpp" />
+    <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="Fenster.cpp" />
     <ClCompile Include="GeraetBase.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="dasFenster.h" />
     <ClInclude Include="DeviceInventar.h" />
+    <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="Fenster.h" />
     <ClInclude Include="GeraetBase.h" />
     <ClInclude Include="Grid.h" />

@@ -32,6 +32,9 @@ public:
 	static int getAnzahlAktiveAuftraege();
 	Vector2f getFensterAuftrag();
 	int getId();
+
+	void clearBestellpositionen();
+	
 	
 	static void decrementAnzahlAktiv();
 

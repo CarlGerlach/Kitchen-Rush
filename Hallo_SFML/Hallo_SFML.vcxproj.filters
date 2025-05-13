@@ -47,6 +47,7 @@
     <ClCompile Include="Mixer.cpp">
       <Filter>KitchenDevices</Filter>
     </ClCompile>
+    <ClCompile Include="DeviceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -97,6 +98,7 @@
     <ClInclude Include="Mixer.h">
       <Filter>KitchenDevices</Filter>
     </ClInclude>
+    <ClInclude Include="DeviceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="KitchenDevices">

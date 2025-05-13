@@ -37,6 +37,7 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 
 		//cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
 		letzterAuftragId = ini_auftrag->getId();
+		ini_auftrag->clearBestellpositionen();
 		//cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();

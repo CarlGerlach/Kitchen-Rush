@@ -107,6 +107,18 @@ int Auftrag::getId()
 	return id;
 }
 
+void Auftrag::clearBestellpositionen()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (derAuftrag[i] != nullptr)
+		{		  
+			delete derAuftrag[i];
+			derAuftrag[i] = nullptr;
+		}
+	}
+}
+
 void Auftrag::decrementAnzahlAktiv()
 {
 	anzahlAktiv--;
