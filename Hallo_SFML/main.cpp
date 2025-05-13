@@ -111,32 +111,7 @@ int main()
     //Sound
     mySound* soundManager = new mySound();
 
-    if (!soundManager->loadGameStartSound("Texturen & Musik/game start.ogg")) {
-        std::cerr << "Fehler beim Laden von game start.ogg!" << std::endl;
-    }
-
-    if (!soundManager->loadGameOverSound("Texturen & Musik/game over.ogg")) {
-        std::cerr << "Fehler beim Laden von game over.ogg!" << std::endl;
-    }
-    soundManager->setGameOverVolume(30.f); // 20 % Lautstärke
-
-
-    // Lade den Soundmanager und den Auftrag-Abgeschlossen-Sound
-    if (!soundManager->loadAuftragAbgeschlossenSound("Texturen & Musik/auftrag abgeschlossen.ogg")) {
-        std::cerr << "Fehler beim Laden von auftrag abgeschlossen.ogg!" << std::endl;
-    }
-
-
-
-
-
-    if (soundManager->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
-        soundManager->setMusicLautstaerke(10.f);
-        soundManager->playHintergrundMusik();
-    }
-    else {
-        cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
-    }
+    
 
 
     // übergebe soundManager an StartScreen

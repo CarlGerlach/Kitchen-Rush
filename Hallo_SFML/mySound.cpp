@@ -4,14 +4,39 @@ using namespace sf;
 
 mySound::mySound()
 {
+
     if (!buffer.loadFromFile("Texturen & Musik/Button-Click.wav")) // WAV-Datei statt MP3
     {
         std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
     }
+
+    if (!this->loadGameStartSound("Texturen & Musik/game start.ogg")) {
+        std::cerr << "Fehler beim Laden von game start.ogg!" << std::endl;
+    }
+
+    if (!this->loadGameOverSound("Texturen & Musik/game over.ogg")) {
+        std::cerr << "Fehler beim Laden von game over.ogg!" << std::endl;
+    }
+    this->setGameOverVolume(30.f); // 20 % Lautstärke
+
+
+    // Lade den Soundmanager und den Auftrag-Abgeschlossen-Sound
+    if (!this->loadAuftragAbgeschlossenSound("Texturen & Musik/auftrag abgeschlossen.ogg")) {
+        std::cerr << "Fehler beim Laden von auftrag abgeschlossen.ogg!" << std::endl;
+    }
+
+
+    if (this->loadHintergrundMusik("Texturen & Musik/Hintergrund-Musik.ogg")) {
+        this->setMusicLautstaerke(10.f);
+        this->playHintergrundMusik();
+    }
+    else {
+        cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
+    }
     
     meinSound.setBuffer(buffer);
 
-	lautstärke = 10.f; // Standardlautstärke
+	lautstärke = 20.f; // Standardlautstärke
 }
 
 Sound& mySound::getMeinSound()

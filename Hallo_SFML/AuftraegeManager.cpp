@@ -35,9 +35,9 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 		//Ändern auf Getter und dann set um nicht Static
 		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
 
-		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
+		//cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
 		letzterAuftragId = ini_auftrag->getId();
-		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
+		//cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();
 		delete* it;                    // Speicher freigeben
@@ -122,7 +122,7 @@ void AuftraegeManager::updateAuftraege()
 		seeded = true;
 	}
 
-	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+	//std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5)
 	{
@@ -133,15 +133,10 @@ void AuftraegeManager::updateAuftraege()
 
 		//Auftrag* neuerAuftrag = nullptr;
 
-		cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
+		//cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
 		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
 	
-		
 	
-		//Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font);
-	
-		
-
 
 		for (int i = 0; i < anzahlPositionen; ++i)
 		{
@@ -150,12 +145,12 @@ void AuftraegeManager::updateAuftraege()
 
 			// Zufällige Menge 1–5
 			int menge = rand() % 5 + 1;
-			cout << "Menge: " << menge << endl;
+			//cout << "Menge: " << menge << endl;
 
 			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
 
 		
-			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
+			//cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
 			neuerAuftrag->addBestellposition(pos);
 			
 		}
@@ -163,7 +158,7 @@ void AuftraegeManager::updateAuftraege()
 
 		addAuftrag(neuerAuftrag);
 
-		cout << "Neuer Auftrag wurde erstellt" << endl;
+		//cout << "Neuer Auftrag wurde erstellt" << endl;
 	}
 }
 
