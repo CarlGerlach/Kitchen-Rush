@@ -271,10 +271,7 @@ int main()
             ausgabe1.draw(window);
 
 
-
-            derAuftraegeManager->draw(window);
-
-           
+            derAuftraegeManager->draw(window); 
         }
 
 
@@ -283,7 +280,7 @@ int main()
 
     }
 
+
     derAuftraegeManager->clearAuftraege();
-    soundManager->stopHintergrundMusik();
     return 0;
 }
