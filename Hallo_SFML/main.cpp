@@ -189,14 +189,6 @@ int main()
         {
             if (event.type == sf::Event::Closed)
             {
-				// Musik stoppen
-                soundManager->stopHintergrundMusik();
-
-                // Sound spielen
-                soundManager->playGameOverSound();
-
-                // Warte kurz, damit der Sound hörbar ist
-                sf::sleep(sf::seconds(2.8)); // anpassen je nach Soundlänge
 
                 window.close();
             }
