@@ -170,3 +170,8 @@ void mySound::setVolume(float volume) {
     gameOverSound.setVolume(lautstärke);
     auftragAbgeschlossenSound.setVolume(lautstärke);
 }
+
+// In der mySound-Klasse
+float mySound::getMusicLautstaerke() {
+    return lautstärke;
+}

@@ -46,4 +46,6 @@ public:
 
     // Neue Methode zum Setzen der Lautstärke
     void setVolume(float volume);  // Methode zum Setzen der Lautstärke für alle Sounds
+
+    float getMusicLautstaerke();
 };

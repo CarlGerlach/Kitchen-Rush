@@ -73,6 +73,35 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
         sf::sleep(sf::seconds(2.8));         // Warte, damit der Sound hörbar ist
         window.close(); // Fenster schließen
     }
+
+    if (buttonMusicStart->wasClicked())
+    {
+        if (!soundManager->isMusicPlaying())
+            soundManager->playHintergrundMusik();
+    }
+    if (buttonMusicStop->wasClicked())
+    {
+        soundManager->stopHintergrundMusik();
+    }
+    if (buttonVolumeUp->wasClicked())
+    {
+        float vol = soundManager->getMusicLautstaerke();
+
+        soundManager->setMusicLautstaerke(1);
+        stringstream text;
+        text << "Lautstärke: " << vol << "%";
+        GameMessage::setText(text.str());
+    }
+    if (buttonVolumeDown->wasClicked())
+    {
+        float vol = soundManager->getMusicLautstaerke();
+
+        soundManager->setMusicLautstaerke(0);
+
+        stringstream text;
+        text << "Lautstärke: " << vol << "%";
+        GameMessage::setText(text.str());
+    }
 }
 
 void PauseManager::draw(sf::RenderWindow& window)
