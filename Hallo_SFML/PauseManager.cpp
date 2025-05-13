@@ -67,11 +67,11 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
         GameMessage::setText(text.str());
     }
 
-    if (buttonExit->wasClicked())
-    {
-        soundManager->stopHintergrundMusik();
-        soundManager->playGameOverSound();
-        window.close();
+    if (buttonExit->wasClicked()) {
+        soundManager->stopHintergrundMusik(); // Musik stoppen
+        soundManager->playGameOverSound();  // Game Over Sound abspielen
+        sf::sleep(sf::seconds(2.8));         // Warte, damit der Sound hörbar ist
+        window.close(); // Fenster schließen
     }
 }
 
