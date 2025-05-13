@@ -48,6 +48,7 @@
       <Filter>KitchenDevices</Filter>
     </ClCompile>
     <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="GameMessage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -99,6 +100,7 @@
       <Filter>KitchenDevices</Filter>
     </ClInclude>
     <ClInclude Include="DeviceManager.h" />
+    <ClInclude Include="GameMessage.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="KitchenDevices">

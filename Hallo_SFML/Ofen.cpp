@@ -1,6 +1,7 @@
 #include "Ofen.h"
 #include "Item.h"
 #include "Spieler.h"
+#include "GameMessage.h"
 
 Ofen::Ofen(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize) : GeraetBase(gridnumber, player,ini_inventorySize)
 {
@@ -13,9 +14,14 @@ bool Ofen::makePizza()
     Item* item1 = devInventar->getItem(1);
 
     // Prüfen, ob beide Slots belegt sind
-    if (item0 == nullptr || item1 == nullptr)
+    if (item0 == nullptr)
     {
-        std::cout << "Fehlende Zutat in Slot 0 oder 1!" << std::endl;
+        GameMessage::setText("Fehlende Zutat in Slot 1");
+        return false;
+    }
+    if (item1 == nullptr)
+    {
+        GameMessage::setText("Fehlende Zutat in Slot 2");
         return false;
     }
 
@@ -34,12 +40,13 @@ bool Ofen::makePizza()
         }
         else
         {
-            std::cout << "Slot 2 ist belegt. Kein Platz für Pizza!" << std::endl;
+            GameMessage::setText("Ofen ist Voll");
             return false;
         }
     }
 
-    std::cout << "Nicht die richtigen Zutaten in Slot 0 und 1!" << std::endl;
+    
+    GameMessage::setText("Nicht die richtigen Zutaten in Slot 0 oder 1!");
     return false;
 }
 
@@ -54,21 +61,12 @@ void Ofen::setupButtons(Font& newFont, Spieler* player)
         }
     );
 
-    dasFenster.addKnopf(
-        "Nehme Item",
-        newFont,  // Font übergeben
-        [this, player]()
-        {
-        
-        }
-    );
 
     dasFenster.addKnopf(
         "Schließen",
         newFont,  // Font übergeben
         [this,player]()
         {
-            cout << "Fenster geschlossen" << endl;
             dasFenster.toggle();
         }
     );

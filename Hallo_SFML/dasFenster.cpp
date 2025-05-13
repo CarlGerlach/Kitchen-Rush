@@ -1,5 +1,6 @@
 #include "dasFenster.h"
 #include "Spieler.h"
+#include "GameMessage.h"
 
 dasFenster::dasFenster() 
 {
@@ -117,7 +118,7 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
                         }
                         else
                         {
-                            cout << "Inventar ist Voll" << endl;
+                            GameMessage::setText("Inventar ist voll");
                         }
                         
                     }
@@ -136,7 +137,8 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
 
                     if (selectedItem == nullptr)
                     {
-                        std::cout << "Kein Item im Spielerinventar ausgewählt\n";
+                        GameMessage::setText("Kein Item im Spielerinventar ausgewählt");
+                
                         return;
                     }
 

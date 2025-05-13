@@ -22,6 +22,7 @@
 #include "Item.h"
 
 #include "PauseManager.h"
+#include "GameMessage.h"
 
 #include "Bestellposition.h"
 #include "Auftrag.h"
@@ -101,7 +102,9 @@ int main()
         return -1;
     }
   
-
+    //Game MEssage die man überall aufrüfen kann
+    GameMessage::init(font);
+    //GameMessage::setText("Nicht genug Zutaten!")  //Um den Text zu setzen der ausgegeben werden soll
 
 
     // Spielfeldbegrenzung und Spieler
@@ -176,6 +179,7 @@ int main()
     PauseManager pauseManager(window.getSize(), soundManager);
 
     Clock clock;
+    
 
 
     
@@ -183,6 +187,7 @@ int main()
 
     while (window.isOpen())
     {
+        float deltaTime = clock.restart().asSeconds();
         Event event;
 
         while (window.pollEvent(event))
@@ -256,6 +261,9 @@ int main()
         else {
             playField->drawSpielfeld(window);
             
+            GameMessage::update(deltaTime);
+            
+
             spieler1.draw(window);
 
             ofen1.update();
@@ -272,6 +280,8 @@ int main()
 
 
             derAuftraegeManager->draw(window); 
+
+            GameMessage::draw(window);
         }
 
 

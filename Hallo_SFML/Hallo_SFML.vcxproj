@@ -143,6 +143,7 @@
     <ClCompile Include="DeviceInventar.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="Fenster.cpp" />
+    <ClCompile Include="GameMessage.cpp" />
     <ClCompile Include="GeraetBase.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inventar.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="DeviceInventar.h" />
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="Fenster.h" />
+    <ClInclude Include="GameMessage.h" />
     <ClInclude Include="GeraetBase.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Inventar.h" />

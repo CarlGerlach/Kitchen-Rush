@@ -133,7 +133,7 @@ void Auftrag::draw(RenderWindow& window)
 	Text text;
 	text.setFont(font);
 	text.setCharacterSize(18);
-	text.setFillColor(sf::Color::Green);
+	text.setFillColor(sf::Color::Black);
 	
 	stringstream idStream;
 	idStream << this->getId();
