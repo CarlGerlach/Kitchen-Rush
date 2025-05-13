@@ -5,12 +5,12 @@
 #include <sstream>
 
 PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr)  
-   : paused(false), soundManager(soundMgr)  
+   : paused(false), soundManager(soundMgr)
 {  
    overlay.setSize(sf::Vector2f(windowSize));  
    overlay.setFillColor(sf::Color(0, 0, 0, 150)); // halbtransparent schwarz  
 
-   font.loadFromFile("Texturen & Musik/arial.ttf"); // Lade Schrift  
+   font.loadFromFile("Texturen & Musik/TDAText.ttf"); // Lade Schrift  
 
    buttonResume = new Button(860, 300, 200, 50, "Fortsetzen", font, sf::Color::Green, sf::Color::White, soundManager);  
    buttonMusicStart = new Button(860, 370, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);  
@@ -42,11 +42,21 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
 
        if (buttonResume->wasClicked())  
        {  
-           paused = false;
+           if (!gameOver)
+           {
+               paused = false;
 
-           if (soundManager) {
-               soundManager->playGameStartSound(); // -> Hier wird der Sound abgespielt
+               if (soundManager) {
+                   soundManager->playGameStartSound(); // -> Hier wird der Sound abgespielt
+               }
+
            }
+           else
+           {
+               GameMessage::setText("Spielende - Auftrag abgelaufen");
+           }
+
+           
        }  
        if (buttonMusicStart->wasClicked())  
        {  
@@ -111,4 +121,14 @@ void PauseManager::draw(sf::RenderWindow& window)
 bool PauseManager::isPaused()   
 {  
    return paused;  
+}
+
+void PauseManager::setGameOver(bool value)
+{
+    gameOver = value;
+}
+
+bool PauseManager::getGameOver()
+{
+    return gameOver;
 }

@@ -16,7 +16,7 @@ StartScreen::StartScreen(mySound* soundManager)
     backgroundSprite.setScale(scaleX, scaleY);
 
     // Schriftart laden
-    if (!font.loadFromFile("Texturen & Musik/arial.ttf")) {
+    if (!font.loadFromFile("Texturen & Musik/TDAText.ttf")) {
         std::cerr << "Fehler: Schriftart konnte nicht geladen werden!\n";
     }
 

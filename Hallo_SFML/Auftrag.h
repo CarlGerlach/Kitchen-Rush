@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Item.h"
 #include "Bestellposition.h"
+#include "PauseManager.h"
 
 using namespace std;
 using namespace sf;
@@ -17,6 +18,10 @@ private:
 	static int anzahlAktiv;
 	int id;
 	bool wurdeInitialisiert;
+
+	float lebensdauer = 60.f;      
+	float timer = 0.f;             // aktuelle verstrichene Zeit
+	bool abgelaufen = false;
 
 public:
 	Auftrag(Texture* ini_texture, Font ini_font);
@@ -37,7 +42,7 @@ public:
 	
 	
 	static void decrementAnzahlAktiv();
-
+	void update(float deltaTime, PauseManager& pauseManager);
 
 	void draw(RenderWindow& window);
 

@@ -9,7 +9,7 @@ public:
     bool paused;
 private:
 
-    
+    bool gameOver = false;
 
     sf::RectangleShape overlay;
     sf::Font font;
@@ -33,7 +33,7 @@ public:
     void setPaused(bool paused) {
 		this->paused = paused;
 	}
-		
+
     void togglePause() {
         if (paused == 0) {
 			paused = 1;
@@ -42,5 +42,8 @@ public:
 			paused = 0;
 		}
 	}
+
+    void setGameOver(bool value);
+    bool getGameOver();
 		
 };

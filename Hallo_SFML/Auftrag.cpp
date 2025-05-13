@@ -1,4 +1,6 @@
 ﻿#include "Auftrag.h"
+#include "GameMessage.h"
+#include "PauseManager.h"
 #include <sstream>
 
 int Auftrag::anzahlAktiv = 0;
@@ -124,6 +126,21 @@ void Auftrag::decrementAnzahlAktiv()
 	anzahlAktiv--;
 }
 
+void Auftrag::update(float deltaTime, PauseManager& pauseManager)
+{
+	if (abgelaufen == true) return;
+
+	timer += deltaTime;
+	if (timer >= lebensdauer) 
+	{
+		abgelaufen = true;
+		GameMessage::setText("Ein Auftrag ist abgelaufen!");
+
+		pauseManager.togglePause();        // Spiel pausieren
+		pauseManager.setGameOver(true); // Game Over Zustand aktivieren
+	}
+}
+
 
 
 void Auftrag::draw(RenderWindow& window)
@@ -143,6 +160,15 @@ void Auftrag::draw(RenderWindow& window)
 	// Position der ID (oben links im Auftrag)
 	text.setPosition(fensterAuftrag.getPosition().x + 35,
 		fensterAuftrag.getPosition().y + 20); // ID-Text etwas versetzt
+	window.draw(text);
+
+	
+	// Restzeit anzeigen   (teils chatgpt)
+	float restzeit = std::max(0.0f, lebensdauer - timer);
+	stringstream zeitStream;
+	zeitStream << static_cast<int>(restzeit) << "s";
+	text.setString(zeitStream.str());
+	text.setPosition(fensterAuftrag.getPosition().x + 120, fensterAuftrag.getPosition().y + 20);
 	window.draw(text);
 
 	

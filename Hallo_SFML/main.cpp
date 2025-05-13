@@ -42,7 +42,7 @@ int main()
     //Alles was geladen wird
     
     Font font;
-    if (!font.loadFromFile("Texturen & Musik/arial.ttf"))
+    if (!font.loadFromFile("Texturen & Musik/TDAText.ttf"))
         return -1;
 
     //Ofen
@@ -279,7 +279,7 @@ int main()
             ausgabe1.draw(window);
 
 
-            derAuftraegeManager->draw(window); 
+            derAuftraegeManager->draw(window, deltaTime, pauseManager); 
 
             GameMessage::draw(window);
         }

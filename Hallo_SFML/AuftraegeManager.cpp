@@ -1,6 +1,7 @@
 #include "AuftraegeManager.h"
 #include "Auftrag.h"
 #include "mySound.h"
+#include "PauseManager.h"
 #include <sstream>
 using namespace std;
 using namespace sf;
@@ -92,9 +93,9 @@ Auftrag* AuftraegeManager::getAuftragMitID(int gesuchteID)
 }
 
 
-void AuftraegeManager::draw(sf::RenderWindow& window)
+void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager)
 {
-	updateAuftraege();
+	updateAuftraege(deltaTime,pauseManager);
 
 
 	for (size_t i = 0; i < alleAuftraege.size(); ++i)
@@ -112,7 +113,7 @@ void AuftraegeManager::draw(sf::RenderWindow& window)
 
 
 
-void AuftraegeManager::updateAuftraege()
+void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManager)
 {
 
 	//Zufallsinitialisierung nur einmal
@@ -122,6 +123,13 @@ void AuftraegeManager::updateAuftraege()
 		srand(static_cast<unsigned>(time(0)));
 		seeded = true;
 	}
+
+	for (Auftrag* auftrag : alleAuftraege)
+	{
+		if (auftrag)
+			auftrag->update(deltaTime, pauseManager);
+	}
+
 
 	//std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
@@ -158,6 +166,7 @@ void AuftraegeManager::updateAuftraege()
 
 
 		addAuftrag(neuerAuftrag);
+
 
 		//cout << "Neuer Auftrag wurde erstellt" << endl;
 	}

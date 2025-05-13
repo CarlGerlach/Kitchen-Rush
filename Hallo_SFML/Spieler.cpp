@@ -5,7 +5,7 @@
 // Konstruktor
 Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture)
 {
-    if (!font.loadFromFile("Texturen & Musik/arial.ttf")) {
+    if (!font.loadFromFile("Texturen & Musik/TDAText.ttf")) {
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
     }
     this->speed = speed;

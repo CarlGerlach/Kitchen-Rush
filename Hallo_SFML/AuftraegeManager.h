@@ -4,6 +4,7 @@
 #include "list"
 #include "Auftrag.h" 
 #include "mySound.h"
+#include "PauseManager.h"
 
 using namespace std;
 using namespace sf;
@@ -32,13 +33,12 @@ public:
 	Auftrag* getAuftragMitID(int gesuchteID);
 
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager);
 
-	void updateAuftraege();
+	void updateAuftraege(float deltaTime, PauseManager& pauseManager);
 
 	void finishAuftrag(Auftrag* auftrag);
 
 
 
 };
-
