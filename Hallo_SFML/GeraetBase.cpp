@@ -78,25 +78,34 @@ void GeraetBase::update()
     }
 }
 
-
-void GeraetBase::handleEvent(const Event& event, const RenderWindow& window) 
+void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
 {
-    if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) 
-    {
- 
-        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    //if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
+    //    {
+    // 
+    //        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    //
+    //        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
+    //        {
+    //            this->dasFenster.toggle();        
+    //        }
+    //    }
 
-        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
+    // Prüfe auf Leertaste gedrückt
+    if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+    {
+        if (isPlayerInRange())
         {
-            this->dasFenster.toggle();        
+            this->dasFenster.toggle();
         }
     }
 
-    if (!isPlayerInRange() && this->dasFenster.getIsVisible() == true)
+    // Fenster automatisch schließen, wenn Spieler sich entfernt
+    if (!isPlayerInRange() && this->dasFenster.getIsVisible())
     {
         this->dasFenster.toggle();
     }
-  
+
     this->dasFenster.handleEvent(event, window);
 }
 
