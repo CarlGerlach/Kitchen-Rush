@@ -24,13 +24,10 @@ bool Mixer::makeTeig()
 
     if (hatMehl && hatWasser)
     {
-        // Entferne beide Items sicher (auch wenn z.?B. Tomate in Slot 1 ist)
-        devInventar->removeItem(0);
-        devInventar->removeItem(1);
-
-        // Füge Pizza in Slot 2 ein, wenn dieser leer ist
         if (devInventar->getItem(2) == nullptr)
         {
+            devInventar->removeItem(0);
+            devInventar->removeItem(1);
             devInventar->addItemToSlot(new Item(ItemID::TEIG), 2);
 
             return true;

@@ -111,8 +111,15 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
 
                     if (item != nullptr)
                     {
-                        connectedPlayer->getPlayerInventar()->addItem(item);
-                        connectedDeviceInventar->removeItem(i);
+                        if (connectedPlayer->getPlayerInventar()->addItem(item) == true)
+                        {
+                            connectedDeviceInventar->removeItem(i);
+                        }
+                        else
+                        {
+                            cout << "Inventar ist Voll" << endl;
+                        }
+                        
                     }
                 }
             }

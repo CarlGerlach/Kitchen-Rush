@@ -128,7 +128,7 @@ void AuftraegeManager::updateAuftraege()
 	{
 
 		// Anzahl der Positionen pro Auftrag: 1–3
-		int anzahlPositionen = rand() % 3 + 1;
+		int anzahlPositionen = rand() % 4 + 1;
 
 
 		//Auftrag* neuerAuftrag = nullptr;

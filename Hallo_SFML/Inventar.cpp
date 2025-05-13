@@ -70,20 +70,6 @@ void Inventar::swapItems(int slotA, Inventar& anderesInventar, int slotB) {
     std::swap(slot[slotA], anderesInventar.slot[slotB]);
 }
 
-void Inventar::print()
-{
-    for (int i = 0; i < slotAnzahl; ++i) 
-    {
-        if (slot[i]) 
-        {
-            std::cout << "[" << i << "] ";
-            slot[i]->print();
-        }
-        else {
-            std::cout << "[" << i << "] (leer)\n";
-        }
-    }
-}
 
 void Inventar::setSlotAnzahl(int ini_newSlotSize)
 {

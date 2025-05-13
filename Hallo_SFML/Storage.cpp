@@ -13,8 +13,6 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-           
-            cout << "Adresse Storage Inventar in Funktion" << getDevInventar() << endl;
             this->getDevInventar()->addItem(new Item(ItemID::MEHL));
         }
     );
