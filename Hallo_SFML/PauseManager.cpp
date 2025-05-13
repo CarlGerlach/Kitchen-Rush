@@ -52,7 +52,7 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
                soundManager->playHintergrundMusik();  
        }  
        if (buttonMusicStop->wasClicked())  
-       {  
+       {                                                 
            soundManager->stopHintergrundMusik();  
        }  
        if (buttonVolumeUp->wasClicked())  

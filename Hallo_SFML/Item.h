@@ -27,6 +27,7 @@ private:
     int points;
     sf::Sprite sprite;
     sf::Texture texture;
+    static std::map<ItemID, sf::Texture> textureCache; // Texturcache (Chatgpt)
 
     void setupItem(); // Hilfsfunktion: Setzt Name, Textur, etc. anhand der ID
 

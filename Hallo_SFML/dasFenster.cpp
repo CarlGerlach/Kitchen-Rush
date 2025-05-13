@@ -144,7 +144,7 @@ void dasFenster::handleEvent(const Event& event, const RenderWindow& window)
                     if (success)
                     {
                         playerInv->removeItem(i);
-                        std::cout << "Item wurde erfolgreich vom Spieler ins Gerät übertragen\n";
+                        //std::cout << "Item wurde erfolgreich vom Spieler ins Gerät übertragen\n";
                     }
                     else
                     {

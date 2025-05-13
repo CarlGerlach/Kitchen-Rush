@@ -17,7 +17,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Klickt auf Auftrag1" << endl;
+            //cout << "Klickt auf Auftrag1" << endl;
             versucheAuftragZuErfüllen(1);
            
         }
@@ -28,7 +28,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Klickt auf Auftrag2" << endl;
+            //cout << "Klickt auf Auftrag2" << endl;
             versucheAuftragZuErfüllen(2);
 
         }
@@ -39,7 +39,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Klickt auf Auftrag3" << endl;
+           // cout << "Klickt auf Auftrag3" << endl;
             versucheAuftragZuErfüllen(3);
 
         }
@@ -50,7 +50,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Klickt auf Auftrag4" << endl;
+            //cout << "Klickt auf Auftrag4" << endl;
             versucheAuftragZuErfüllen(4);
 
         }
@@ -61,7 +61,7 @@ void Ausgabe::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font übergeben
         [this, player]()
         {
-            cout << "Klickt auf Auftrag5" << endl;
+            //cout << "Klickt auf Auftrag5" << endl;
             versucheAuftragZuErfüllen(5);
 
         }

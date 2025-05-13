@@ -25,16 +25,16 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font, int id)
 
 	if(id == 0)
 	{
-		cout << "Anzahl Aktiv vor erstellung: " << anzahlAktiv << endl;
+		//cout << "Anzahl Aktiv vor erstellung: " << anzahlAktiv << endl;
 		this->id = anzahlAktiv;
 
 		fensterAuftrag.setPosition(Vector2f(500 + (anzahlAktiv - 1) * 170, -5));
 		
-		cout << "Id Auftrag erstellung: " << id << endl;
+		//cout << "Id Auftrag erstellung: " << id << endl;
 	}
 	else																							
 	{
-		cout << "Test 2 Auftrag erstellen" << endl;
+		///cout << "Test 2 Auftrag erstellen" << endl;
 		this->id = id;
 
 		fensterAuftrag.setPosition(Vector2f(500 + (id - 1) * 170, -5));

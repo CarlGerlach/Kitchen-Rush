@@ -2,56 +2,64 @@
 #include <iostream>
 #include <random>
 
+std::map<ItemID, sf::Texture> Item::textureCache; //(chatgpt)
+
 Item::Item(ItemID id): id(id)
 {
     setupItem(); // Direkt beim Erstellen alle Werte setzen
 }
 
-void Item::setupItem() 
+void Item::setupItem()
 {
-    switch (id) 
+    switch (id)
     {
     case ItemID::WASSER:
         name = "Wasser";
-        //points = 1;
-        texture.loadFromFile("Texturen & Musik/Wasser.png"); // Pfad zur Bilddatei
         break;
     case ItemID::MEHL:
         name = "Mehl";
-        //points = 1;
-        texture.loadFromFile("Texturen & Musik/Mehl.png");
         break;
     case ItemID::TEIG:
         name = "Teig";
-        //points = 1;
-        texture.loadFromFile("Texturen & Musik/Teig.png");
         break;
     case ItemID::TOMATE:
         name = "Tomate";
-        //points = 1;
-        texture.loadFromFile("Texturen & Musik/Tomate.png");
         break;
     case ItemID::PIZZA:
         name = "Pizza";
         points = 2;
-        texture.loadFromFile("Texturen & Musik/Pizza.png");
         break;
     case ItemID::COLA:
         name = "Cola";
         points = 2;
-        texture.loadFromFile("Texturen & Musik/Cola.png");
         break;
     case ItemID::SALAT:
         name = "Salat";
         points = 2;
-        texture.loadFromFile("Texturen & Musik/Salat.png");
         break;
     default:
         name = "Unbekannt";
-        break;
+        return;
     }
-    sprite.setTexture(texture); // Sprite bekommt die geladene Textur
+
+
+    //(Chatgpt)
+    // Textur nur beim ersten Mal laden
+    if (textureCache.find(id) == textureCache.end()) {
+        sf::Texture tex;
+        std::string path = "Texturen & Musik/" + name + ".png";
+
+        if (!tex.loadFromFile(path)) {
+            std::cerr << "Fehler beim Laden der Textur: " << path << std::endl;
+        }
+
+        textureCache[id] = std::move(tex);
+    }
+
+    // Sprite mit gecachter Textur setzen
+    sprite.setTexture(textureCache[id]);
 }
+
 
 void Item::print()
 {
