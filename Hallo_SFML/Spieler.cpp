@@ -43,25 +43,29 @@ void Spieler::setTexture(sf::Texture* newTexture)
     shape.setTexture(newTexture);
 }
 
-
-void Spieler::draw(sf::RenderWindow& window) 
+void Spieler::draw(sf::RenderWindow& window)
 {
     window.draw(shape);
 
-    // Inventar fest an Position X = 800 platzieren, unabhängig von der View
     float slotSize = 50.f;
     float spacing = 10.f;
-    float startXPos = 800.f;
-    float startYPos = window.getSize().y - slotSize - 100.f; // Feste Y-Position relativ zum Fenster
+    float totalWidth = 5 * slotSize + 4 * spacing;
 
-    
+    // Aktuelle View holen
+    sf::View view = window.getView();
+    sf::Vector2f viewSize = view.getSize();
+    sf::Vector2f viewCenter = view.getCenter();
 
-    Text text;
+    // Zentrierte Position berechnen
+    float startXPos = viewCenter.x - viewSize.x / 2.f + (viewSize.x - totalWidth) / 2.f;
+    float startYPos = viewCenter.y + viewSize.y / 2.f - slotSize - 100.f;
+
+    // Punktanzeige (bleibt wie gehabt)
+    sf::Text text;
     text.setFont(font);
     text.setCharacterSize(30);
     text.setFillColor(sf::Color::White);
-    text.setPosition(Vector2f(1800.f, 70.f));
-
+    text.setPosition(viewCenter.x + viewSize.x / 2.f - 120.f, viewCenter.y - viewSize.y / 2.f + 70.f); // z.B. oben rechts in View
     text.setString(std::to_string(points));
     window.draw(text);
 
@@ -84,7 +88,8 @@ void Spieler::draw(sf::RenderWindow& window)
             );
 
             sf::Vector2f spriteSize = sf::Vector2f(sprite.getTexture()->getSize());
-            spriteSize *= sprite.getScale().x;
+            spriteSize.x *= sprite.getScale().x;
+            spriteSize.y *= sprite.getScale().y;
 
             sprite.setPosition(slotCenter.x - spriteSize.x / 2.f, slotCenter.y - spriteSize.y / 2.f);
             window.draw(sprite);
