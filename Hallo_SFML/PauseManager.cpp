@@ -53,6 +53,7 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
     {
         soundManager->setEffektLautstaerke(1);
         float vol = soundManager->getEffektLautstaerke();
+        std::cout << "Effektlautstärke nach +: " << vol << "%" << std::endl; // Logging
         std::stringstream text;
         text << "Effektlautstärke: " << vol << "%";
         GameMessage::setText(text.str());
@@ -62,10 +63,12 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
     {
         soundManager->setEffektLautstaerke(0);
         float vol = soundManager->getEffektLautstaerke();
+        std::cout << "Effektlautstärke nach -: " << vol << "%" << std::endl; // Logging
         std::stringstream text;
         text << "Effektlautstärke: " << vol << "%";
         GameMessage::setText(text.str());
     }
+
 
     if (buttonExit->wasClicked()) {
         soundManager->stopHintergrundMusik(); // Musik stoppen

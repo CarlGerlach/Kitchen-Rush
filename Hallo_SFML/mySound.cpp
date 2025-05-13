@@ -156,8 +156,8 @@ bool mySound::loadAuftragAbgeschlossenSound(const std::string& filePath)
 
 void mySound::playAuftragAbgeschlossenSound()
 {
-    auftragAbgeschlossenSound.setVolume(100.f);  // Lautstärke auf 100% setzen
-    auftragAbgeschlossenSound.play();  // Sound abspielen
+    auftragAbgeschlossenSound.setVolume(lautstärke); // Lautstärke setzen
+    auftragAbgeschlossenSound.play();
 }
 
 void mySound::setVolume(float volume) {
