@@ -103,20 +103,18 @@ void Button::handleEvent(const sf::Event& event, const sf::RenderWindow& window)
 
         if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)))
         {
-            clicked = true;
-            if (onClick)
+			clicked = true; // Setze den Klick-Status auf true
+            // Hier wird der Button-Click Sound abgespielt
+            if (soundOfButton == nullptr)
             {
-               
-                if (soundOfButton != nullptr)
-                {
-                    soundOfButton->getMeinSound().play();
-                }
-
-                onClick();  // Rufe die OnClick-Funktion auf
+                return;
             }
+
+            soundOfButton->getMeinSound().play();
         }
     }
 }
+
 
 // Setter für die Position
 void Button::setPosition(float x, float y)

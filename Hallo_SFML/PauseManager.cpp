@@ -127,10 +127,6 @@ void PauseManager::draw(sf::RenderWindow& window)
 
 
 
-
-
-
-
 bool PauseManager::isPaused()
 {
     return paused;
