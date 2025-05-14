@@ -123,6 +123,11 @@ sf::Vector2f Spieler::getPosition()
     return shape.getPosition();
 }
 
+void Spieler::setPosition(float x, float y)
+{
+	shape.setPosition(x, y);
+}
+
 PlayerInventar* Spieler::getPlayerInventar()
 {
     return inventar;
@@ -145,6 +150,11 @@ int Spieler::getPoints()
 void Spieler::addPoints(int ini_points)
 {
     points += ini_points;
+}
+
+void Spieler::setPoints(int ini_points)
+{
+	points = ini_points;
 }
 
 void Spieler::setLookingLeft(bool lookingleft)

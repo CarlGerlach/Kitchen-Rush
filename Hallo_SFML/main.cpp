@@ -28,6 +28,8 @@
 #include "Auftrag.h"
 #include "AuftraegeManager.h"
 
+#include "SpielstandManager.h"
+
 using namespace std;
 using namespace sf;
 
@@ -176,12 +178,20 @@ int main()
 
 
     // PauseManager mit Musiksteuerung
-    PauseManager pauseManager(window.getSize(), soundManager);
+    PauseManager pauseManager(window.getSize(), soundManager, &spieler1);
 
     Clock clock;
     
 
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                  
+                                                                                                                  
+                                                                                                                  
+    SpielstandManager ssm(&spieler1);
+                                                                                                                  
+                                                                                                                  
+                                                                                                                  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 
 
