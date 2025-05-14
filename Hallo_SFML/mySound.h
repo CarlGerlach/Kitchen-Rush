@@ -1,63 +1,54 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp> 
+
+#include <SFML/Audio.hpp>
 #include <iostream>
-
-using namespace std;
-using namespace sf;
-
-
 
 class mySound
 {
 private:
-	sf::Sound meinSound;
-	sf::SoundBuffer buffer; //Speichert sounds, dass diese Später nicht neu geladen werden müssen
-	sf::Music hintergrundMusik; // Für Hintergrundmusik
-	mySound *soundManager;
-	bool volume; // 0= weniger 1= mehr
+    sf::SoundBuffer buffer;
+    sf::Sound meinSound;
 
-	float lautstärke;
+    sf::Music hintergrundMusik;
+
+    float musicVolume = 10.f;
+    float effectVolume = 20.f;  
+
+
+    sf::SoundBuffer gameStartBuffer;
+    sf::Sound gameStartSound;
+
+    sf::SoundBuffer gameOverBuffer;
+    sf::Sound gameOverSound;
+
+    sf::SoundBuffer auftragAbgeschlossenBuffer;
+    sf::Sound auftragAbgeschlossenSound;
+
 public:
-	mySound();
-	Sound& getMeinSound();
+    mySound();
 
-	bool loadHintergrundMusik(const string& filePath); // Lädt Hintergrundmusik
-	void playHintergrundMusik(bool loop = true); // Spielt die Hintergrundmusik
-	void stopHintergrundMusik(); // Stoppt die Hintergrundmusik
-	bool isMusicPlaying() const; // Checkt den Status ob die Musik schon spielt
+    sf::Sound& getMeinSound();
 
-	void setMusicLautstaerke(bool volume); // Lautstärke der Hintergrundmusik setzen
+    bool loadHintergrundMusik(const std::string& filePath);
+    void playHintergrundMusik(bool loop = true);
+    void stopHintergrundMusik();
+    bool isMusicPlaying() const;
 
-	float getMusicLautstaerke() const // Gibt die Lautstärke der Hintergrundmusik zurück
-	{
-		return lautstärke;
-	}
+    void setMusicLautstaerke(bool volume);
+    float getEffektLautstaerke() const;
+    void setEffektLautstaerke(bool volume);  // Neue Methode für Effektlautstärke
 
+    bool loadGameStartSound(const std::string& filePath);
+    void playGameStartSound();
+    bool loadGameOverSound(const std::string& filePath);
+    void playGameOverSound();
+    void setGameOverVolume(float volume);
 
-	//Neuer Sound game start
-	sf::SoundBuffer gameStartBuffer;
-	sf::Sound gameStartSound;
+    bool loadAuftragAbgeschlossenSound(const std::string& filePath);
+    void playAuftragAbgeschlossenSound();
 
-	bool loadGameStartSound(const std::string& filePath);
-	void playGameStartSound();
+    // Neue Methode zum Setzen der Lautstärke
+    void setVolume(float volume);  // Methode zum Setzen der Lautstärke für alle Sounds
 
-
-	sf::SoundBuffer gameOverBuffer;
-	sf::Sound gameOverSound;
-
-	bool loadGameOverSound(const std::string& filePath);
-	void playGameOverSound();
-
-	void setGameOverVolume(float volume);
-
-	// Neue Variablen für den "Auftrag abgeschlossen"-Sound
-	sf::SoundBuffer auftragAbgeschlossenBuffer;
-	sf::Sound auftragAbgeschlossenSound;
-
-	bool loadAuftragAbgeschlossenSound(const std::string& filePath);
-	void playAuftragAbgeschlossenSound();
-
-
-
+    float getMusicLautstaerke();
 };

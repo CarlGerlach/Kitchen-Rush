@@ -160,6 +160,7 @@
     <ClCompile Include="Spielfeld.cpp" />
     <ClCompile Include="StartScreen.cpp" />
     <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="VolumeSlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuftraegeManager.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Spielfeld.h" />
     <ClInclude Include="StartScreen.h" />
     <ClInclude Include="Storage.h" />
+    <ClInclude Include="VolumeSlider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

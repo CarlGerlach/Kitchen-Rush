@@ -4,13 +4,11 @@
 #include "Button.h"
 #include "mySound.h"
 
-class PauseManager {
-public:
-    bool paused;
+class PauseManager
+{
 private:
-
-    bool gameOver = false;
-
+    bool paused;
+    bool gameOver;
     sf::RectangleShape overlay;
     sf::Font font;
 
@@ -21,29 +19,18 @@ private:
     Button* buttonVolumeDown;
     Button* buttonExit;
 
-    mySound* soundManager; // SoundManager speichern
+    Button* buttonFXUp;      // Neue Buttons für Lautstärke der Soundeffekte
+    Button* buttonFXDown;
+
+    mySound* soundManager;
 
 public:
-    PauseManager(const sf::Vector2u& windowSize, mySound* soundManager);
-
+    PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr);
     void handleInput(const sf::Event& event, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
-    bool isPaused() ;
-
-    void setPaused(bool paused) {
-		this->paused = paused;
-	}
-
-    void togglePause() {
-        if (paused == 0) {
-			paused = 1;
-		}
-        else {
-			paused = 0;
-		}
-	}
-
+    bool isPaused();
     void setGameOver(bool value);
     bool getGameOver();
-		
+
+    void togglePause();  // Methode zum Umschalten der Pause
 };
