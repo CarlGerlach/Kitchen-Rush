@@ -37,7 +37,7 @@ mySound::mySound()
     }
 
     meinSound.setBuffer(buffer);
-    lautstärke = 20.f; // Standardlautstärke
+    /*lautstärke = 20.f;*/ // Standardlautstärke
 }
 
 sf::Sound& mySound::getMeinSound()
@@ -73,39 +73,34 @@ bool mySound::isMusicPlaying() const
 
 void mySound::setMusicLautstaerke(bool volume)
 {
-    if (volume == 0 && lautstärke > 0)
-    {
-        lautstärke -= 5.f;
-    }
-    else if (volume == 1 && lautstärke < 100)
-    {
-        lautstärke += 5.f;
-    }
-    hintergrundMusik.setVolume(lautstärke);
+    if (volume == 0 && musicVolume > 0)
+        musicVolume -= 5.f;
+    else if (volume == 1 && musicVolume < 100)
+        musicVolume += 5.f;
+
+    hintergrundMusik.setVolume(musicVolume);
 }
+
 
 // Neue Methode zur Verwaltung der Lautstärke der Soundeffekte
 float mySound::getEffektLautstaerke() const
 {
-    return lautstärke;
+    return effectVolume;
 }
 
 void mySound::setEffektLautstaerke(bool volume)
 {
-    if (volume == 0 && lautstärke > 0)
-    {
-        lautstärke -= 5.f;
-    }
-    else if (volume == 1 && lautstärke < 100)
-    {
-        lautstärke += 5.f;
-    }
+    if (volume == 0 && effectVolume > 0)
+        effectVolume -= 5.f;
+    else if (volume == 1 && effectVolume < 100)
+        effectVolume += 5.f;
 
-    meinSound.setVolume(lautstärke);
-    gameStartSound.setVolume(lautstärke);
-    gameOverSound.setVolume(lautstärke);
-    auftragAbgeschlossenSound.setVolume(lautstärke);
+    meinSound.setVolume(effectVolume);
+    gameStartSound.setVolume(effectVolume);
+    gameOverSound.setVolume(effectVolume);
+    auftragAbgeschlossenSound.setVolume(effectVolume);
 }
+
 
 bool mySound::loadGameStartSound(const std::string& filePath)
 {
@@ -156,22 +151,24 @@ bool mySound::loadAuftragAbgeschlossenSound(const std::string& filePath)
 
 void mySound::playAuftragAbgeschlossenSound()
 {
-    auftragAbgeschlossenSound.setVolume(lautstärke); // Lautstärke setzen
+    auftragAbgeschlossenSound.setVolume(effectVolume); // Lautstärke setzen
     auftragAbgeschlossenSound.play();
 }
 
 void mySound::setVolume(float volume) {
-    lautstärke = volume;  // Lautstärke setzen
-    hintergrundMusik.setVolume(lautstärke);  // Lautstärke der Hintergrundmusik setzen
-    meinSound.setVolume(lautstärke);  // Lautstärke des Standard-Sounds setzen
+    effectVolume = volume;  // Lautstärke setzen
+    hintergrundMusik.setVolume(musicVolume);  // Lautstärke der Hintergrundmusik setzen
+    meinSound.setVolume(effectVolume);  // Lautstärke des Standard-Sounds setzen
 
     // Wenn du weitere Soundobjekte hast, setze auch deren Lautstärke
-    gameStartSound.setVolume(lautstärke);
-    gameOverSound.setVolume(lautstärke);
-    auftragAbgeschlossenSound.setVolume(lautstärke);
+    gameStartSound.setVolume(effectVolume);
+    gameOverSound.setVolume(effectVolume);
+    auftragAbgeschlossenSound.setVolume(effectVolume);
 }
 
 // In der mySound-Klasse
-float mySound::getMusicLautstaerke() {
-    return lautstärke;
+float mySound::getMusicLautstaerke()
+{
+    return musicVolume;
 }
+

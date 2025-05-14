@@ -10,7 +10,10 @@ private:
     sf::Sound meinSound;
 
     sf::Music hintergrundMusik;
-    float lautstärke;
+
+    float musicVolume = 10.f;
+    float effectVolume = 20.f;  
+
 
     sf::SoundBuffer gameStartBuffer;
     sf::Sound gameStartSound;
