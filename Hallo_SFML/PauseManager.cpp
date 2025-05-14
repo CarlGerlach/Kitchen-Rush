@@ -2,6 +2,7 @@
 #include "gamemessage.h"
 #include <iostream>
 #include <sstream>
+#include "GameMessage.h"
 
 PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr)
     : paused(false), soundManager(soundMgr)
@@ -42,10 +43,17 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
 
     if (buttonResume->wasClicked())
     {
-        paused = false;
-        if (soundManager)
+        if (!gameOver)
         {
-            soundManager->playGameStartSound();
+            paused = false;
+            if (soundManager)
+            {
+                soundManager->playGameStartSound();
+            }
+        }
+        else
+        {
+            GameMessage::setText("Spielende - Auftrag abgelaufen");
         }
     }
 
@@ -144,6 +152,10 @@ void PauseManager::setGameOver(bool value)
 bool PauseManager::getGameOver()
 {
     return gameOver;
+}
+bool PauseManager::getPauseStatus()
+{
+    return paused;
 }
 void PauseManager::togglePause() {
     paused = !paused;  // Wechsel zwischen Pause und Fortsetzung

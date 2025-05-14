@@ -8,7 +8,7 @@ class PauseManager
 {
 private:
     bool paused;
-    bool gameOver;
+    bool gameOver = false;
     sf::RectangleShape overlay;
     sf::Font font;
 
@@ -31,6 +31,7 @@ public:
     bool isPaused();
     void setGameOver(bool value);
     bool getGameOver();
+    bool getPauseStatus();
 
     void togglePause();  // Methode zum Umschalten der Pause
 };
