@@ -192,7 +192,7 @@ void Spieler::initLeben(int anzahl, const std::string& herzTexturPfad)
     }
 
     float scaleFaktor = 0.05f; // z.B. 5 % der Originalgröße (1024x1024 wird dann ~51x51)
-    float herzAbstand = 1.0f;   // Kleinerer Abstand zwischen den Herzen
+    float herzAbstand = 0.0f;   // Kleinerer Abstand zwischen den Herzen
 
     for (int i = 0; i < leben; ++i)
     {
