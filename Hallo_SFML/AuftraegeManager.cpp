@@ -24,6 +24,8 @@ AuftraegeManager::~AuftraegeManager()
 
 void AuftraegeManager::addAuftrag(Auftrag* ini_auftrag)
 {
+
+
 	alleAuftraege.push_back(ini_auftrag);
 }
 
@@ -145,6 +147,9 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 		//cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
 		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
 	
+		if (spieler)
+			neuerAuftrag->setSpieler(spieler);
+
 	
 
 		for (int i = 0; i < anzahlPositionen; ++i)

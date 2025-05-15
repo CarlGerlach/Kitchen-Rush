@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "list"
+#include "Spieler.h"
 #include "Auftrag.h" 
 #include "mySound.h"
 #include "PauseManager.h"
@@ -19,6 +20,7 @@ private:
 
 	mySound* soundManager;
 
+	Spieler* spieler = nullptr;
 
 public:
 	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager);
@@ -40,5 +42,6 @@ public:
 	void finishAuftrag(Auftrag* auftrag);
 
 
+	void setSpieler(Spieler* s) { spieler = s; }
 
 };

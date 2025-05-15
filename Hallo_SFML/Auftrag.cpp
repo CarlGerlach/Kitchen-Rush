@@ -14,6 +14,10 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font)
 	fensterAuftrag.setPosition(Vector2f(500 + anzahlAktiv * 170, -5));
 	fensterAuftrag.setTexture(ini_texture);
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
+
+	lebensdauer = 60.f; // z. B. 60 Sekunden
+	timer = 0.f;
+
 	anzahlAktiv++;
 
 
@@ -46,6 +50,9 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font, int id)
 	font = ini_font;
 	fensterAuftrag.setTexture(ini_texture);
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
+
+	lebensdauer = 60.f; // 60 Sekunden
+	timer = 0.f;
 }
 
 
@@ -134,10 +141,17 @@ void Auftrag::setSpieler(Spieler* s) {
 
 void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 {
+	std::cout << "Update von Auftrag " << id << " aufgerufen, abgelaufen=" << abgelaufen << std::endl;
+
 	if (abgelaufen == true)
 	{
-		if (spieler) {
+		std::cout << "Auftrag abgelaufen – Spieler vorhanden? " << (spieler != nullptr) << std::endl;
+
+		if (spieler) 
+		{
+			std::cout << "Leben vor Verlust: " << spieler->getLeben() << std::endl;
 			spieler->verliereLeben();
+			std::cout << "Leben nach Verlust: " << spieler->getLeben() << std::endl;
 
 			if (spieler->getLeben() == 0) {
 				pauseManager.togglePause();
@@ -146,6 +160,7 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 		}
 		return;
 	}
+
 
 	timer += deltaTime;
 	if (timer >= lebensdauer)

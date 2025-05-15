@@ -140,6 +140,9 @@ int main()
 
     AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager);
 
+    derAuftraegeManager->setSpieler(&spieler1);
+
+
 
 
     // Ofen

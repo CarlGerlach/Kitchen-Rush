@@ -209,4 +209,6 @@ void Spieler::verliereLeben()
 {
     if (leben > 0)
         --leben;
+
+	initLeben(leben, "Texturen & Musik/herz.png");
 }
