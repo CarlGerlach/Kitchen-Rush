@@ -36,10 +36,10 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 		//Ändern auf Getter und dann set um nicht Static
 		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
 
-		//cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
+		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
 		letzterAuftragId = ini_auftrag->getId();
 		ini_auftrag->clearBestellpositionen();
-		//cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
+		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();
 		delete* it;                    // Speicher freigeben
@@ -95,6 +95,11 @@ Auftrag* AuftraegeManager::getAuftragMitID(int gesuchteID)
 
 void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager)
 {
+	if (pauseManager.getGameOver() == true)
+	{
+		pauseManager.togglePause();
+	}
+	
 	updateAuftraege(deltaTime,pauseManager);
 
 
@@ -131,7 +136,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 	}
 
 
-	//std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5)
 	{
@@ -142,7 +147,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 		//Auftrag* neuerAuftrag = nullptr;
 
-		//cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
+		cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
 		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
 	
 	
@@ -159,7 +164,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
 
 		
-			//cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
+			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
 			neuerAuftrag->addBestellposition(pos);
 			
 		}

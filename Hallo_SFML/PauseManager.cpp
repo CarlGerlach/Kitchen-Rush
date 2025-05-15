@@ -188,5 +188,10 @@ bool PauseManager::getPauseStatus()
     return paused;
 }
 void PauseManager::togglePause() {
+    if (gameOver == true)
+    {
+        GameMessage::setText("Spielende - Auftrag abgelaufen");
+    }
+
     paused = !paused;  // Wechsel zwischen Pause und Fortsetzung
 }

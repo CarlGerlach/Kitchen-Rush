@@ -71,6 +71,8 @@ Spielfeld::Spielfeld()
 	allGrids[19][3]->setGridTexture(windowDownTexture);
 	allGrids[19][7]->setGridTexture(windowDownTexture);
 	allGrids[10][9]->setGridTexture(doorTexture);
+	//cout << allGrids[10][9]->getNumberOfGrid() << endl;
+
 
 }
 

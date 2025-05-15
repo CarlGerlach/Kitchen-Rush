@@ -18,6 +18,7 @@
 #include "Storage.h"
 #include "Mixer.h"
 #include "Ausgabe.h"
+#include "Table.h"
 
 #include "Item.h"
 
@@ -160,6 +161,19 @@ int main()
     ausgabe1.setTexture(&auftragObjektTexture);
     deviceManager->addInventory(ausgabe1.getDevInventar());
 
+    Table table1(93, font, &spieler1, 20, derAuftraegeManager);
+    table1.setTexture(&auftragObjektTexture);
+    Table table2(55, font, &spieler1, 20, derAuftraegeManager);
+    table2.setTexture(&auftragObjektTexture);
+    Table table3(43, font, &spieler1, 20, derAuftraegeManager);
+    table3.setTexture(&auftragObjektTexture);
+    Table table4(66, font, &spieler1, 20, derAuftraegeManager);
+    table4.setTexture(&auftragObjektTexture);
+    Table table5(26, font, &spieler1, 20, derAuftraegeManager);
+    table5.setTexture(&auftragObjektTexture);
+
+   
+
    
 
 
@@ -236,6 +250,11 @@ int main()
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
                 ausgabe1.handleEvent(event, window);
+                table1.handleEvent(event, window);
+                table2.handleEvent(event, window);
+                table3.handleEvent(event, window);
+                table4.handleEvent(event, window);
+                table5.handleEvent(event, window);
             }
         }
 
@@ -299,7 +318,29 @@ int main()
             ausgabe1.draw(window);
 
 
+            
+            table1.updateBot();
+            table1.draw(window);
+            table1.drawBot(window);
+            
+            table2.updateBot();
+            table2.draw(window);
+            table2.drawBot(window);
+           
+            table3.updateBot();
+            table3.draw(window);
+            table3.drawBot(window);
+
+            table4.updateBot();
+            table4.draw(window);
+            table4.drawBot(window);
+
+            table5.updateBot();
+            table5.draw(window);
+            table5.drawBot(window);
+
             derAuftraegeManager->draw(window, deltaTime, pauseManager); 
+
 
         }
 
