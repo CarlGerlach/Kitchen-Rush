@@ -190,13 +190,22 @@ void Spieler::initLeben(int anzahl, const std::string& herzTexturPfad)
     {
         std::cerr << "Fehler beim Laden der Herz-Textur!" << std::endl;
     }
-    // Positioniere Herzen z.B. links oben
+
+    float scaleFaktor = 0.05f; // z.B. 5 % der Originalgröße (1024x1024 wird dann ~51x51)
+
     for (int i = 0; i < leben; ++i)
     {
         herzSprites[i].setTexture(herzTexture);
-        herzSprites[i].setPosition(20.f + i * (herzTexture.getSize().x + 10.f), 20.f);
+
+        // Skalieren
+        herzSprites[i].setScale(scaleFaktor, scaleFaktor);
+
+        // Jetzt korrekte Position basierend auf globalen (skalierten) Bounds
+        sf::FloatRect bounds = herzSprites[i].getGlobalBounds();
+        herzSprites[i].setPosition(20.f + i * (bounds.width + 10.f), 20.f);
     }
 }
+
 
 void Spieler::verliereLeben()
 {
