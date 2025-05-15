@@ -13,6 +13,8 @@ using namespace std;
 class GeraetBase 
 {
 protected:
+    static int id;
+    int  geraetID;
     RectangleShape shape;
     Texture* texture;
     dasFenster dasFenster;
