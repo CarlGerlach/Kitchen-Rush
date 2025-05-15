@@ -1,5 +1,6 @@
 ﻿#include "Auftrag.h"
 #include "GameMessage.h"
+#include "Spieler.h"
 #include "PauseManager.h"
 #include <sstream>
 
@@ -126,20 +127,34 @@ void Auftrag::decrementAnzahlAktiv()
 	anzahlAktiv--;
 }
 
+void Auftrag::setSpieler(Spieler* s) {
+	spieler = s;
+}
+
+
 void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 {
-	if (abgelaufen == true) return;
+	if (abgelaufen == true)
+	{
+		if (spieler) {
+			spieler->verliereLeben();
+
+			if (spieler->getLeben() == 0) {
+				pauseManager.togglePause();
+				pauseManager.setGameOver(true);
+			}
+		}
+		return;
+	}
 
 	timer += deltaTime;
 	if (timer >= lebensdauer)
 	{
 		abgelaufen = true;
 		GameMessage::setText("Ein Auftrag ist abgelaufen!");
-
-		pauseManager.togglePause();        // Spiel pausieren
-		pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
 	}
 }
+
 
 
 

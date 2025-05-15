@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Item.h"
+#include "Spieler.h"
 #include "Bestellposition.h"
 #include "PauseManager.h"
 
@@ -23,6 +24,8 @@ private:
 	float timer = 0.f;             // aktuelle verstrichene Zeit
 	bool abgelaufen = false;
 
+
+	Spieler* spieler; // Zeiger auf Spieler
 public:
 	Auftrag(Texture* ini_texture, Font ini_font);
 	Auftrag(Texture* ini_texture, Font ini_font, int id);
@@ -43,6 +46,8 @@ public:
 	
 	static void decrementAnzahlAktiv();
 	void update(float deltaTime, PauseManager& pauseManager);
+
+	void setSpieler(Spieler* s);
 
 	void draw(RenderWindow& window);
 

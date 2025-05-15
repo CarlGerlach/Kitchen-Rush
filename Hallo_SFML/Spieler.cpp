@@ -95,7 +95,19 @@ void Spieler::draw(sf::RenderWindow& window)
             window.draw(sprite);
         }
     }
+
+    // Zeichne Herzen
+    for (int i = 0; i < leben; ++i)
+    {
+        window.draw(herzSprites[i]);
+    }
 }
+
+int Spieler::getLeben() const
+{
+    return leben;
+}
+
 
 
 // Funktion zur Bewegung
@@ -169,3 +181,25 @@ bool Spieler::isLookingRight()
 	return lookingRight;
 }
 
+
+// Spielerleben
+void Spieler::initLeben(int anzahl, const std::string& herzTexturPfad)
+{
+    leben = anzahl;
+    if (!herzTexture.loadFromFile(herzTexturPfad))
+    {
+        std::cerr << "Fehler beim Laden der Herz-Textur!" << std::endl;
+    }
+    // Positioniere Herzen z.B. links oben
+    for (int i = 0; i < leben; ++i)
+    {
+        herzSprites[i].setTexture(herzTexture);
+        herzSprites[i].setPosition(20.f + i * (herzTexture.getSize().x + 10.f), 20.f);
+    }
+}
+
+void Spieler::verliereLeben()
+{
+    if (leben > 0)
+        --leben;
+}

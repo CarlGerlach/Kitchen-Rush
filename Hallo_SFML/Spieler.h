@@ -22,6 +22,11 @@ private:
     sf::Font font;                      // Schriftart für Item-Anzahl
     bool lookingLeft;
     bool lookingRight;
+
+    int leben;
+    sf::Texture herzTexture;
+    sf::Sprite herzSprites[5]; // max. 5 Leben
+
     
 
 public:
@@ -53,4 +58,10 @@ public:
 
     bool isLookingLeft();
     bool isLookingRight();
+
+
+    //Leben
+    void initLeben(int anzahl, const std::string& herzTexturPfad);
+    void verliereLeben();
+    int getLeben() const;
 };
