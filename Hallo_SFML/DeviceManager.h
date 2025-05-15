@@ -11,12 +11,14 @@ using namespace sf;
 class DeviceManager
 {
 private:
-	vector<GeraetBase*> allDevices;
+	vector<DeviceInventar*> allInventorys;
 
 public:
 	DeviceManager();
 
-	void addDevice(GeraetBase* ini_Device);
+
+	void addInventory(DeviceInventar* ini_inventory);
+	vector<DeviceInventar*> getAllInventorys();
 
 	
 

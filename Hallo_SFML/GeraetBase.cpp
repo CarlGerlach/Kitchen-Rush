@@ -133,6 +133,18 @@ void GeraetBase::setScale(float scale)
     shape.setScale(currentScale.x * scale, currentScale.y * scale);
 }
 
+void GeraetBase::setInventory(int index, vector<DeviceInventar*> ini_allInventory)
+{ 
+    for (int i = 0; i < ini_allInventory.size(); i++)
+    {
+        if (i = index - 1)
+        {
+            DeviceInventar* inv = ini_allInventory[i];
+            devInventar = inv;
+        }
+    }
+}
+
 bool GeraetBase::isPlayerInRange()
 {
     if (!player) return false;

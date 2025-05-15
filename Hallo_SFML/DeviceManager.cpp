@@ -5,8 +5,17 @@ DeviceManager::DeviceManager()
 
 }
 
-void DeviceManager::addDevice(GeraetBase* ini_Device)
-{	
-	allDevices.push_back(ini_Device);
+
+
+void DeviceManager::addInventory(DeviceInventar* ini_inventory)
+{
+	allInventorys.push_back(ini_inventory);
 }
+
+vector<DeviceInventar*> DeviceManager::getAllInventorys()
+{
+	return allInventorys;
+}
+
+
 

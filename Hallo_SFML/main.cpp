@@ -22,6 +22,7 @@
 #include "Item.h"
 
 #include "PauseManager.h"
+#include "DeviceManager.h"
 #include "GameMessage.h"
 
 #include "Bestellposition.h"
@@ -131,6 +132,7 @@ int main()
 
     // Spielfeld
     Spielfeld* playField = new Spielfeld();
+    DeviceManager* deviceManager = new DeviceManager();
 
     AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager);
 
@@ -138,19 +140,23 @@ int main()
 
     // Ofen
     Ofen ofen1(32, font, &spieler1, 3);
-    ofen1.setTexture(&ofenTexture);        
+    ofen1.setTexture(&ofenTexture);     
+    deviceManager->addInventory(ofen1.getDevInventar());
 
 	// Lager
     Storage storage1(12, font, &spieler1, 5);
     storage1.setTexture(&lagerTexture);
+    deviceManager->addInventory(storage1.getDevInventar());
 
 	// Mixer
     Mixer mixer1(22, font, &spieler1, 3);
     mixer1.setTexture(&mixerTexture);
+    deviceManager->addInventory(mixer1.getDevInventar());
 
     //Ausgabe
     Ausgabe ausgabe1(56, font, &spieler1, 20, derAuftraegeManager);
     ausgabe1.setTexture(&auftragObjektTexture);
+    deviceManager->addInventory(ausgabe1.getDevInventar());
 
    
 

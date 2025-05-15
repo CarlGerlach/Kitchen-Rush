@@ -40,8 +40,10 @@ public:
     void handleEvent(const Event& event, const RenderWindow& window);
    
     void setTexture(sf::Texture* newTexture);
-
     void setScale(float scale);
+
+    void setInventory(int index, vector<DeviceInventar*> ini_allInventory);
+ 
 
     bool isPlayerInRange();
 
