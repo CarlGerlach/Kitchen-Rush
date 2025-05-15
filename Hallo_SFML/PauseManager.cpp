@@ -3,14 +3,18 @@
 #include <iostream>
 #include <sstream>
 #include "GameMessage.h"
+#include "Spieler.h"
+#include "SpielstandManager.h"
 
-PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr)
+PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Spieler* spieler)
     : paused(false), soundManager(soundMgr)
 {
     overlay.setSize(sf::Vector2f(windowSize));
     overlay.setFillColor(sf::Color(0, 0, 0, 150));  // halbtransparent schwarz
 
     font.loadFromFile("Texturen & Musik/TDAText.ttf"); // Lade Schrift
+
+	this->spieler = spieler; // Speichert die Referenz auf den Spieler zum Speichern
 
     buttonResume = new Button(860, 300, 200, 50, "Fortsetzen", font, sf::Color::Green, sf::Color::White, soundManager);
     buttonMusicStart = new Button(860, 370, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
@@ -21,6 +25,10 @@ PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr)
 
     buttonFXUp = new Button(860, 720, 200, 50, "Effekte +", font, sf::Color::Cyan, sf::Color::Black, soundManager);
     buttonFXDown = new Button(860, 790, 200, 50, "Effekte -", font, sf::Color::Cyan, sf::Color::Black, soundManager);
+
+	buttonSaveGame = new Button(860, 860, 200, 50, "Spiel speichern", font, sf::Color::Magenta, sf::Color::White, soundManager);
+	buttonLoadGame = new Button(860, 930, 200, 50, "Spiel laden", font, sf::Color::Magenta, sf::Color::White, soundManager);
+
 }
 
 void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
@@ -40,6 +48,9 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
     // Neue Soundeffekt-Lautstärke-Steuerung
     buttonFXUp->handleEvent(event, window);
     buttonFXDown->handleEvent(event, window);
+
+	buttonSaveGame->handleEvent(event, window);
+	buttonLoadGame->handleEvent(event, window);
 
     if (buttonResume->wasClicked())
     {
@@ -113,6 +124,26 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
         text << "Lautstärke: " << vol << "%";
         GameMessage::setText(text.str());
     }
+	if (buttonSaveGame->wasClicked())
+    {
+        SpielstandManager::saveGame(spieler); // Spielstand speichern
+
+		// Hier den Spielstand speichern
+		GameMessage::setText("Spielstand gespeichert!");
+		std::cout << "Spielstand gespeichert!" << std::endl;
+	}
+	if (buttonLoadGame->wasClicked())
+    {
+        try {
+			SpielstandManager::loadGame(spieler); // Spielstand laden
+			GameMessage::setText("Spielstand geladen!");
+			std::cout << "Spielstand geladen!" << std::endl;
+		}
+        catch (const std::exception& e) {
+			GameMessage::setText("Fehler beim Laden des Spielstands!");
+			std::cerr << "Fehler: " << e.what() << std::endl;
+		}
+	}
 }
 
 void PauseManager::draw(sf::RenderWindow& window)
@@ -129,6 +160,9 @@ void PauseManager::draw(sf::RenderWindow& window)
 
         buttonFXUp->draw(window);
         buttonFXDown->draw(window);
+
+		buttonSaveGame->draw(window);
+		buttonLoadGame->draw(window);
     }
 }
 

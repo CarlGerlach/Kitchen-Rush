@@ -39,6 +39,7 @@ public:
 
     // Zugriff auf die Position
     sf::Vector2f getPosition();
+	void setPosition(float x, float y);
 
 
     PlayerInventar* getPlayerInventar();
@@ -47,6 +48,7 @@ public:
 
     int getPoints();
     void addPoints(int ini_points);
+	void setPoints(int ini_points);
 
     void setLookingLeft(bool lookingleft);
     void setLookingRight(bool lookingright);
