@@ -24,6 +24,9 @@ private:
     sf::SoundBuffer auftragAbgeschlossenBuffer;
     sf::Sound auftragAbgeschlossenSound;
 
+    sf::SoundBuffer falschBuffer;
+    sf::Sound falschSound;
+
 public:
     mySound();
 
@@ -51,4 +54,7 @@ public:
     void setVolume(float volume);  // Methode zum Setzen der Lautstärke für alle Sounds
 
     float getMusicLautstaerke();
+
+    bool loadFalschSound(const std::string& filePath);
+    void playFalschSound();
 };

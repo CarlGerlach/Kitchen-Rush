@@ -126,10 +126,12 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
         // Erledigte oder abgelaufene Aufträge ersetzen
         if (auftrag->isExpired() || auftrag->isFinished())
         {
-            // Wenn Auftrag abgelaufen ist, Leben abziehen
+			// Wenn Auftrag abgelaufen ist, Leben abziehen und Sound abspielen
             if (auftrag->isExpired() && spieler)
             {
                 spieler->verliereLeben();
+				soundManager->playFalschSound();
+
             }
 
             Vector2f altePosition = auftrag->getFensterAuftrag();
