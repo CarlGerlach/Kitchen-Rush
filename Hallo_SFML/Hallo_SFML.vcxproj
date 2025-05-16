@@ -138,6 +138,7 @@
     <ClCompile Include="Auftrag.cpp" />
     <ClCompile Include="Ausgabe.cpp" />
     <ClCompile Include="Bestellposition.cpp" />
+    <ClCompile Include="Bot.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="dasFenster.cpp" />
     <ClCompile Include="DeviceInventar.cpp" />
@@ -161,6 +162,8 @@
     <ClCompile Include="SpielstandManager.cpp" />
     <ClCompile Include="StartScreen.cpp" />
     <ClCompile Include="Storage.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="TableManager.cpp" />
     <ClCompile Include="VolumeSlider.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +171,7 @@
     <ClInclude Include="Auftrag.h" />
     <ClInclude Include="Ausgabe.h" />
     <ClInclude Include="Bestellposition.h" />
+    <ClInclude Include="Bot.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="dasFenster.h" />
     <ClInclude Include="DeviceInventar.h" />
@@ -191,6 +195,8 @@
     <ClInclude Include="SpielstandManager.h" />
     <ClInclude Include="StartScreen.h" />
     <ClInclude Include="Storage.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="TableManager.h" />
     <ClInclude Include="VolumeSlider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

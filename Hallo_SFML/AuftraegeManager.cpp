@@ -1,4 +1,5 @@
 #include "AuftraegeManager.h"
+#include "TableManager.h"
 #include "Auftrag.h"
 #include "mySound.h"
 #include "PauseManager.h"
@@ -9,11 +10,12 @@ using namespace sf;
 
 
 
-AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager)
+AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm)
 {
 	if (ini_textureHintergrundAuftrag != nullptr)
 		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
 
+	tm = ini_tm;
 	letzterAuftragId = 0;
 	font = ini_font;
 	soundManager = ini_soundManager;  // <--- Soundmanager speichern
@@ -33,7 +35,19 @@ void AuftraegeManager::addAuftrag(Auftrag* ini_auftrag)
 // Chatgpt
 void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 {
+	auto it = std::find(alleAuftraege.begin(), alleAuftraege.end(), ini_auftrag);
+	if (it != alleAuftraege.end())
+	{
+		//Ändern auf Getter und dann set um nicht Static
+		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
+
+		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
+		letzterAuftragId = ini_auftrag->getId();
+		ini_auftrag->clearBestellpositionen();
+		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
+  }
 	if (ini_auftrag == nullptr) return;
+
 
 	letzterAuftragId = ini_auftrag->getId();
 	ini_auftrag->clearBestellpositionen();
@@ -87,9 +101,19 @@ Auftrag* AuftraegeManager::getAuftragMitID(int gesuchteID)
 	return nullptr; // Kein passender Auftrag gefunden
 }
 
+void AuftraegeManager::setTableManager(TableManager* tm)
+{
+	this->tm = tm;
+}
+
 
 void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager)
 {
+	if (pauseManager.getGameOver() == true)
+	{
+		pauseManager.togglePause();
+	}
+	
 	updateAuftraege(deltaTime,pauseManager);
 
 
@@ -98,7 +122,7 @@ void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseMana
 		if (alleAuftraege[i] != nullptr)
 		{
 
-			// Position f�r den Auftrag und die ID
+			// Position für den Auftrag und die ID
 			alleAuftraege[i]->draw(window);
 		}
 	}
@@ -124,7 +148,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
         auftrag->update(deltaTime, pauseManager);
 
-        // Erledigte oder abgelaufene Auftr�ge ersetzen
+        // Erledigte oder abgelaufene Aufträge ersetzen
         if (auftrag->isExpired() || auftrag->isFinished())
         {
 			// Wenn Auftrag abgelaufen ist, Leben abziehen und Sound abspielen
@@ -156,10 +180,10 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
             if (spieler)
                 neuerAuftrag->setSpieler(spieler);
 
-            // Fenster-Position �bernehmen
+            // Fenster-Position übernehmen
             neuerAuftrag->setFensterPosition(altePosition);
 
-            // Bestellpositionen hinzuf�gen
+            // Bestellpositionen hinzufügen
             int anzahlPositionen = rand() % 3 + 1;
             for (int j = 0; j < anzahlPositionen; ++j)
             {
@@ -172,7 +196,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
         }
     }
 
-    // Wenn aus irgendeinem Grund weniger als 5 Auftr�ge vorhanden sind, auff�llen
+    // Wenn aus irgendeinem Grund weniger als 5 Aufträge vorhanden sind, auffüllen
     while (alleAuftraege.size() < 5)
     {
         Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, ++letzterAuftragId);
@@ -197,7 +221,57 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
         pauseManager.setGameOver(true);
     }
 
+
+	//Zufallsinitialisierung nur einmal
+	static bool seeded = false;
+	if (!seeded) 
+	{
+		srand(static_cast<unsigned>(time(0)));
+		seeded = true;
+	}
+
+	for (Auftrag* auftrag : alleAuftraege)
+	{
+		if (auftrag)
+			auftrag->update(deltaTime, pauseManager);
+	}
+
+
+	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+
+	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden())
+	{
+
+		// Anzahl der Positionen pro Auftrag: 13
+		int anzahlPositionen = rand() % 4 + 1;
+
+
+		//Auftrag* neuerAuftrag = nullptr;
+
+		cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
+		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
+	
+	
+
+		for (int i = 0; i < anzahlPositionen; ++i)
+		{
+			// Zufällige ItemID wählen
+			ItemID zufallsItem = Item::randomItem();
+
+			// Zufällige Menge 15
+			int menge = rand() % 5 + 1;
+			//cout << "Menge: " << menge << endl;
+
+			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
+
+		
+			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
+			neuerAuftrag->addBestellposition(pos);
+			
+		}
+
 }
+
 
 
 

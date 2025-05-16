@@ -18,12 +18,14 @@
 #include "Storage.h"
 #include "Mixer.h"
 #include "Ausgabe.h"
+#include "Table.h"
 
 #include "Item.h"
 
 #include "PauseManager.h"
 #include "DeviceManager.h"
 #include "GameMessage.h"
+#include "TableManager.h"
 
 #include "Bestellposition.h"
 #include "Auftrag.h"
@@ -142,13 +144,37 @@ int main()
     Spielfeld* playField = new Spielfeld();
     DeviceManager* deviceManager = new DeviceManager();
 
-    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager);
+    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager, nullptr);
+    TableManager* derTableManager = new TableManager(derAuftraegeManager);
+    derAuftraegeManager->setTableManager(derTableManager);
+
+    
 
     derAuftraegeManager->setSpieler(&spieler1);
 
 
 
+    Table table1(93, font, &spieler1, 20, derAuftraegeManager);
+    table1.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table1);
 
+    Table table2(55, font, &spieler1, 20, derAuftraegeManager);
+    table2.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table2);
+
+    Table table3(43, font, &spieler1, 20, derAuftraegeManager);
+    table3.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table3);
+
+    Table table4(66, font, &spieler1, 20, derAuftraegeManager);
+    table4.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table4);
+
+    Table table5(26, font, &spieler1, 20, derAuftraegeManager);
+    table5.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table5);
+
+   
     // Ofen
     Ofen ofen1(32, font, &spieler1, 3);
     ofen1.setTexture(&ofenTexture);     
@@ -168,6 +194,7 @@ int main()
     Ausgabe ausgabe1(56, font, &spieler1, 20, derAuftraegeManager);
     ausgabe1.setTexture(&auftragObjektTexture);
     deviceManager->addInventory(ausgabe1.getDevInventar());
+
 
    
 
@@ -245,6 +272,7 @@ int main()
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
                 ausgabe1.handleEvent(event, window);
+                derTableManager->handleEvent(event, window);
             }
         }
 
@@ -295,6 +323,12 @@ int main()
 
             spieler1.draw(window);
 
+
+            derTableManager->updateAllTables();
+            derTableManager->drawAllTables(window);
+            derTableManager->drawAllBots(window);
+            
+
             ofen1.update();
             ofen1.draw(window);
 
@@ -307,8 +341,8 @@ int main()
             ausgabe1.update();
             ausgabe1.draw(window);
 
-
             derAuftraegeManager->draw(window, deltaTime, pauseManager); 
+
 
         }
 

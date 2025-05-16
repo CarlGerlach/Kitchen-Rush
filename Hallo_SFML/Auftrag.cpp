@@ -144,6 +144,10 @@ void Auftrag::setSpieler(Spieler* s) {
 
 void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 {
+	if (abgelaufen == true) 
+	{
+		cout << "Fehler 1 " << endl;
+
 	/*std::cout << "Update von Auftrag " << id << " aufgerufen, abgelaufen=" << abgelaufen << std::endl;*/
 
 	// Leben nur einmal abziehen!
@@ -163,14 +167,25 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 			}
 		}
 		lebenverloren = true;
+
 		return;
 	}
 
-	timer += deltaTime;
-	if (timer >= lebensdauer)
+	this->timer += deltaTime;
+	if (this->timer >= lebensdauer)
 	{
 		abgelaufen = true;
+
+		GameMessage::setText("Ein Auftrag ist abgelaufen!");				  
+
+		cout << "Test 1 Auftrag::update()" << endl;
+		pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
+		pauseManager.togglePause();        // Spiel pausieren
+		cout << "Test 2 Auftrag::update()" << endl;
+		cout << "Test 3 Auftrag::update()" << endl;
+
 		/*GameMessage::setText("Ein Auftrag ist abgelaufen!");*/
+
 	}
 }
 
