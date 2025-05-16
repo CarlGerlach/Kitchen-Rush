@@ -170,7 +170,7 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 	if (timer >= lebensdauer)
 	{
 		abgelaufen = true;
-		GameMessage::setText("Ein Auftrag ist abgelaufen!");
+		/*GameMessage::setText("Ein Auftrag ist abgelaufen!");*/
 	}
 }
 
