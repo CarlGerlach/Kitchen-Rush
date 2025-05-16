@@ -23,6 +23,7 @@ private:
 	float lebensdauer = 60.f;      
 	float timer = 0.f;             // aktuelle verstrichene Zeit
 	bool abgelaufen = false;
+	bool lebenverloren = false;
 
 
 	Spieler* spieler; // Zeiger auf Spieler

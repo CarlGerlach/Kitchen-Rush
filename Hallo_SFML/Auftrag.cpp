@@ -8,6 +8,9 @@ int Auftrag::anzahlAktiv = 0;
 
 Auftrag::Auftrag(Texture* ini_texture, Font ini_font)
 {
+	lebenverloren = false;
+
+
 	if (ini_texture == nullptr)return;
 
 	font = ini_font;
@@ -141,26 +144,27 @@ void Auftrag::setSpieler(Spieler* s) {
 
 void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 {
-	std::cout << "Update von Auftrag " << id << " aufgerufen, abgelaufen=" << abgelaufen << std::endl;
+	/*std::cout << "Update von Auftrag " << id << " aufgerufen, abgelaufen=" << abgelaufen << std::endl;*/
 
-	if (abgelaufen == true)
+	// Leben nur einmal abziehen!
+	if (abgelaufen && !lebenverloren)
 	{
-		std::cout << "Auftrag abgelaufen – Spieler vorhanden? " << (spieler != nullptr) << std::endl;
+		/*std::cout << "Auftrag abgelaufen – Spieler vorhanden? " << (spieler != nullptr) << std::endl*/;
 
-		if (spieler) 
+		if (spieler)
 		{
-			std::cout << "Leben vor Verlust: " << spieler->getLeben() << std::endl;
+			/*std::cout << "Leben vor Verlust: " << spieler->getLeben() << std::endl;*/
 			spieler->verliereLeben();
-			std::cout << "Leben nach Verlust: " << spieler->getLeben() << std::endl;
+			/*std::cout << "Leben nach Verlust: " << spieler->getLeben() << std::endl;*/
 
 			if (spieler->getLeben() == 0) {
 				pauseManager.togglePause();
 				pauseManager.setGameOver(true);
 			}
 		}
+		lebenverloren = true;
 		return;
 	}
-
 
 	timer += deltaTime;
 	if (timer >= lebensdauer)
@@ -169,6 +173,7 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 		GameMessage::setText("Ein Auftrag ist abgelaufen!");
 	}
 }
+
 
 
 
