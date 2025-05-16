@@ -5,7 +5,7 @@
 int Table::index = 1;
 
 Table::Table(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize, AuftraegeManager* ini_am)
-	: GeraetBase(gridnumber, player, ini_inventorySize), botAktiv(false)
+	: GeraetBase(gridnumber, player, ini_inventorySize), botAktiv(false), isBotAmTable(false)
 {
 	this->tableID = index++;
 	if (ini_am) am = ini_am;
@@ -68,6 +68,7 @@ void Table::updateBot()
 		// Starte neuen Bot zum Table
 		derBot = std::make_unique<Bot>(zielPosition);
 		derBot->setZiel(this->shape.getPosition());
+		cout << "Test 1 Table::updateBot" << endl;
 		botAktiv = true;
 	}
 	else if (derBot) 
@@ -76,10 +77,15 @@ void Table::updateBot()
 
 		if (derBot->amZiel()) 
 		{
+			//shape.setFillColor(sf::Color::Black);
+			
 			// Ziel erreicht?
-			if (derBot->getPosition() == zielPosition) {
+			if (derBot->getPosition() == zielPosition) 
+			{
 				// Bot ist am Rückgabeort → entfernen
+				cout << "Test 3 Table::update" << endl;
 				derBot.reset();
+				isBotAmTable = true;
 				botAktiv = false;
 			}
 		}
@@ -94,6 +100,21 @@ void Table::drawBot(RenderWindow& window)
 void Table::setZielPosition(Vector2f& pos)
 {
 	zielPosition = pos;
+}
+
+bool Table::getIsBotAmTable()
+{
+	return isBotAmTable;
+}
+
+void Table::setNormalTexture(Texture* tex)
+{
+	this->shape.setTexture(tex);
+}
+
+void Table::setIsActiveTexture(Texture* tex)
+{
+	this->shape.setTexture(tex);
 }
 
 void Table::setupButtons(Font& newFont, Spieler* player)

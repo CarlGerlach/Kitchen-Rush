@@ -25,6 +25,7 @@
 #include "PauseManager.h"
 #include "DeviceManager.h"
 #include "GameMessage.h"
+#include "TableManager.h"
 
 #include "Bestellposition.h"
 #include "Auftrag.h"
@@ -138,9 +139,30 @@ int main()
     DeviceManager* deviceManager = new DeviceManager();
 
     AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager);
+    TableManager* derTableManager = new TableManager(derAuftraegeManager);
 
 
+    Table table1(93, font, &spieler1, 20, derAuftraegeManager);
+    table1.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table1);
 
+    Table table2(55, font, &spieler1, 20, derAuftraegeManager);
+    table2.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table2);
+
+    Table table3(43, font, &spieler1, 20, derAuftraegeManager);
+    table3.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table3);
+
+    Table table4(66, font, &spieler1, 20, derAuftraegeManager);
+    table4.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table4);
+
+    Table table5(26, font, &spieler1, 20, derAuftraegeManager);
+    table5.setTexture(&auftragObjektTexture);
+    derTableManager->addTable(&table5);
+
+   
     // Ofen
     Ofen ofen1(32, font, &spieler1, 3);
     ofen1.setTexture(&ofenTexture);     
@@ -161,18 +183,6 @@ int main()
     ausgabe1.setTexture(&auftragObjektTexture);
     deviceManager->addInventory(ausgabe1.getDevInventar());
 
-    Table table1(93, font, &spieler1, 20, derAuftraegeManager);
-    table1.setTexture(&auftragObjektTexture);
-    Table table2(55, font, &spieler1, 20, derAuftraegeManager);
-    table2.setTexture(&auftragObjektTexture);
-    Table table3(43, font, &spieler1, 20, derAuftraegeManager);
-    table3.setTexture(&auftragObjektTexture);
-    Table table4(66, font, &spieler1, 20, derAuftraegeManager);
-    table4.setTexture(&auftragObjektTexture);
-    Table table5(26, font, &spieler1, 20, derAuftraegeManager);
-    table5.setTexture(&auftragObjektTexture);
-
-   
 
    
 
@@ -305,6 +315,29 @@ int main()
 
             spieler1.draw(window);
 
+
+            derTableManager->updateAllTables();
+            
+            //table1.updateBot();
+            table1.draw(window);
+            table1.drawBot(window);
+            
+            //table2.updateBot();
+            table2.draw(window);
+            table2.drawBot(window);
+           
+            //table3.updateBot();
+            table3.draw(window);
+            table3.drawBot(window);
+
+            //table4.updateBot();
+            table4.draw(window);
+            table4.drawBot(window);
+
+            //table5.updateBot();
+            table5.draw(window);
+            table5.drawBot(window);
+
             ofen1.update();
             ofen1.draw(window);
 
@@ -316,28 +349,6 @@ int main()
 
             ausgabe1.update();
             ausgabe1.draw(window);
-
-
-            
-            table1.updateBot();
-            table1.draw(window);
-            table1.drawBot(window);
-            
-            table2.updateBot();
-            table2.draw(window);
-            table2.drawBot(window);
-           
-            table3.updateBot();
-            table3.draw(window);
-            table3.drawBot(window);
-
-            table4.updateBot();
-            table4.draw(window);
-            table4.drawBot(window);
-
-            table5.updateBot();
-            table5.draw(window);
-            table5.drawBot(window);
 
             derAuftraegeManager->draw(window, deltaTime, pauseManager); 
 

@@ -2,16 +2,24 @@
 
 #include <vector>
 #include "Table.h"
+#include "AuftraegeManager.h"
 #include <SFML/Graphics.hpp>
 
 class TableManager
 {
 private:
     std::vector<Table*> allTables;
+    AuftraegeManager* am;
+    Texture normalTexture;
+    Texture isActiveTexture;
+
+    
 
 public:
-    TableManager();
+    TableManager(AuftraegeManager* ini_am);
 
+    
+    
     void addTable(Table* ini_Table);
 
     // Aktualisiert Bots und Visualisierung

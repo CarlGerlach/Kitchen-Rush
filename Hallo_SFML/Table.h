@@ -16,10 +16,12 @@ protected:
 	AuftraegeManager* am;
 	static int index;
 	int tableID;
+	
 
 	std::unique_ptr<Bot> derBot;
 	Vector2f zielPosition = Vector2f(1000.f,800.f); // Rückgabeort
 	bool botAktiv;
+	bool isBotAmTable;
 
 public:
 	Table(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize, AuftraegeManager* ini_am);
@@ -29,5 +31,9 @@ public:
 	void updateBot();
 	void drawBot(RenderWindow& window);
 	void setZielPosition(Vector2f& pos); // Ziel (z.B. Lager)
+
+	bool getIsBotAmTable();
+	void setNormalTexture(Texture* tex);
+	void setIsActiveTexture(Texture* tex);
 
 };
