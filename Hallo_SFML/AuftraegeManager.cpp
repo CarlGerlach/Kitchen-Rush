@@ -126,11 +126,21 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
         // Erledigte oder abgelaufene Aufträge ersetzen
         if (auftrag->isExpired() || auftrag->isFinished())
         {
+            // Wenn Auftrag abgelaufen ist, Leben abziehen
+            if (auftrag->isExpired() && spieler)
+            {
+                spieler->verliereLeben();
+            }
+
             Vector2f altePosition = auftrag->getFensterAuftrag();
 
             auftrag->clearBestellpositionen();
             delete auftrag;
             Auftrag::decrementAnzahlAktiv();
+
+            // Neuen Auftrag an gleicher Stelle erzeugen ...
+            // [rest bleibt wie vorher]
+
 
             // Neuen Auftrag an genau dieser Stelle erstellen
             Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, ++letzterAuftragId);
