@@ -5,6 +5,12 @@
 #include "AuftraegeManager.h"
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+using namespace sf;
+
+class Table;
+class AuftraegeManager;
+
 class TableManager
 {
 private:
@@ -17,7 +23,7 @@ private:
 
 public:
     TableManager(AuftraegeManager* ini_am);
-
+                                                                                                                        
     
     
     void addTable(Table* ini_Table);
@@ -30,4 +36,8 @@ public:
 
     // Zeichnet alle Tische
     void drawAllTables(sf::RenderWindow& window);
+ 
+    void handleEvent(sf::Event& event, sf::RenderWindow& window);
+    bool sollNeuerAuftragErstelltWerden();
+    //void setAm(AuftraegeManager* ini_am);
 };

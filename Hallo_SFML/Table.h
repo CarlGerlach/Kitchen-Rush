@@ -9,6 +9,8 @@
 using namespace std;
 using namespace sf;
 
+class AuftraegeManager;
+
 class Table : public GeraetBase
 {
 protected:
@@ -22,6 +24,7 @@ protected:
 	Vector2f zielPosition = Vector2f(1000.f,800.f); // Rückgabeort
 	bool botAktiv;
 	bool isBotAmTable;
+	bool auftragErledigtUndAngekommen = false;
 
 public:
 	Table(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize, AuftraegeManager* ini_am);
@@ -35,5 +38,8 @@ public:
 	bool getIsBotAmTable();
 	void setNormalTexture(Texture* tex);
 	void setIsActiveTexture(Texture* tex);
+
+	bool darfNeuenAuftragErstellen();
+	void resetNeuenAuftragErlaubt();
 
 };

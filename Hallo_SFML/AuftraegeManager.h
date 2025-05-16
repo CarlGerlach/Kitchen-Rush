@@ -5,9 +5,12 @@
 #include "Auftrag.h" 
 #include "mySound.h"
 #include "PauseManager.h"
+#include "TableManager.h"
 
 using namespace std;
 using namespace sf;
+
+class TableManager;
 
 class AuftraegeManager
 {
@@ -18,19 +21,24 @@ private:
 	Font font;
 
 	mySound* soundManager;
+	TableManager* tm;
+
 
 
 public:
-	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager);
+	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm);
 	~AuftraegeManager();
 
 	void addAuftrag(Auftrag* auftrag);
 	void removeAuftrag(Auftrag* auftrag);
 	void clearAuftraege();
+
 	int getAnzahlAuftraege();
 	vector<Auftrag*> getAuftraege();
 	Auftrag* getAuftrag(int index);
 	Auftrag* getAuftragMitID(int gesuchteID);
+
+	void setTableManager(TableManager* tm);
 
 
 	void draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager);

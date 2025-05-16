@@ -1,4 +1,5 @@
 #include "AuftraegeManager.h"
+#include "TableManager.h"
 #include "Auftrag.h"
 #include "mySound.h"
 #include "PauseManager.h"
@@ -8,11 +9,12 @@ using namespace sf;
 
 
 
-AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager)
+AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm)
 {
 	if (ini_textureHintergrundAuftrag != nullptr)
 		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
 
+	tm = ini_tm;
 	letzterAuftragId = 0;
 	font = ini_font;
 	soundManager = ini_soundManager;  // <--- Soundmanager speichern
@@ -92,6 +94,11 @@ Auftrag* AuftraegeManager::getAuftragMitID(int gesuchteID)
 	return nullptr; // Kein passender Auftrag gefunden
 }
 
+void AuftraegeManager::setTableManager(TableManager* tm)
+{
+	this->tm = tm;
+}
+
 
 void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager)
 {
@@ -138,7 +145,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
-	while (Auftrag::getAnzahlAktiveAuftraege() < 5)
+	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden())
 	{
 
 		// Anzahl der Positionen pro Auftrag: 1–3

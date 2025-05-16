@@ -45,6 +45,7 @@ bool Table::versucheAuftragZuErfüllen()
 			}
 
 			am->finishAuftrag(auftrag);
+			auftragErledigtUndAngekommen = false;
 
 			// Bot zurückschicken
 			if (derBot) 
@@ -54,7 +55,8 @@ bool Table::versucheAuftragZuErfüllen()
 			return true;
 		}
 	}
-	else {
+	else 
+	{
 		stringstream text;
 		text << "Nicht genügend Items im Inventar für Auftrag";
 		GameMessage::setText(text.str());
@@ -65,29 +67,28 @@ bool Table::versucheAuftragZuErfüllen()
 void Table::updateBot()
 {
 	if (!botAktiv) {
-		// Starte neuen Bot zum Table
 		derBot = std::make_unique<Bot>(zielPosition);
-		derBot->setZiel(this->shape.getPosition());
-		cout << "Test 1 Table::updateBot" << endl;
+		derBot->setZiel(this->shape.getPosition());  // Tischposition als Ziel
 		botAktiv = true;
+		isBotAmTable = false;
 	}
-	else if (derBot) 
+	else if (derBot)
 	{
 		derBot->update();
 
-		if (derBot->amZiel()) 
+		// Wenn Bot am Tisch angekommen ist
+		if (!isBotAmTable && derBot->amZiel() && derBot->getPosition() == this->shape.getPosition())
 		{
-			//shape.setFillColor(sf::Color::Black);
-			
-			// Ziel erreicht?
-			if (derBot->getPosition() == zielPosition) 
-			{
-				// Bot ist am Rückgabeort → entfernen
-				cout << "Test 3 Table::update" << endl;
-				derBot.reset();
-				isBotAmTable = true;
-				botAktiv = false;
-			}
+			isBotAmTable = true;
+			auftragErledigtUndAngekommen = true;  // ⬅️ DAS hat gefehlt!
+		}
+
+		// Wenn Bot am Rückgabeort ist
+		if (derBot->amZiel() && derBot->getPosition() == zielPosition)
+		{
+			derBot.reset();
+			isBotAmTable = false;
+			botAktiv = false;
 		}
 	}
 }
@@ -115,6 +116,16 @@ void Table::setNormalTexture(Texture* tex)
 void Table::setIsActiveTexture(Texture* tex)
 {
 	this->shape.setTexture(tex);
+}
+
+bool Table::darfNeuenAuftragErstellen()
+{
+	return auftragErledigtUndAngekommen;
+}
+
+void Table::resetNeuenAuftragErlaubt()
+{
+	auftragErledigtUndAngekommen = false;
 }
 
 void Table::setupButtons(Font& newFont, Spieler* player)

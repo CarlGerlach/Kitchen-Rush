@@ -8,7 +8,7 @@ Bot::Bot(const sf::Vector2f& startPos, float schrittweite)
 	//sprite.setFillColor(Color::Black);
 	sprite.setPosition(Vector2f(940.f, 950.f));
 
-	if (!botTexture.loadFromFile("Texturen & Musik/Char-rechts.png")) {
+	if (!botTexture.loadFromFile("Texturen & Musik/Char-links.png")) {
 		cerr << "Fehler beim Laden der Textur!" << endl;
 	}
 	sprite.setTexture(&botTexture);
