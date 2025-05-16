@@ -184,17 +184,17 @@ float mySound::getMusicLautstaerke()
 bool mySound::loadFalschSound(const std::string& filePath)
 {
     if (!falschBuffer.loadFromFile(filePath))
-    {
         return false;
-    }
+
     falschSound.setBuffer(falschBuffer);
-    falschSound.setVolume(effectVolume); // gleiche Lautstärke wie andere Effekte
+    falschSound.setVolume(effectVolume); // für den Fall, dass sie sich ändert
     return true;
 }
 
+
 void mySound::playFalschSound()
 {
-    falschSound.setVolume(effectVolume); // für den Fall, dass sie sich ändert
+    falschSound.setVolume(std::min(effectVolume * 200.0f, 100.0f)); // Lauter als andere
     falschSound.play();
 }
 
