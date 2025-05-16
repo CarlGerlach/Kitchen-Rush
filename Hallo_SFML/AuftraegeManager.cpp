@@ -180,6 +180,14 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
         alleAuftraege.push_back(neuerAuftrag);
     }
+
+    
+    if (spieler && spieler->getLeben() == 0)
+    {
+        pauseManager.togglePause();
+        pauseManager.setGameOver(true);
+    }
+
 }
 
 
