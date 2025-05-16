@@ -177,7 +177,17 @@ bool PauseManager::isPaused()
 void PauseManager::setGameOver(bool value)
 {
     gameOver = value;
+    if (gameOver && !gameOverSoundPlayed)
+    {
+        if (soundManager)
+        {
+            soundManager->stopHintergrundMusik();
+            soundManager->playGameOverSound();
+            gameOverSoundPlayed = true;
+        }
+    }
 }
+
 
 bool PauseManager::getGameOver()
 {

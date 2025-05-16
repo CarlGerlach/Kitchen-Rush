@@ -1,5 +1,6 @@
 ﻿#include "Auftrag.h"
 #include "GameMessage.h"
+#include "Spieler.h"
 #include "PauseManager.h"
 #include <sstream>
 
@@ -7,12 +8,19 @@ int Auftrag::anzahlAktiv = 0;
 
 Auftrag::Auftrag(Texture* ini_texture, Font ini_font)
 {
+	lebenverloren = false;
+
+
 	if (ini_texture == nullptr)return;
 
 	font = ini_font;
 	fensterAuftrag.setPosition(Vector2f(500 + anzahlAktiv * 170, -5));
 	fensterAuftrag.setTexture(ini_texture);
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
+
+	lebensdauer = 60.f; // z. B. 60 Sekunden
+	timer = 0.f;
+
 	anzahlAktiv++;
 
 
@@ -45,6 +53,9 @@ Auftrag::Auftrag(Texture* ini_texture, Font ini_font, int id)
 	font = ini_font;
 	fensterAuftrag.setTexture(ini_texture);
 	fensterAuftrag.setSize(Vector2f(200.f, 180.f));
+
+	lebensdauer = 60.f; // 60 Sekunden
+	timer = 0.f;
 }
 
 
@@ -126,20 +137,44 @@ void Auftrag::decrementAnzahlAktiv()
 	anzahlAktiv--;
 }
 
+void Auftrag::setSpieler(Spieler* s) {
+	spieler = s;
+}
+
+
 void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 {
-	if (abgelaufen == true) return;
+	/*std::cout << "Update von Auftrag " << id << " aufgerufen, abgelaufen=" << abgelaufen << std::endl;*/
+
+	// Leben nur einmal abziehen!
+	if (abgelaufen && !lebenverloren)
+	{
+		/*std::cout << "Auftrag abgelaufen – Spieler vorhanden? " << (spieler != nullptr) << std::endl*/;
+
+		if (spieler)
+		{
+			/*std::cout << "Leben vor Verlust: " << spieler->getLeben() << std::endl;*/
+			spieler->verliereLeben();
+			/*std::cout << "Leben nach Verlust: " << spieler->getLeben() << std::endl;*/
+
+			if (spieler->getLeben() == 0) {
+				pauseManager.togglePause();
+				pauseManager.setGameOver(true);
+			}
+		}
+		lebenverloren = true;
+		return;
+	}
 
 	timer += deltaTime;
 	if (timer >= lebensdauer)
 	{
 		abgelaufen = true;
-		GameMessage::setText("Ein Auftrag ist abgelaufen!");
-
-		pauseManager.togglePause();        // Spiel pausieren
-		pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
+		/*GameMessage::setText("Ein Auftrag ist abgelaufen!");*/
 	}
 }
+
+
 
 
 
@@ -198,6 +233,28 @@ void Auftrag::draw(RenderWindow& window)
 			window.draw(text);
 		}
 	}
+}
+
+
+
+void Auftrag::markAsFinished()
+{
+	abgeschlossen = true;
+}
+
+bool Auftrag::isFinished() const
+{
+	return abgeschlossen;
+}
+
+
+bool Auftrag::isExpired() const {
+	return abgelaufen;
+}
+
+void Auftrag::setFensterPosition(const sf::Vector2f& pos)
+{
+	fensterAuftrag.setPosition(pos);
 }
 
 
