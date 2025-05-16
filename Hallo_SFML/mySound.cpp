@@ -1,4 +1,5 @@
 #include "mySound.h"
+#include"PauseManager.h"
 using namespace std;
 using namespace sf;
 
@@ -192,10 +193,14 @@ bool mySound::loadFalschSound(const std::string& filePath)
 }
 
 
-void mySound::playFalschSound()
+void mySound::playFalschSound(bool istGameOver)
 {
-    falschSound.setVolume(std::min(effectVolume * 200.0f, 100.0f)); // Lauter als andere
-    falschSound.play();
+    if(!istGameOver)
+    {
+        falschSound.setVolume(std::min(effectVolume * 1.5f, 100.0f)); // Lauter als andere
+        falschSound.play();
+    }
 }
+    
 
 

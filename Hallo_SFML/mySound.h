@@ -56,5 +56,5 @@ public:
     float getMusicLautstaerke();
 
     bool loadFalschSound(const std::string& filePath);
-    void playFalschSound();
+    void playFalschSound(bool);
 };

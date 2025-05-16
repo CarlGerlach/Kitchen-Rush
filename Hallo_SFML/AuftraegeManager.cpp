@@ -2,6 +2,7 @@
 #include "Auftrag.h"
 #include "mySound.h"
 #include "PauseManager.h"
+
 #include <sstream>
 using namespace std;
 using namespace sf;
@@ -130,9 +131,15 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
             if (auftrag->isExpired() && spieler)
             {
                 spieler->verliereLeben();
-				soundManager->playFalschSound();
 
+                if (spieler->getLeben() <= 0)
+                {
+                    pauseManager.setGameOver(true);
+                }
+
+                soundManager->playFalschSound(pauseManager.getGameOver());
             }
+
 
             Vector2f altePosition = auftrag->getFensterAuftrag();
 
