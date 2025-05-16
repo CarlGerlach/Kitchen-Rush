@@ -237,3 +237,25 @@ void Auftrag::draw(RenderWindow& window)
 
 
 
+void Auftrag::markAsFinished()
+{
+	abgeschlossen = true;
+}
+
+bool Auftrag::isFinished() const
+{
+	return abgeschlossen;
+}
+
+
+bool Auftrag::isExpired() const {
+	return abgelaufen;
+}
+
+void Auftrag::setFensterPosition(const sf::Vector2f& pos)
+{
+	fensterAuftrag.setPosition(pos);
+}
+
+
+

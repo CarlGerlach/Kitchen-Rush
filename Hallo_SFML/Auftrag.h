@@ -25,6 +25,9 @@ private:
 	bool abgelaufen = false;
 	bool lebenverloren = false;
 
+	bool abgeschlossen = false;
+
+
 
 	Spieler* spieler; // Zeiger auf Spieler
 public:
@@ -51,6 +54,16 @@ public:
 	void setSpieler(Spieler* s);
 
 	void draw(RenderWindow& window);
+
+	
+	bool isExpired() const;
+
+	void markAsFinished();
+
+	bool isFinished() const;
+
+	void setFensterPosition(const sf::Vector2f& pos);
+
 
 };
 
