@@ -152,7 +152,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 
             // Neuen Auftrag an genau dieser Stelle erstellen
-            Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, ++letzterAuftragId);
+            Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, i + 1);
             if (spieler)
                 neuerAuftrag->setSpieler(spieler);
 
