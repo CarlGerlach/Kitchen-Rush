@@ -46,6 +46,9 @@ int main()
 
     //Alles was geladen wird
     
+
+
+
     Font font;
     if (!font.loadFromFile("Texturen & Musik/TDAText.ttf"))
         return -1;
@@ -116,6 +119,9 @@ int main()
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
     Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
 
+    spieler1.initLeben(5, "Texturen & Musik/herz.png");
+
+
     //Sound
     mySound* soundManager = new mySound();
 
@@ -143,6 +149,9 @@ int main()
     derAuftraegeManager->setTableManager(derTableManager);
 
     
+
+    derAuftraegeManager->setSpieler(&spieler1);
+
 
 
     Table table1(93, font, &spieler1, 20, derAuftraegeManager);

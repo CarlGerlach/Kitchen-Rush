@@ -1,4 +1,5 @@
 #include "mySound.h"
+#include"PauseManager.h"
 using namespace std;
 using namespace sf;
 
@@ -36,8 +37,16 @@ mySound::mySound()
         cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
     }
 
+
+    if (!this->loadFalschSound("Texturen & Musik/falsch.ogg"))
+    {
+        std::cerr << "Fehler beim Laden von falsch.ogg!" << std::endl;
+    }
+
     meinSound.setBuffer(buffer);
     /*lautstärke = 20.f;*/ // Standardlautstärke
+
+
 }
 
 sf::Sound& mySound::getMeinSound()
@@ -166,9 +175,32 @@ void mySound::setVolume(float volume) {
     auftragAbgeschlossenSound.setVolume(effectVolume);
 }
 
-// In der mySound-Klasse
+
+
 float mySound::getMusicLautstaerke()
 {
     return musicVolume;
 }
+
+bool mySound::loadFalschSound(const std::string& filePath)
+{
+    if (!falschBuffer.loadFromFile(filePath))
+        return false;
+
+    falschSound.setBuffer(falschBuffer);
+    falschSound.setVolume(effectVolume); // für den Fall, dass sie sich ändert
+    return true;
+}
+
+
+void mySound::playFalschSound(bool istGameOver)
+{
+    if(!istGameOver)
+    {
+        falschSound.setVolume(std::min(effectVolume * 1.5f, 100.0f)); // Lauter als andere
+        falschSound.play();
+    }
+}
+    
+
 

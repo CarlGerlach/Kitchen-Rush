@@ -3,6 +3,7 @@
 #include "Auftrag.h"
 #include "mySound.h"
 #include "PauseManager.h"
+
 #include <sstream>
 using namespace std;
 using namespace sf;
@@ -26,6 +27,8 @@ AuftraegeManager::~AuftraegeManager()
 
 void AuftraegeManager::addAuftrag(Auftrag* ini_auftrag)
 {
+
+
 	alleAuftraege.push_back(ini_auftrag);
 }
 
@@ -35,19 +38,23 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 	auto it = std::find(alleAuftraege.begin(), alleAuftraege.end(), ini_auftrag);
 	if (it != alleAuftraege.end())
 	{
-		//ƒndern auf Getter und dann set um nicht Static
-		//ƒndern, dass auch die Bestellpositionen gelˆscht werden -> VOn unten aus alles nach oben hin weglˆschen
+		//√Ñndern auf Getter und dann set um nicht Static
+		//√Ñndern, dass auch die Bestellpositionen gel√∂scht werden -> VOn unten aus alles nach oben hin wegl√∂schen
 
 		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
 		letzterAuftragId = ini_auftrag->getId();
 		ini_auftrag->clearBestellpositionen();
 		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
+  }
+	if (ini_auftrag == nullptr) return;
 
-		Auftrag::decrementAnzahlAktiv();
-		delete* it;                    // Speicher freigeben
-		alleAuftraege.erase(it);      // Zeiger aus dem Vektor entfernen
-	}
+
+	letzterAuftragId = ini_auftrag->getId();
+	ini_auftrag->clearBestellpositionen();
+	Auftrag::decrementAnzahlAktiv();
+	delete ini_auftrag;  // Speicher freigeben
 }
+
 
 
 
@@ -115,7 +122,7 @@ void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseMana
 		if (alleAuftraege[i] != nullptr)
 		{
 
-			// Position f¸r den Auftrag und die ID
+			// Position f√ºr den Auftrag und die ID
 			alleAuftraege[i]->draw(window);
 		}
 	}
@@ -127,6 +134,93 @@ void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseMana
 
 void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManager)
 {
+    static bool seeded = false;
+    if (!seeded) {
+        srand(static_cast<unsigned>(time(0)));
+        seeded = true;
+    }
+
+    for (size_t i = 0; i < alleAuftraege.size(); ++i)
+    {
+        Auftrag* auftrag = alleAuftraege[i];
+
+        if (!auftrag) continue;
+
+        auftrag->update(deltaTime, pauseManager);
+
+        // Erledigte oder abgelaufene Auftr√§ge ersetzen
+        if (auftrag->isExpired() || auftrag->isFinished())
+        {
+			// Wenn Auftrag abgelaufen ist, Leben abziehen und Sound abspielen
+            if (auftrag->isExpired() && spieler)
+            {
+                spieler->verliereLeben();
+
+                if (spieler->getLeben() <= 0)
+                {
+                    pauseManager.setGameOver(true);
+                }
+
+                soundManager->playFalschSound(pauseManager.getGameOver());
+            }
+
+
+            Vector2f altePosition = auftrag->getFensterAuftrag();
+
+            auftrag->clearBestellpositionen();
+            delete auftrag;
+            Auftrag::decrementAnzahlAktiv();
+
+            // Neuen Auftrag an gleicher Stelle erzeugen ...
+            // [rest bleibt wie vorher]
+
+
+            // Neuen Auftrag an genau dieser Stelle erstellen
+            Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, i + 1);
+            if (spieler)
+                neuerAuftrag->setSpieler(spieler);
+
+            // Fenster-Position √ºbernehmen
+            neuerAuftrag->setFensterPosition(altePosition);
+
+            // Bestellpositionen hinzuf√ºgen
+            int anzahlPositionen = rand() % 3 + 1;
+            for (int j = 0; j < anzahlPositionen; ++j)
+            {
+                ItemID item = Item::randomItem();
+                int menge = rand() % 5 + 1;
+                neuerAuftrag->addBestellposition(new Bestellposition(item, menge));
+            }
+
+            alleAuftraege[i] = neuerAuftrag;  // exakt dieselbe Stelle ersetzen
+        }
+    }
+
+    // Wenn aus irgendeinem Grund weniger als 5 Auftr√§ge vorhanden sind, auff√ºllen
+    while (alleAuftraege.size() < 5)
+    {
+        Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, ++letzterAuftragId);
+        if (spieler)
+            neuerAuftrag->setSpieler(spieler);
+
+        int anzahlPositionen = rand() % 3 + 1;
+        for (int j = 0; j < anzahlPositionen; ++j)
+        {
+            ItemID item = Item::randomItem();
+            int menge = rand() % 5 + 1;
+            neuerAuftrag->addBestellposition(new Bestellposition(item, menge));
+        }
+
+        alleAuftraege.push_back(neuerAuftrag);
+    }
+
+    
+    if (spieler && spieler->getLeben() == 0)
+    {
+        pauseManager.togglePause();
+        pauseManager.setGameOver(true);
+    }
+
 
 	//Zufallsinitialisierung nur einmal
 	static bool seeded = false;
@@ -143,12 +237,12 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 	}
 
 
-	std::cout << "Aktive Auftr‰ge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+	std::cout << "Aktive Auftr√§ge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden())
 	{
 
-		// Anzahl der Positionen pro Auftrag: 1ñ3
+		// Anzahl der Positionen pro Auftrag: 1¬ñ3
 		int anzahlPositionen = rand() % 4 + 1;
 
 
@@ -161,10 +255,10 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 		for (int i = 0; i < anzahlPositionen; ++i)
 		{
-			// Zuf‰llige ItemID w‰hlen
+			// Zuf√§llige ItemID w√§hlen
 			ItemID zufallsItem = Item::randomItem();
 
-			// Zuf‰llige Menge 1ñ5
+			// Zuf√§llige Menge 1¬ñ5
 			int menge = rand() % 5 + 1;
 			//cout << "Menge: " << menge << endl;
 
@@ -176,25 +270,24 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 			
 		}
 
-
-		addAuftrag(neuerAuftrag);
-
-
-		//cout << "Neuer Auftrag wurde erstellt" << endl;
-	}
 }
+
+
+
+
+
 
 void AuftraegeManager::finishAuftrag(Auftrag* auftrag)
 {
-	if (auftrag == nullptr) return;
+	if (!auftrag) return;
 
-	// Auftrag aus der Liste entfernen
-	removeAuftrag(auftrag);
+	auftrag->markAsFinished(); // Auftrag als fertig markieren
 
-	// Sound abspielen
 	if (soundManager)
 		soundManager->playAuftragAbgeschlossenSound();
 }
+
+
 
 
 

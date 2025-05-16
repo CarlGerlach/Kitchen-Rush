@@ -31,6 +31,9 @@ private:
 
     mySound* soundManager;
 
+    bool gameOverSoundPlayed = false;
+
+
 public:
     PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Spieler* spieler);
     void handleInput(const sf::Event& event, sf::RenderWindow& window);
