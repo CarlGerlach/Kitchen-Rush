@@ -34,7 +34,7 @@ public:
     Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture);
 
     // Methode zum Ändern der Textur
-    void setTexture(sf::Texture* newTexture);
+    void setTextureManual(sf::Texture* newTexture);
 
     // Funktion zum Zeichnen des Spielers und Inventars
     void draw(sf::RenderWindow& window);

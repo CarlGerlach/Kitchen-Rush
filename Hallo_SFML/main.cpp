@@ -282,7 +282,7 @@ int main()
                 if(!spieler1.isLookingLeft())
                 {
 
-                spieler1.setTexture(&playerLeftTexture);
+                spieler1.setTextureManual(&playerLeftTexture);
                 spieler1.setLookingLeft(true);
                 }
            
@@ -291,7 +291,7 @@ int main()
             {
                 direction.x += 1.f;
                 if (!spieler1.isLookingRight()) {
-                    spieler1.setTexture(&playerRightTexture);
+                    spieler1.setTextureManual(&playerRightTexture);
                     spieler1.setLookingRight(true);
                 }
 

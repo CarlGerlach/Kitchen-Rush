@@ -9,8 +9,10 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
     }
 
-    herzTexture.loadFromFile("Texturen & Musik/herz.png");
-    
+    if (!herzTexture.loadFromFile("Texturen & Musik/herz.png")) {
+        std::cerr << "Fehler beim Laden der Herz-Textur!" << std::endl;
+    }
+
     float herzSize = 40.f;
     cout << "Test1 Spieler" << endl;
     
@@ -55,7 +57,7 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
 
 
 // Methode zum Ändern der Textur
-void Spieler::setTexture(sf::Texture* newTexture)
+void Spieler::setTextureManual(sf::Texture* newTexture)
 {
     shape.setTexture(newTexture);
 }
@@ -113,8 +115,10 @@ void Spieler::draw(sf::RenderWindow& window)
         }
     }
 
-    for (int i = 0; i < leben; i++)
+    cout << "Draw test1 " << endl;
+    for (int i = 0; i < 5; i++)
     {
+        cout << "Draw Fehler" << endl;
         window.draw(herzen[i]);
     }
 
