@@ -9,11 +9,12 @@ using namespace sf;
 
 
 
-AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm)
+AuftraegeManager::AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm, Spieler* ini_spieler)
 {
 	if (ini_textureHintergrundAuftrag != nullptr)
 		textureHintergrundAuftrag = ini_textureHintergrundAuftrag;
 
+	spieler = ini_spieler;
 	tm = ini_tm;
 	letzterAuftragId = 0;
 	font = ini_font;
@@ -138,15 +139,37 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 	for (Auftrag* auftrag : alleAuftraege)
 	{
+		cout << "Leben: " << spieler->getLeben() << endl;
 		if (auftrag)
 			auftrag->update(deltaTime, pauseManager);
+		if (auftrag->getAbgelaufen())
+		{
+			if (this->spieler->lebenReduzieren() == false)
+			{
+				pauseManager.setGameOver(true);
+				pauseManager.togglePause();
+			}
+			else
+			{
+				removeAuftrag(auftrag);
+				einAuftragAbgelaufen = true;
+			}
+			
+		}
+		//cout << "Leben: " << spieler->getLeben() << endl;
+
 	}
 
 
 	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
-	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden())
+	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden() || Auftrag::getAnzahlAktiveAuftraege() < 5 && einAuftragAbgelaufen == true)
 	{
+		if (einAuftragAbgelaufen)
+		{
+			einAuftragAbgelaufen = false;
+		}
+
 
 		// Anzahl der Positionen pro Auftrag: 1–3
 		int anzahlPositionen = rand() % 4 + 1;

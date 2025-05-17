@@ -13,6 +13,7 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
     this->points = 0;
     lookingLeft = false;
     lookingRight = false;
+    leben = 5;
 
     inventar = new PlayerInventar();
 
@@ -136,6 +137,25 @@ PlayerInventar* Spieler::getPlayerInventar()
 RectangleShape& Spieler::getInventarSlots(int slotIndex)
 {
     return inventarSlots[slotIndex];
+}
+
+int Spieler::getLeben()
+{
+    return leben;
+}
+
+bool Spieler::lebenReduzieren()              
+{
+    if (leben > 0)
+    {
+        this->leben--;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
 }
 
 

@@ -109,6 +109,11 @@ int Auftrag::getId()
 	return id;
 }
 
+bool Auftrag::getAbgelaufen()
+{
+	return abgelaufen;
+}
+
 void Auftrag::clearBestellpositionen()
 {
 	for (int i = 0; i < 5; i++)
@@ -120,6 +125,7 @@ void Auftrag::clearBestellpositionen()
 		}
 	}
 }
+
 
 void Auftrag::decrementAnzahlAktiv()
 {
@@ -141,8 +147,8 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 		GameMessage::setText("Ein Auftrag ist abgelaufen!");				  
 
 		cout << "Test 1 Auftrag::update()" << endl;
-		pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
-		pauseManager.togglePause();        // Spiel pausieren
+		//pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
+		//pauseManager.togglePause();        // Spiel pausieren
 		cout << "Test 2 Auftrag::update()" << endl;
 		cout << "Test 3 Auftrag::update()" << endl;
 	}

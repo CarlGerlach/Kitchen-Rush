@@ -19,14 +19,16 @@ private:
 	Texture* textureHintergrundAuftrag;
 	int letzterAuftragId;
 	Font font;
+	Spieler* spieler;
 
 	mySound* soundManager;
 	TableManager* tm;
+	bool einAuftragAbgelaufen = false;
 
 
 
 public:
-	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm);
+	AuftraegeManager(sf::Font ini_font, Texture* ini_textureHintergrundAuftrag, mySound* ini_soundManager, TableManager* ini_tm, Spieler* ini_spieler);
 	~AuftraegeManager();
 
 	void addAuftrag(Auftrag* auftrag);

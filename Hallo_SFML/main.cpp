@@ -138,7 +138,7 @@ int main()
     Spielfeld* playField = new Spielfeld();
     DeviceManager* deviceManager = new DeviceManager();
 
-    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager, nullptr);
+    AuftraegeManager* derAuftraegeManager = new AuftraegeManager(font, &tasksTexture, soundManager, nullptr, &spieler1);
     TableManager* derTableManager = new TableManager(derAuftraegeManager);
     derAuftraegeManager->setTableManager(derTableManager);
 

@@ -16,12 +16,14 @@ private:
     sf::Texture texture;       // Textur für den Spieler
     PlayerInventar* inventar;       // Inventar mit 5 Slots
     int points;
+    int leben;
 
     // Grafische Elemente für das Inventar
     sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
     sf::Font font;                      // Schriftart für Item-Anzahl
     bool lookingLeft;
     bool lookingRight;
+
     
 
 public:
@@ -44,6 +46,9 @@ public:
 
     PlayerInventar* getPlayerInventar();
     RectangleShape& getInventarSlots(int slotIndex);
+    int getLeben();
+
+    bool lebenReduzieren();
 
 
     int getPoints();
