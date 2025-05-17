@@ -35,8 +35,8 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 	auto it = std::find(alleAuftraege.begin(), alleAuftraege.end(), ini_auftrag);
 	if (it != alleAuftraege.end())
 	{
-		//Ändern auf Getter und dann set um nicht Static
-		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
+		//Ã„ndern auf Getter und dann set um nicht Static
+		//Ã„ndern, dass auch die Bestellpositionen gelÃ¶scht werden -> VOn unten aus alles nach oben hin weglÃ¶schen
 
 		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
 		letzterAuftragId = ini_auftrag->getId();
@@ -103,7 +103,7 @@ void AuftraegeManager::setTableManager(TableManager* tm)
 void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseManager& pauseManager)
 {
 	if (pauseManager.getGameOver() == true)
-	{
+	{																	  
 		pauseManager.togglePause();
 	}
 	
@@ -115,7 +115,7 @@ void AuftraegeManager::draw(sf::RenderWindow& window, float deltaTime, PauseMana
 		if (alleAuftraege[i] != nullptr)
 		{
 
-			// Position für den Auftrag und die ID
+			// Position fÃ¼r den Auftrag und die ID
 			alleAuftraege[i]->draw(window);
 		}
 	}
@@ -143,12 +143,12 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 	}
 
 
-	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+	std::cout << "Aktive AuftrÃ¤ge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden())
 	{
 
-		// Anzahl der Positionen pro Auftrag: 1–3
+		// Anzahl der Positionen pro Auftrag: 1â€“3
 		int anzahlPositionen = rand() % 4 + 1;
 
 
@@ -161,10 +161,10 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 		for (int i = 0; i < anzahlPositionen; ++i)
 		{
-			// Zufällige ItemID wählen
+			// ZufÃ¤llige ItemID wÃ¤hlen
 			ItemID zufallsItem = Item::randomItem();
 
-			// Zufällige Menge 1–5
+			// ZufÃ¤llige Menge 1â€“5
 			int menge = rand() % 5 + 1;
 			//cout << "Menge: " << menge << endl;
 
