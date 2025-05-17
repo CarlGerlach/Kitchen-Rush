@@ -107,7 +107,6 @@ int main()
         return -1;
     }
 
-    Texture herzTexture;
 
   
     //Game MEssage die man überall aufrüfen kann
@@ -117,7 +116,7 @@ int main()
 
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture, nullptr);
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
 
     //Sound
     mySound* soundManager = new mySound();

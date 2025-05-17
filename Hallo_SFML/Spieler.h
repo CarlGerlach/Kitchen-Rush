@@ -19,7 +19,7 @@ private:
 
     int leben;
     RectangleShape herzen[5];
-    Texture* herzTexture;
+    Texture herzTexture;
 
     // Grafische Elemente für das Inventar
     sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
@@ -31,7 +31,7 @@ private:
 
 public:
     // Konstruktor
-    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture, Texture* ini_herzTexture);
+    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture);
 
     // Methode zum Ändern der Textur
     void setTexture(sf::Texture* newTexture);
