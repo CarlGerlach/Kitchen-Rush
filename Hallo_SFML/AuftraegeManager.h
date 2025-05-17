@@ -23,7 +23,7 @@ private:
 
 	mySound* soundManager;
 	TableManager* tm;
-	bool einAuftragAbgelaufen = false;
+	bool einAuftragAbgelaufen;
 
 
 

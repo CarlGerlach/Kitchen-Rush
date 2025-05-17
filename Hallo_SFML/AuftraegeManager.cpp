@@ -163,7 +163,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
-	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden() || Auftrag::getAnzahlAktiveAuftraege() < 5 && einAuftragAbgelaufen == true)
+	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden() || Auftrag::getAnzahlAktiveAuftraege() < 5 && einAuftragAbgelaufen)
 	{
 		if (einAuftragAbgelaufen)
 		{
