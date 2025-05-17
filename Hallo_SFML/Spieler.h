@@ -16,7 +16,10 @@ private:
     sf::Texture texture;       // Textur für den Spieler
     PlayerInventar* inventar;       // Inventar mit 5 Slots
     int points;
+
     int leben;
+    RectangleShape herzen[5];
+    Texture* herzTexture;
 
     // Grafische Elemente für das Inventar
     sf::RectangleShape inventarSlots[5]; // 5 Slots für das Inventar
@@ -28,7 +31,7 @@ private:
 
 public:
     // Konstruktor
-    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture);
+    Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture, Texture* ini_herzTexture);
 
     // Methode zum Ändern der Textur
     void setTexture(sf::Texture* newTexture);

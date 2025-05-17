@@ -106,6 +106,9 @@ int main()
         cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
         return -1;
     }
+
+    Texture herzTexture;
+
   
     //Game MEssage die man überall aufrüfen kann
     GameMessage::init(font);
@@ -114,7 +117,7 @@ int main()
 
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
+    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture, nullptr);
 
     //Sound
     mySound* soundManager = new mySound();

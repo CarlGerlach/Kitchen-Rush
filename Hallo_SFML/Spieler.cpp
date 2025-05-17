@@ -3,11 +3,13 @@
 
 
 // Konstruktor
-Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture)
+Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture, Texture* ini_herzTexture)
 {
     if (!font.loadFromFile("Texturen & Musik/TDAText.ttf")) {
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
     }
+
+    
     this->speed = speed;
     this->bounds = bounds;
     this->points = 0;
@@ -34,6 +36,11 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
         inventarSlots[i].setSize(sf::Vector2f(slotSize, slotSize));
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         inventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200));
+    }
+
+    for (int i = 0; i < 5; i++)
+    {
+        herzen[i].setTexture(herzTexture);
     }
 }
 
@@ -96,6 +103,12 @@ void Spieler::draw(sf::RenderWindow& window)
             window.draw(sprite);
         }
     }
+
+    for (int i = 0; i < leben; i++)
+    {
+        window.draw(herzen[i]);
+    }
+
 }
 
 
