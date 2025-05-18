@@ -9,12 +9,13 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
         std::cerr << "Fehler beim Laden der Schriftart!" << std::endl;
     }
 
-    if (!herzTexture.loadFromFile("Texturen & Musik/herz.png")) {
+    if (!herzTexture.loadFromFile("Texturen & Musik/Herz.png")) {
         std::cerr << "Fehler beim Laden der Herz-Textur!" << std::endl;
+        cout << "Texturen Test" << endl;
     }
 
-    float herzSize = 40.f;
-    cout << "Test1 Spieler" << endl;
+    float herzSize = 60.f;
+
     
     this->speed = speed;
     this->bounds = bounds;
@@ -43,16 +44,14 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
         inventarSlots[i].setPosition(startXPos + i * (slotSize + spacing), startYPos);
         inventarSlots[i].setFillColor(sf::Color(100, 100, 100, 200));
     }
-    cout << "Test2 Spieler" << endl;
-
     for (int i = 0; i < 5; i++)
     {
         herzen[i].setTexture(&herzTexture);
-        herzen[i].setScale(herzSize / herzTexture.getSize().x, herzSize / herzTexture.getSize().y);
-        herzen[i].setPosition(100.f + i * (herzSize + spacing), 100.f);
+        herzen[i].setSize(Vector2f(herzSize, herzSize));
+        herzen[i].setPosition(80.f + i * (herzSize + spacing), 55.f);
     }
 
-    cout << "Test3 Spieler" << endl;
+
 }
 
 
@@ -82,9 +81,9 @@ void Spieler::draw(sf::RenderWindow& window)
     // Punktanzeige (bleibt wie gehabt)
     sf::Text text;
     text.setFont(font);
-    text.setCharacterSize(30);
+    text.setCharacterSize(50);
     text.setFillColor(sf::Color::White);
-    text.setPosition(viewCenter.x + viewSize.x / 2.f - 120.f, viewCenter.y - viewSize.y / 2.f + 70.f); // z.B. oben rechts in View
+    text.setPosition(viewCenter.x + viewSize.x / 2.f - 120.f, 55.f); // z.B. oben rechts in View
     text.setString(std::to_string(points));
     window.draw(text);
 
@@ -115,10 +114,9 @@ void Spieler::draw(sf::RenderWindow& window)
         }
     }
 
-    cout << "Draw test1 " << endl;
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < leben; i++)
     {
-        cout << "Draw Fehler" << endl;
+
         window.draw(herzen[i]);
     }
 
@@ -172,7 +170,7 @@ int Spieler::getLeben()
 
 bool Spieler::lebenReduzieren()              
 {
-    if (leben > 0)
+    if (leben - 1 > 0)
     {
         this->leben--;
         return true;
