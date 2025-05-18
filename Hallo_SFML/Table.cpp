@@ -9,6 +9,7 @@ Table::Table(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySi
 {
 	this->tableID = index++;
 	if (ini_am) am = ini_am;
+	font = newFont;
 	setupButtons(newFont, player);
 
 }
@@ -92,12 +93,10 @@ void Table::updateBot()
 			// Bot betritt den Tischbereich
 			isBotAmTable = true;
 			auftragErledigtUndAngekommen = true;
-			cout << "Bot hat Tisch erreicht" << endl;
 		}
 		else if (warImTableBereich && !istImBereich) {
 			// Bot verlässt den Tischbereich
 			isBotAmTable = false;
-			cout << "Bot hat Tisch verlassen" << endl;
 		}
 
 		warImTableBereich = istImBereich;
@@ -111,7 +110,25 @@ void Table::updateBot()
 
 void Table::drawBot(RenderWindow& window)
 {
-	if (derBot) derBot->draw(window);
+	if (derBot && !derBot->getIstAmZiel())
+	{
+		derBot->draw(window);
+	}
+}
+
+void Table::drawTableID(RenderWindow& window)
+{
+	Text text;
+	text.setFont(font);
+	text.setCharacterSize(18);
+	text.setFillColor(sf::Color::Black);
+	text.setString(std::to_string(tableID));
+
+	sf::Vector2f shapePos = shape.getPosition();
+	sf::Vector2f shapeSize = shape.getSize();
+	text.setPosition((shapePos.x + shapeSize.x / 2.f - 10.f) + 2.f, (shapePos.y + shapeSize.y / 2.f - 10.f) + 12);
+
+	window.draw(text);
 }
 
 void Table::setZielPosition(Vector2f& pos)
@@ -129,15 +146,7 @@ RectangleShape Table::getCollisionBounds()
 	return shape;
 }
 
-void Table::setNormalTexture(Texture* tex)
-{
-	this->shape.setTexture(tex);
-}
 
-void Table::setIsActiveTexture(Texture* tex)
-{
-	this->shape.setTexture(tex);
-}
 
 bool Table::darfNeuenAuftragErstellen()
 {

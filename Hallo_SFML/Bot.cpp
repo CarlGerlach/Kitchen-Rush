@@ -4,11 +4,11 @@
 Bot::Bot(const sf::Vector2f& startPos, float schrittweite)
 	: position(startPos), zielPosition(startPos), schrittweite(schrittweite), istAmZiel(true)
 {;
-	sprite.setSize(Vector2f(20.f, 20.f));
+	sprite.setSize(Vector2f(50.f, 50.f));
 	//sprite.setFillColor(Color::Black);
 	sprite.setPosition(Vector2f(940.f, 950.f));
 
-	if (!botTexture.loadFromFile("Texturen & Musik/Char-links.png")) {
+	if (!botTexture.loadFromFile("Texturen & Musik/Kunde_oben.png")) {
 		cerr << "Fehler beim Laden der Textur!" << endl;
 	}
 	sprite.setTexture(&botTexture);
@@ -57,4 +57,9 @@ bool Bot::amZiel() const
 sf::Vector2f Bot::getPosition() const
 {
 	return position;
+}
+
+bool Bot::getIstAmZiel()
+{
+	return istAmZiel;
 }

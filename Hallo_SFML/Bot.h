@@ -25,4 +25,5 @@ public:
 
 	bool amZiel() const;
 	sf::Vector2f getPosition() const;
+	bool getIstAmZiel();
 };

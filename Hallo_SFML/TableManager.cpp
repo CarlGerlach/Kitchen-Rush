@@ -8,13 +8,13 @@ TableManager::TableManager(AuftraegeManager* ini_am)
     
 
     cout << "Test 3" << endl;
-    normalTexture.loadFromFile("Texturen & Musik/Mixer.png");
+    normalTexture.loadFromFile("Texturen & Musik/Tisch.png");
     //if (!normalTexture.loadFromFile("Texturen & Musik/Herd_01.png")) {
     //    cerr << "Fehler beim Laden der Herd-Textur!" << endl;
     //    cout << "Test 1 " << endl;
     //}
 
-    isActiveTexture.loadFromFile("Texturen & Musik/Ofen.png");
+    isActiveTexture.loadFromFile("Texturen & Musik/Kunde am Tisch.png");
     //if (!isActiveTexture.loadFromFile("Texturen & Musik/temp.png")) {
     //    cerr << "Fehler beim Laden der temp-Textur!" << endl;
     //    cout << "Test 2 " << endl;
@@ -66,6 +66,7 @@ void TableManager::drawAllTables(sf::RenderWindow& window)
     for (auto& table : allTables) 
     {
         table->draw(window);
+        table->drawTableID(window);
     }
 }
 

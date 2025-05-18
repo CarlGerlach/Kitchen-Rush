@@ -18,6 +18,7 @@ protected:
 	AuftraegeManager* am;
 	static int index;
 	int tableID;
+	Font font;
 	
 
 	std::unique_ptr<Bot> derBot;
@@ -36,13 +37,15 @@ public:
 
 	void updateBot();
 	void drawBot(RenderWindow& window);
+	void drawTableID(RenderWindow& window);
+
 	void setZielPosition(Vector2f& pos); // Ziel (z.B. Lager)
 
 	bool getIsBotAmTable();
 	RectangleShape getCollisionBounds();
 
-	void setNormalTexture(Texture* tex);
-	void setIsActiveTexture(Texture* tex);
+
+	
 
 	bool darfNeuenAuftragErstellen();
 	void resetNeuenAuftragErlaubt();
