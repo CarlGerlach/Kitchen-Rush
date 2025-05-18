@@ -66,28 +66,44 @@ bool Table::versucheAuftragZuErfüllen()
 
 void Table::updateBot()
 {
+	//bool botWarImBereich = warImTableBereich;
+	//warImTableBereich = this->getCollisionBounds().contains(derBot->getPosition());
+	
 	if (!botAktiv) {
 		derBot = std::make_unique<Bot>(zielPosition);
-		derBot->setZiel(this->shape.getPosition());  // Tischposition als Ziel
+		
+		sf::FloatRect bounds = shape.getGlobalBounds();
+		sf::Vector2f center(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+		derBot->setZiel(center);
+		
+		//derBot->setZiel(this->shape.getPosition());  // Tischposition als Ziel
 		botAktiv = true;
 		isBotAmTable = false;
+		warImTableBereich = false;
 	}
 	else if (derBot)
 	{
 		derBot->update();
 
-		// Wenn Bot am Tisch angekommen ist
-		if (!isBotAmTable && derBot->amZiel() && derBot->getPosition() == this->shape.getPosition())
-		{
+		sf::FloatRect tableBounds = shape.getGlobalBounds();
+		bool istImBereich = tableBounds.contains(derBot->getPosition());
+
+		if (!warImTableBereich && istImBereich) {
+			// Bot betritt den Tischbereich
 			isBotAmTable = true;
-			auftragErledigtUndAngekommen = true;  // ⬅️ DAS hat gefehlt!
+			auftragErledigtUndAngekommen = true;
+			cout << "Bot hat Tisch erreicht" << endl;
+		}
+		else if (warImTableBereich && !istImBereich) {
+			// Bot verlässt den Tischbereich
+			isBotAmTable = false;
+			cout << "Bot hat Tisch verlassen" << endl;
 		}
 
-		// Wenn Bot am Rückgabeort ist
-		if (derBot->amZiel() && derBot->getPosition() == zielPosition)
-		{
+		warImTableBereich = istImBereich;
+
+		if (derBot->amZiel() && derBot->getPosition() == zielPosition) {
 			derBot.reset();
-			isBotAmTable = false;
 			botAktiv = false;
 		}
 	}
@@ -106,6 +122,11 @@ void Table::setZielPosition(Vector2f& pos)
 bool Table::getIsBotAmTable()
 {
 	return isBotAmTable;
+}
+
+RectangleShape Table::getCollisionBounds()
+{
+	return shape;
 }
 
 void Table::setNormalTexture(Texture* tex)

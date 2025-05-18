@@ -26,6 +26,9 @@ protected:
 	bool isBotAmTable;
 	bool auftragErledigtUndAngekommen = false;
 
+	bool warImTableBereich = false;
+
+
 public:
 	Table(int gridnumber, Font& newFont, Spieler* player, int ini_inventorySize, AuftraegeManager* ini_am);
 	bool checkAuftragErfüllbar();
@@ -36,6 +39,8 @@ public:
 	void setZielPosition(Vector2f& pos); // Ziel (z.B. Lager)
 
 	bool getIsBotAmTable();
+	RectangleShape getCollisionBounds();
+
 	void setNormalTexture(Texture* tex);
 	void setIsActiveTexture(Texture* tex);
 

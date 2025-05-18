@@ -318,8 +318,8 @@ int main()
 
 
             derTableManager->updateAllTables();
-            derTableManager->drawAllTables(window);
             derTableManager->drawAllBots(window);
+            derTableManager->drawAllTables(window);
             
 
             ofen1.update();
