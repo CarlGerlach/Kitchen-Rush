@@ -50,6 +50,7 @@ ItemID stringToItemID(const std::string& str) {
 	if (str == "PIZZA") return ItemID::PIZZA;
 	if (str == "COLA") return ItemID::COLA;
 	if (str == "SALAT") return ItemID::SALAT;
+	if (str == "LEER") return ItemID::UNBEKANNT;
 	return ItemID::UNBEKANNT; // Falls vorhanden
 }
 
@@ -59,6 +60,12 @@ void SpielstandManager::saveGame(Spieler* spieler, DeviceManager* dm)
 	saveData["position"]["x"] = spieler->getPosition().x;
 	saveData["position"]["y"] = spieler->getPosition().y;
 	saveData["points"] = spieler->getPoints();
+
+	saveData["playerInventory"]["0"] = spieler->getPlayerInventar()->getItem(0) ? itemIDToString(spieler->getPlayerInventar()->getItem(0)->getItemID()) : "LEER";
+	saveData["playerInventory"]["1"] = spieler->getPlayerInventar()->getItem(1) ? itemIDToString(spieler->getPlayerInventar()->getItem(1)->getItemID()) : "LEER";
+	saveData["playerInventory"]["2"] = spieler->getPlayerInventar()->getItem(2) ? itemIDToString(spieler->getPlayerInventar()->getItem(2)->getItemID()) : "LEER";
+	saveData["playerInventory"]["3"] = spieler->getPlayerInventar()->getItem(3) ? itemIDToString(spieler->getPlayerInventar()->getItem(3)->getItemID()) : "LEER";
+	saveData["playerInventory"]["4"] = spieler->getPlayerInventar()->getItem(4) ? itemIDToString(spieler->getPlayerInventar()->getItem(4)->getItemID()) : "LEER";
 
 	vector<DeviceInventar*> inventories = dm->getAllInventorys();
 
@@ -121,6 +128,18 @@ void SpielstandManager::loadGame(Spieler* spieler, DeviceManager* dm)
 	int punkte = j["points"];
 	int x = j["position"]["x"];
 	int y = j["position"]["y"];
+
+	// Spielerinventar laden
+	spieler->getPlayerInventar()->removeItem(0);
+	spieler->getPlayerInventar()->removeItem(1);
+	spieler->getPlayerInventar()->removeItem(2);
+	spieler->getPlayerInventar()->removeItem(3);
+	spieler->getPlayerInventar()->removeItem(4);
+	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["0"])), 0);
+	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["1"])), 1);
+	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["2"])), 2);
+	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["3"])), 3);
+	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["4"])), 4);
 
 	// Zurück in den Spieler schreiben
 	spieler->setPoints(punkte);

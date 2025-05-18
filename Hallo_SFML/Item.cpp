@@ -37,6 +37,9 @@ void Item::setupItem()
         name = "Salat";
         points = 2;
         break;
+	case ItemID::UNBEKANNT:
+		name = "LEER";
+		break;
     default:
         name = "Unbekannt";
         return;
@@ -87,6 +90,7 @@ string Item::enumToString(ItemID ini_id)
     case ItemID::PIZZA: return "Pizza";
     case ItemID::COLA: return "Cola";
     case ItemID::SALAT: return "Salat";
+	case ItemID::UNBEKANNT: return "LEER";
 
     default: return "Unbekannt";
     }

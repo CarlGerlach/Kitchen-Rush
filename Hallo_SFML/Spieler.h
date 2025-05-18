@@ -10,11 +10,11 @@ using namespace sf;
 class Spieler
 {
 private:
-    sf::RectangleShape shape;  // Form des Spielers
-    float speed;               // Bewegungsgeschwindigkeit
-    sf::FloatRect bounds;      // Spielfeldgrenzen
-    sf::Texture texture;       // Textur für den Spieler
-    PlayerInventar* inventar;       // Inventar mit 5 Slots
+    sf::RectangleShape shape;   // Form des Spielers
+    float speed;                // Bewegungsgeschwindigkeit
+    sf::FloatRect bounds;       // Spielfeldgrenzen
+    sf::Texture texture;        // Textur für den Spieler
+    PlayerInventar* inventar;   // Inventar mit 5 Slots
     int points;
 
     int leben;
