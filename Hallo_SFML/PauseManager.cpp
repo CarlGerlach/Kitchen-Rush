@@ -5,8 +5,9 @@
 #include "GameMessage.h"
 #include "Spieler.h"
 #include "SpielstandManager.h"
+#include "DeviceManager.h"
 
-PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Spieler* spieler)
+PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Spieler* spieler, DeviceManager* dm)
     : paused(false), soundManager(soundMgr)
 {
     overlay.setSize(sf::Vector2f(windowSize));
@@ -15,6 +16,8 @@ PauseManager::PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Sp
     font.loadFromFile("Texturen & Musik/TDAText.ttf"); // Lade Schrift
 
 	this->spieler = spieler; // Speichert die Referenz auf den Spieler zum Speichern
+    this->devicemanager = dm; // Speichert die Referenz auf den DeviceManager
+
 
     buttonResume = new Button(860, 300, 200, 50, "Fortsetzen", font, sf::Color::Green, sf::Color::White, soundManager);
     buttonMusicStart = new Button(860, 370, 200, 50, "Musik Start", font, sf::Color::Blue, sf::Color::White, soundManager);
@@ -126,7 +129,7 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
     }
 	if (buttonSaveGame->wasClicked())
     {
-        SpielstandManager::saveGame(spieler); // Spielstand speichern
+        SpielstandManager::saveGame(spieler, devicemanager); // Spielstand speichern
 
 		// Hier den Spielstand speichern
 		GameMessage::setText("Spielstand gespeichert!");
@@ -135,8 +138,8 @@ void PauseManager::handleInput(const sf::Event& event, sf::RenderWindow& window)
 	if (buttonLoadGame->wasClicked())
     {
         try {
-			SpielstandManager::loadGame(spieler); // Spielstand laden
-			GameMessage::setText("Spielstand geladen!");
+            SpielstandManager::loadGame(spieler, devicemanager); // Spielstand laden
+            GameMessage::setText("Spielstand geladen!");
 			std::cout << "Spielstand geladen!" << std::endl;
 		}
         catch (const std::exception& e) {

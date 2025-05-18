@@ -14,8 +14,8 @@ enum class ItemID
     TOMATE = 4,
     PIZZA = 5,
     COLA = 6,
-    SALAT = 7
-
+    SALAT = 7,
+    UNBEKANNT = 99
 };
 
 

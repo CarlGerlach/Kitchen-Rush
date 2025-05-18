@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Spieler.h"
+#include "DeviceManager.h"
 
 class SpielstandManager
 {
@@ -10,8 +11,8 @@ public:
 	SpielstandManager(Spieler* spieler);
 	~SpielstandManager();
 
-	static void saveGame(Spieler* spieler);
-	static void loadGame(Spieler* spieler);
+	static void saveGame(Spieler* spieler, DeviceManager* dm);
+	static void loadGame(Spieler* spieler, DeviceManager* dm);
 	//void deleteGame();
 	//void listSaves();
 	//void loadSave(int saveIndex);

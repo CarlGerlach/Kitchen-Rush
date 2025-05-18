@@ -213,21 +213,11 @@ int main()
 
 
     // PauseManager mit Musiksteuerung
-    PauseManager pauseManager(window.getSize(), soundManager, &spieler1);
+    PauseManager pauseManager(window.getSize(), soundManager, &spieler1, deviceManager);
 
     Clock clock;
-    
-
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                  
-                                                                                                                  
-                                                                                                                  
+                                                                                                            
     SpielstandManager ssm(&spieler1);
-                                                                                                                  
-                                                                                                                  
-                                                                                                                  
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
 
 
     while (window.isOpen())

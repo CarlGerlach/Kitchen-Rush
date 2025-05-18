@@ -26,13 +26,14 @@ private:
     Button* buttonFXUp;      // Neue Buttons für Lautstärke der Soundeffekte
     Button* buttonFXDown;
 
+	DeviceManager* devicemanager; // Zeiger auf DeviceManager
     Button* buttonSaveGame;
 	Button* buttonLoadGame;
 
     mySound* soundManager;
 
 public:
-    PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Spieler* spieler);
+    PauseManager(const sf::Vector2u& windowSize, mySound* soundMgr, Spieler* spieler, DeviceManager* devicemanager);
     void handleInput(const sf::Event& event, sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
     bool isPaused();
