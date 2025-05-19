@@ -25,7 +25,7 @@ public:
     TableManager(AuftraegeManager* ini_am);
                                                                                                                         
     
-    
+
     void addTable(Table* ini_Table);
 
     // Aktualisiert Bots und Visualisierung

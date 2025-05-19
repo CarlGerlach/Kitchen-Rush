@@ -150,22 +150,27 @@ int main()
     Table table1(93, font, &spieler1, 20, derAuftraegeManager);
     table1.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table1);
+    deviceManager->addInventory(table1.getDevInventar());
 
     Table table2(55, font, &spieler1, 20, derAuftraegeManager);
     table2.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table2);
+	deviceManager->addInventory(table2.getDevInventar());
 
     Table table3(43, font, &spieler1, 20, derAuftraegeManager);
     table3.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table3);
+	deviceManager->addInventory(table3.getDevInventar());
 
     Table table4(66, font, &spieler1, 20, derAuftraegeManager);
     table4.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table4);
+	deviceManager->addInventory(table4.getDevInventar());
 
     Table table5(26, font, &spieler1, 20, derAuftraegeManager);
     table5.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table5);
+	deviceManager->addInventory(table5.getDevInventar());
 
    
     // Ofen
