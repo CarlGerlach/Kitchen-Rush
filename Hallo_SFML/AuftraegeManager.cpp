@@ -182,22 +182,33 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 	
 	
 
-		for (int i = 0; i < anzahlPositionen; ++i)
+		for (int i = 0; i < anzahlPositionen;)
 		{
 			// Zufällige ItemID wählen
 			ItemID zufallsItem = Item::randomItem();
 
+			// Prüfen, ob die ItemID bereits im Auftrag vorhanden ist
+			bool schonVorhanden = false;
+			for (int j = 0; j < neuerAuftrag->getAnzahlBestellopsitionen(); ++j)
+			{
+				if (neuerAuftrag->getBestellposition(j)->getPosition() == zufallsItem)
+				{
+					schonVorhanden = true;
+					break;
+				}
+			}
+
+			if (schonVorhanden)
+				continue; // gleiche Zutat -> neue ziehen
+
 			// Zufällige Menge 1–5
 			int menge = rand() % 5 + 1;
-			//cout << "Menge: " << menge << endl;
-
 			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
-
-		
-			cout << "Letzte Auftrag ID: " << letzterAuftragId << endl;
 			neuerAuftrag->addBestellposition(pos);
-			
+
+			++i; // Nur erhöhen, wenn eine einzigartige Zutat hinzugefügt wurde
 		}
+
 
 
 		addAuftrag(neuerAuftrag);
