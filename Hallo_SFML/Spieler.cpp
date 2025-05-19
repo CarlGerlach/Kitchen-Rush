@@ -182,6 +182,11 @@ bool Spieler::lebenReduzieren()
     
 }
 
+void Spieler::setLeben(int z)
+{
+	this->leben = z;
+}
+
 
 
 

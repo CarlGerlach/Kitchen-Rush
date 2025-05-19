@@ -49,10 +49,10 @@ public:
 
     PlayerInventar* getPlayerInventar();
     RectangleShape& getInventarSlots(int slotIndex);
+
     int getLeben();
-
     bool lebenReduzieren();
-
+	void setLeben(int z);
 
     int getPoints();
     void addPoints(int ini_points);

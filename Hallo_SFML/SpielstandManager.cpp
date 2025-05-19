@@ -60,6 +60,7 @@ void SpielstandManager::saveGame(Spieler* spieler, DeviceManager* dm)
 	saveData["position"]["x"] = spieler->getPosition().x;
 	saveData["position"]["y"] = spieler->getPosition().y;
 	saveData["points"] = spieler->getPoints();
+	saveData["lives"] = spieler->getLeben();
 
 	saveData["playerInventory"]["0"] = spieler->getPlayerInventar()->getItem(0) ? itemIDToString(spieler->getPlayerInventar()->getItem(0)->getItemID()) : "LEER";
 	saveData["playerInventory"]["1"] = spieler->getPlayerInventar()->getItem(1) ? itemIDToString(spieler->getPlayerInventar()->getItem(1)->getItemID()) : "LEER";
@@ -73,20 +74,30 @@ void SpielstandManager::saveGame(Spieler* spieler, DeviceManager* dm)
 	//cout << itemIDToString(inventories[0]->getItem(0)->getItemID()) << endl;
 
 
-
 	// inv[0] ist der Ofen
 	// inv[1] ist die Theke wo Items spawnen
 	// inv[2] ist der Mixer
 	// inv[3] ist der Tresen wo bestellungen abgeschlossen werden
 
+	// inv[4] ist Table1
+	// inv[5] ist Table2
+	// inv[6] ist Table3
+	// inv[7] ist Table4
+	// inv[8] ist Table5
+
 
 
 	// Anzahl der Slots pro Inventar in Reihenfolge: inventories[0] = Ofen, [1] = Theke, etc.
 	std::vector<int> inventorySlotCounts = {
-		3,   // inventories[0]
-		5,   // inventories[1]
-		3,   // inventories[2]
-		20   // inventories[3]
+		3,   // inventories[0]	  inv[0] ist der Ofen
+		5,   // inventories[1]	  inv[1] ist die Theke wo Items spawnen
+		3,   // inventories[2]	  inv[2] ist der Mixer
+		20,   // inventories[3]	  inv[3] ist der Tresen wo bestellungen abgeschlossen werden
+		20,   // inventories[4]	  inv[4] ist Table1
+		20,   // inventories[5]	  inv[5] ist Table2
+		20,   // inventories[6]	  inv[6] ist Table3
+		20,   // inventories[7]	  inv[7] ist Table4
+		20    // inventories[8]	  inv[8] ist Table5
 	};
 
 	for (size_t invIndex = 0; invIndex < inventorySlotCounts.size(); ++invIndex) {
@@ -128,6 +139,7 @@ void SpielstandManager::loadGame(Spieler* spieler, DeviceManager* dm)
 	int punkte = j["points"];
 	int x = j["position"]["x"];
 	int y = j["position"]["y"];
+	int z = j["lives"];
 
 	// Spielerinventar laden
 	spieler->getPlayerInventar()->removeItem(0);
@@ -144,13 +156,14 @@ void SpielstandManager::loadGame(Spieler* spieler, DeviceManager* dm)
 	// Zurück in den Spieler schreiben
 	spieler->setPoints(punkte);
 	spieler->setPosition(x, y);
+	spieler->setLeben(z);
 
 
 
 	vector<DeviceInventar*> inventories = dm->getAllInventorys();
 
 	// Anzahl der Slots pro Inventar (Inventar-Indizes: 0 = Ofen, 1 = Theke, ...)
-	std::vector<int> inventorySlotCounts = { 3, 5, 3, 20 };
+	std::vector<int> inventorySlotCounts = { 3, 5, 3, 20, 20, 20, 20, 20, 20 };
 
 	// Alle Inventare zurücksetzen und laden
 	for (size_t invIndex = 0; invIndex < inventorySlotCounts.size(); ++invIndex) {
