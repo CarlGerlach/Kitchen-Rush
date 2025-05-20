@@ -147,7 +147,7 @@ int main()
     
 
 
-    Table table1(93, font, &spieler1, 20, derAuftraegeManager);
+    Table table1(187, font, &spieler1, 20, derAuftraegeManager);
     table1.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table1);
     deviceManager->addInventory(table1.getDevInventar());
@@ -159,13 +159,13 @@ int main()
 	deviceManager->addInventory(table2.getDevInventar());
     deviceManager->addPosition(&table2.getShape());
 
-    Table table3(43, font, &spieler1, 20, derAuftraegeManager);
+    Table table3(153, font, &spieler1, 20, derAuftraegeManager);
     table3.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table3);
 	deviceManager->addInventory(table3.getDevInventar());
     deviceManager->addPosition(&table3.getShape());
 
-    Table table4(66, font, &spieler1, 20, derAuftraegeManager);
+    Table table4(168, font, &spieler1, 20, derAuftraegeManager);
     table4.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table4);
 	deviceManager->addInventory(table4.getDevInventar());

@@ -156,8 +156,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 			}
 			
 		}
-		//cout << "Leben: " << spieler->getLeben() << endl;
-
+																										 
 	}
 
 
@@ -177,7 +176,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 		//Auftrag* neuerAuftrag = nullptr;
 
-		cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
+		//cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
 		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
 	
 	

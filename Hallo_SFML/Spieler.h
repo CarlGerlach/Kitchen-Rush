@@ -17,6 +17,8 @@ private:
     PlayerInventar* inventar;   // Inventar mit 5 Slots
     int points;
 
+
+
     int leben;
     RectangleShape herzen[5];
     Texture herzTexture;

@@ -14,6 +14,11 @@ private:
 	bool istAmZiel;
 	RectangleShape sprite;
 	Texture botTexture;
+
+	Texture botRechts;
+	Texture botLinks;
+	Texture botOben;
+	Texture botUnten;
 	
 
 public:
@@ -26,4 +31,6 @@ public:
 	bool amZiel() const;
 	sf::Vector2f getPosition() const;
 	bool getIstAmZiel();
+
+	void aktualisiereTexturRichtung(const sf::Vector2f& delta);
 };
