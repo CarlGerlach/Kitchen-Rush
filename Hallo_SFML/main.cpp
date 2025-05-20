@@ -116,7 +116,7 @@ int main()
 
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
-    Spieler spieler1(300.f, 300.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
+    Spieler spieler1(400.f, 400.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
 
     //Sound
     mySound* soundManager = new mySound();
@@ -151,47 +151,53 @@ int main()
     table1.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table1);
     deviceManager->addInventory(table1.getDevInventar());
+    deviceManager->addPosition(&table1.getShape());
 
     Table table2(55, font, &spieler1, 20, derAuftraegeManager);
     table2.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table2);
 	deviceManager->addInventory(table2.getDevInventar());
+    deviceManager->addPosition(&table2.getShape());
 
     Table table3(43, font, &spieler1, 20, derAuftraegeManager);
     table3.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table3);
 	deviceManager->addInventory(table3.getDevInventar());
+    deviceManager->addPosition(&table3.getShape());
 
     Table table4(66, font, &spieler1, 20, derAuftraegeManager);
     table4.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table4);
 	deviceManager->addInventory(table4.getDevInventar());
+    deviceManager->addPosition(&table4.getShape());
 
     Table table5(26, font, &spieler1, 20, derAuftraegeManager);
     table5.setTexture(&auftragObjektTexture);
     derTableManager->addTable(&table5);
 	deviceManager->addInventory(table5.getDevInventar());
+    deviceManager->addPosition(&table5.getShape());
 
    
     // Ofen
     Ofen ofen1(32, font, &spieler1, 3);
     ofen1.setTexture(&ofenTexture);     
     deviceManager->addInventory(ofen1.getDevInventar());
+    deviceManager->addPosition(&ofen1.getShape());
+
 
 	// Lager
     Storage storage1(12, font, &spieler1, 5);
     storage1.setTexture(&lagerTexture);
     deviceManager->addInventory(storage1.getDevInventar());
+    deviceManager->addPosition(&storage1.getShape());
 
 	// Mixer
     Mixer mixer1(22, font, &spieler1, 3);
     mixer1.setTexture(&mixerTexture);
     deviceManager->addInventory(mixer1.getDevInventar());
+    deviceManager->addPosition(&mixer1.getShape());
 
-    //Ausgabe
-    Ausgabe ausgabe1(56, font, &spieler1, 20, derAuftraegeManager);
-    ausgabe1.setTexture(&auftragObjektTexture);
-    deviceManager->addInventory(ausgabe1.getDevInventar());
+
 
 
    
@@ -259,7 +265,6 @@ int main()
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
-                ausgabe1.handleEvent(event, window);
                 derTableManager->handleEvent(event, window);
             }
         }
@@ -267,32 +272,66 @@ int main()
      
 
         if (!pauseManager.isPaused()) {
-            Vector2f direction(0.f, 0.f);
+            sf::Vector2f direction(0.f, 0.f);
 
-            if (Keyboard::isKeyPressed(Keyboard::W)) direction.y -= 1.f;
-            if (Keyboard::isKeyPressed(Keyboard::S)) direction.y += 1.f;
-            if (Keyboard::isKeyPressed(Keyboard::A))
-            {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) direction.y -= 1.f;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) direction.y += 1.f;
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
                 direction.x -= 1.f;
-                if(!spieler1.isLookingLeft())
-                {
-
-                spieler1.setTextureManual(&playerLeftTexture);
-                spieler1.setLookingLeft(true);
+                if (!spieler1.isLookingLeft()) {
+                    spieler1.setTextureManual(&playerLeftTexture);
+                    spieler1.setLookingLeft(true);
+                    spieler1.setLookingRight(false); // Rücksetzen!
                 }
-           
             }
-            if (Keyboard::isKeyPressed(Keyboard::D)) 
-            {
+
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
                 direction.x += 1.f;
                 if (!spieler1.isLookingRight()) {
                     spieler1.setTextureManual(&playerRightTexture);
                     spieler1.setLookingRight(true);
+                    spieler1.setLookingLeft(false); // Rücksetzen!
                 }
-
             }
 
-            spieler1.move(direction);
+
+            float speed = 200.f;
+
+            sf::Vector2f movement = direction * speed * deltaTime;
+            sf::Vector2f finalMove(0.f, 0.f);
+
+            // X separat prüfen
+            if (movement.x != 0.f) {
+                sf::Vector2f xMove(movement.x, 0.f);
+                if (!deviceManager->checkCollision(&spieler1, xMove)) {
+                    finalMove.x = movement.x;
+                }
+            }
+
+            // Y separat prüfen
+            if (movement.y != 0.f) {
+                sf::Vector2f yMove(0.f, movement.y);
+                if (!deviceManager->checkCollision(&spieler1, yMove)) {
+                    finalMove.y = movement.y;
+                }
+            }
+
+            // Spielfeldgrenzen prüfen
+            sf::FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
+            sf::FloatRect neueBounds = spieler1.getBounds();
+            neueBounds.left += finalMove.x;
+            neueBounds.top += finalMove.y;
+
+            bool innerhalb = spielfeldGrenzen.contains(neueBounds.left, neueBounds.top) &&
+                spielfeldGrenzen.contains(neueBounds.left + neueBounds.width, neueBounds.top) &&
+                spielfeldGrenzen.contains(neueBounds.left, neueBounds.top + neueBounds.height) &&
+                spielfeldGrenzen.contains(neueBounds.left + neueBounds.width, neueBounds.top + neueBounds.height);
+
+            // Nur wenn innerhalb
+            if (innerhalb) {
+                spieler1.move(finalMove); // ✅ Bewegung ausführen
+            }
 
         }
 
@@ -326,8 +365,7 @@ int main()
             mixer1.update();
             mixer1.draw(window);
 
-            ausgabe1.update();
-            ausgabe1.draw(window);
+      
 
             derAuftraegeManager->draw(window, deltaTime, pauseManager); 
 

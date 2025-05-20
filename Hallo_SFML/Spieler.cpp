@@ -111,6 +111,18 @@ void Spieler::draw(sf::RenderWindow& window)
 
             sprite.setPosition(slotCenter.x - spriteSize.x / 2.f, slotCenter.y - spriteSize.y / 2.f);
             window.draw(sprite);
+
+            // Debug-Hitbox zeichnen
+            sf::FloatRect b = this->getBounds();
+
+            sf::RectangleShape debugBox;
+            debugBox.setPosition(b.left, b.top);
+            debugBox.setSize({ b.width, b.height });
+            debugBox.setFillColor(sf::Color::Transparent);
+            debugBox.setOutlineColor(sf::Color::Blue);
+            debugBox.setOutlineThickness(1.f);
+
+            window.draw(debugBox);  // ? Zeichne die kleine Kollision-Hitbox
         }
     }
 
@@ -124,22 +136,17 @@ void Spieler::draw(sf::RenderWindow& window)
 
 
 // Funktion zur Bewegung
-void Spieler::move(sf::Vector2f direction) {
-    if (direction.x != 0.f || direction.y != 0.f) {
-        float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-        direction /= length;
+void Spieler::move(sf::Vector2f movement) {
+    sf::Vector2f newPosition = shape.getPosition() + movement;
 
-        sf::Vector2f newPosition = shape.getPosition() + direction * speed;
+    if (newPosition.x < bounds.left) newPosition.x = bounds.left;
+    if (newPosition.y < bounds.top) newPosition.y = bounds.top;
+    if (newPosition.x + shape.getSize().x > bounds.left + bounds.width)
+        newPosition.x = bounds.left + bounds.width - shape.getSize().x;
+    if (newPosition.y + shape.getSize().y > bounds.top + bounds.height)
+        newPosition.y = bounds.top + bounds.height - shape.getSize().y;
 
-        if (newPosition.x < bounds.left) newPosition.x = bounds.left;
-        if (newPosition.y < bounds.top) newPosition.y = bounds.top;
-        if (newPosition.x + shape.getSize().x > bounds.left + bounds.width)
-            newPosition.x = bounds.left + bounds.width - shape.getSize().x;
-        if (newPosition.y + shape.getSize().y > bounds.top + bounds.height)
-            newPosition.y = bounds.top + bounds.height - shape.getSize().y;
-
-        shape.setPosition(newPosition);
-    }
+    shape.setPosition(newPosition);
 }
 
 // Zugriff auf die Position
@@ -161,6 +168,26 @@ PlayerInventar* Spieler::getPlayerInventar()
 RectangleShape& Spieler::getInventarSlots(int slotIndex)
 {
     return inventarSlots[slotIndex];
+}
+
+RectangleShape& Spieler::getShape()
+{
+    return shape;
+}
+
+FloatRect Spieler::getBounds()
+{
+    //return shape.getGlobalBounds();
+
+    
+    sf::FloatRect raw = shape.getGlobalBounds();
+    float shrink = 4.f; // Hitbox an jeder Seite 4 Pixel kleiner
+    return sf::FloatRect(
+        raw.left + shrink,
+        raw.top + shrink,
+        raw.width - 2 * shrink,
+        raw.height - 2 * shrink
+    );
 }
 
 int Spieler::getLeben()

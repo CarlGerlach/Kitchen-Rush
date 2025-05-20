@@ -13,7 +13,7 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font ¸bergeben
         [this, player]()
         {
-            this->getDevInventar()->addItem(new Item(ItemID::MEHL));
+            player->getPlayerInventar()->addItem(new Item(ItemID::MEHL));
         }
     );
 
@@ -22,7 +22,7 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font ¸bergeben
         [this, player]()
         {
-            this->getDevInventar()->addItem(new Item(ItemID::WASSER));
+            player->getPlayerInventar()->addItem(new Item(ItemID::WASSER));
         }
     );
 
@@ -30,8 +30,8 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         "Nehme Tomate",
         newFont,  // Font ¸bergeben
         [this, player]()
-        {
-            this->getDevInventar()->addItem(new Item(ItemID::TOMATE));
+        {  
+            player->getPlayerInventar()->addItem(new Item(ItemID::TOMATE));
         }
     );
 
@@ -40,7 +40,7 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font ¸bergeben
         [this, player]()
         {
-            this->getDevInventar()->addItem(new Item(ItemID::SALAT));
+            player->getPlayerInventar()->addItem(new Item(ItemID::SALAT));
         }
     );
 
@@ -49,18 +49,18 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         newFont,  // Font ¸bergeben
         [this, player]()
         {
-            this->getDevInventar()->addItem(new Item(ItemID::COLA));
+            player->getPlayerInventar()->addItem(new Item(ItemID::COLA));
         }
     );
 
-    dasFenster.addKnopf(
-        "Nehme Pizza",
-        newFont,  // Font ¸bergeben
-        [this, player]()
-        {
-            this->getDevInventar()->addItem(new Item(ItemID::PIZZA));
-        }
-    );
+    //dasFenster.addKnopf(
+    //    "Nehme Pizza",
+    //    newFont,  // Font ¸bergeben
+    //    [this, player]()
+    //    {
+    //        this->getDevInventar()->addItem(new Item(ItemID::PIZZA));
+    //    }
+    //);
 
     dasFenster.addKnopf(
         "Schlieﬂen",

@@ -48,5 +48,6 @@ public:
     bool isPlayerInRange();
 
     DeviceInventar* getDevInventar();
+    RectangleShape& getShape();
 
 };                           

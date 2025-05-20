@@ -71,6 +71,18 @@ void GeraetBase::draw(RenderWindow& window)
 {
     window.draw(shape);
     this->dasFenster.drawForDevice(window, deviceInventorySlots, devInventar);
+
+    // Debug-Hitbox zeichnen
+    sf::FloatRect b = shape.getGlobalBounds();
+
+    sf::RectangleShape debugBox;
+    debugBox.setPosition(b.left, b.top);
+    debugBox.setSize({ b.width, b.height });
+    debugBox.setFillColor(sf::Color::Transparent);
+    debugBox.setOutlineColor(sf::Color::Red);
+    debugBox.setOutlineThickness(1.f);
+
+    window.draw(debugBox);  // ? Zeichne die kleine Kollision-Hitbox
 }
 
 void GeraetBase::update()
@@ -84,25 +96,25 @@ void GeraetBase::update()
 
 void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
 {
-    //if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
-    //    {
-    // 
-    //        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-    //
-    //        if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
-    //        {
-    //            this->dasFenster.toggle();        
-    //        }
-    //    }
+    if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left)
+        {
+     
+            sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    
+            if (shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos)) && isPlayerInRange())
+            {
+                this->dasFenster.toggle();        
+            }
+        }
 
     // Prüfe auf Leertaste gedrückt
-    if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
-    {
-        if (isPlayerInRange())
-        {
-            this->dasFenster.toggle();
-        }
-    }
+    //if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+    //{
+    //    if (isPlayerInRange())
+    //    {
+    //        this->dasFenster.toggle();
+    //    }
+    //}
 
     // Fenster automatisch schließen, wenn Spieler sich entfernt
     if (!isPlayerInRange() && this->dasFenster.getIsVisible())
@@ -158,7 +170,7 @@ bool GeraetBase::isPlayerInRange()
     float dy = playerPos.y - geraetPos.y;
     float distance = std::sqrt(dx * dx + dy * dy);
 
-    if (distance <= 50)return true;
+    if (distance <= 80)return true;
 
 
     return false; 
@@ -171,4 +183,9 @@ bool GeraetBase::isPlayerInRange()
 DeviceInventar* GeraetBase::getDevInventar()
 {
     return devInventar;
+}
+
+RectangleShape& GeraetBase::getShape()
+{
+    return shape;
 }

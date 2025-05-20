@@ -50,6 +50,9 @@ public:
     PlayerInventar* getPlayerInventar();
     RectangleShape& getInventarSlots(int slotIndex);
 
+    RectangleShape& getShape();
+    FloatRect getBounds();
+
     int getLeben();
     bool lebenReduzieren();
 	void setLeben(int z);
