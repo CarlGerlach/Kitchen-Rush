@@ -153,6 +153,9 @@ void SpielstandManager::loadGame(Spieler* spieler, DeviceManager* dm)
 	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["3"])), 3);
 	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["4"])), 4);
 
+	
+
+
 	// Zurück in den Spieler schreiben
 	spieler->setPoints(punkte);
 	spieler->setPosition(x, y);
@@ -189,5 +192,16 @@ void SpielstandManager::loadGame(Spieler* spieler, DeviceManager* dm)
 			}
 		}
 	}
+
+	for (int i = 0; i < 5; ++i) {
+		std::string itemStr = j["playerInventory"][std::to_string(i)];
+		spieler->getPlayerInventar()->removeItem(i); // vorher immer entfernen
+		if (itemStr != "LEER" && itemStr != "UNBEKANNT") {
+			ItemID id = stringToItemID(itemStr);
+			Item* item = new Item(id);
+			spieler->getPlayerInventar()->addItemToSlot(item, i);
+		}
+	}
+
 
 }
