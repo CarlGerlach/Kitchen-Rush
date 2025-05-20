@@ -331,19 +331,6 @@ int main()
 
             derAuftraegeManager->draw(window, deltaTime, pauseManager); 
 
-
-
-            if (spieler1.getPlayerInventar()->getItem(0) != nullptr)
-				cout << "Inventar 0: " << Item::enumToString(spieler1.getPlayerInventar()->getItem(0)->getItemID()) << endl;
-            if (spieler1.getPlayerInventar()->getItem(1) != nullptr)
-                cout << "Inventar 1: " << Item::enumToString(spieler1.getPlayerInventar()->getItem(1)->getItemID()) << endl;
-            if (spieler1.getPlayerInventar()->getItem(2) != nullptr)
-                cout << "Inventar 2: " << Item::enumToString(spieler1.getPlayerInventar()->getItem(2)->getItemID()) << endl;
-            if (spieler1.getPlayerInventar()->getItem(3) != nullptr)
-                cout << "Inventar 3: " << Item::enumToString(spieler1.getPlayerInventar()->getItem(3)->getItemID()) << endl;
-            if (spieler1.getPlayerInventar()->getItem(4) != nullptr)
-                cout << "Inventar 4: " << Item::enumToString(spieler1.getPlayerInventar()->getItem(4)->getItemID()) << endl;
-
             
 
         }
