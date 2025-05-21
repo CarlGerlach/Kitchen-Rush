@@ -154,10 +154,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapelement.cpp" />
     <ClCompile Include="Mixer.cpp" />
+    <ClCompile Include="Muell.cpp" />
     <ClCompile Include="mySound.cpp" />
     <ClCompile Include="Ofen.cpp" />
     <ClCompile Include="PauseManager.cpp" />
     <ClCompile Include="PlayerInventar.cpp" />
+    <ClCompile Include="Salatbar.cpp" />
     <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="Spielfeld.cpp" />
     <ClCompile Include="SpielstandManager.cpp" />
@@ -187,11 +189,13 @@
     <ClInclude Include="Kuehlschrank.h" />
     <ClInclude Include="Mapelement.h" />
     <ClInclude Include="Mixer.h" />
+    <ClInclude Include="Muell.h" />
     <ClInclude Include="mySound.h" />
     <ClInclude Include="Ofen.h" />
     <ClInclude Include="PauseManager.h" />
     <ClInclude Include="PlayerInventar.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Salatbar.h" />
     <ClInclude Include="Spieler.h" />
     <ClInclude Include="Spielfeld.h" />
     <ClInclude Include="SpielstandManager.h" />

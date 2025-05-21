@@ -27,7 +27,7 @@ void Item::setupItem()
         break;
     case ItemID::PIZZA:
         name = "Pizza";
-        points = 2;
+        points = 5;
         break;
     case ItemID::COLA:
         name = "Cola";
@@ -35,14 +35,16 @@ void Item::setupItem()
         break;
     case ItemID::SALAT:
         name = "Salat";
-        points = 2;
+        points = 6;
         break;
     case ItemID::GURKE:
         name = "Gurke";
         points = 0;
-    case ItemID::EISBERGSALAT:
-        name = "Eisbergsalat";
+        break;
+    case ItemID::SALATKOPF:
+        name = "Salatkopf";
         points = 0;
+        break;
     case ItemID::UNBEKANNT:
         name = "LEER";
         break;
@@ -97,7 +99,7 @@ string Item::enumToString(ItemID ini_id)
     case ItemID::COLA: return "Cola";
     case ItemID::SALAT: return "Salat";
     case ItemID::GURKE: return "Gurke";
-    case ItemID::EISBERGSALAT: return "Eisbergsalat";
+    case ItemID::SALATKOPF: return "Salatkopf";
     case ItemID::UNBEKANNT: return "LEER";
 
     default: return "Unbekannt";
@@ -127,6 +129,19 @@ ItemID Item::randomItem()
         cout << "Fehler bei Random Item für Bestellposition" << endl;
 
     }
+}
 
-
+int Item::getPunkteForItem(ItemID searchedId)
+{
+    switch (searchedId)
+    {
+    case ItemID::WASSER: return 1;
+        //case ItemID::MEHL:   return 2;
+        //case ItemID::TEIG:   return 3;
+        //case ItemID::TOMATE: return 2;
+    case ItemID::PIZZA:  return 5;
+    case ItemID::COLA:   return 2;
+    case ItemID::SALAT:  return 7;
+    default:             return 0;
+    }
 }

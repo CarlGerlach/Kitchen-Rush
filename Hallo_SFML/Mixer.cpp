@@ -35,6 +35,11 @@ bool Mixer::makeTeig()
             devInventar->removeItem(0);
             devInventar->removeItem(1);
             devInventar->addItemToSlot(new Item(ItemID::TEIG), 2);
+            if (player->getPlayerInventar()->addItem(this->getDevInventar()->getItem(2)))
+            {
+
+                this->getDevInventar()->removeItem(2);
+            }
 
             return true;
         }

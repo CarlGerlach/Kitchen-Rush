@@ -2,6 +2,11 @@
 #include "Spieler.h"
 
 
+void Spieler::punkteReduzieren(int punkte)
+{
+  
+}
+
 // Konstruktor
 Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture)
 {

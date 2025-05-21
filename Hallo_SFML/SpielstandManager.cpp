@@ -17,7 +17,7 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ItemID, {
 	{ItemID::COLA, "COLA"},
 	{ItemID::SALAT, "SALAT"},
 	{ItemID::GURKE, "Gurke"},
-	{ItemID::EISBERGSALAT, "Eisbergsalat"}
+	{ItemID::SALATKOPF, "Salatkopf"}
 	});
 
 SpielstandManager::SpielstandManager(Spieler* spieler)
@@ -41,7 +41,7 @@ std::string itemIDToString(ItemID id) {
 	case ItemID::COLA: return "COLA";
 	case ItemID::SALAT: return "SALAT";
 	case ItemID::GURKE: return "Gurke";
-	case ItemID::EISBERGSALAT: return "Eisbergsalat";
+	case ItemID::SALATKOPF: return "Salatkopf";
 	default: return "UNBEKANNT";
 	}
 }
@@ -55,7 +55,7 @@ ItemID stringToItemID(const std::string& str) {
 	if (str == "COLA") return ItemID::COLA;
 	if (str == "SALAT") return ItemID::SALAT;
 	if (str == "Gurke") return ItemID::GURKE;
-	if (str == "Eisbergsalat") return ItemID::EISBERGSALAT;
+	if (str == "Salatkopf") return ItemID::SALATKOPF;
 	if (str == "LEER") return ItemID::UNBEKANNT;
 	return ItemID::UNBEKANNT; // Falls vorhanden
 }

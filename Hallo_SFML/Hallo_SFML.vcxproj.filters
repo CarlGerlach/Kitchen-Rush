@@ -55,6 +55,8 @@
     <ClCompile Include="TableManager.cpp" />
     <ClCompile Include="VolumeSlider.cpp" />
     <ClCompile Include="Kuehlschrank.cpp" />
+    <ClCompile Include="Salatbar.cpp" />
+    <ClCompile Include="Muell.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -113,6 +115,8 @@
     <ClInclude Include="TableManager.h" />
     <ClInclude Include="VolumeSlider.h" />
     <ClInclude Include="Kuehlschrank.h" />
+    <ClInclude Include="Salatbar.h" />
+    <ClInclude Include="Muell.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="KitchenDevices">

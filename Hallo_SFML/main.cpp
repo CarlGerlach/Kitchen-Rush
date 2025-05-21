@@ -20,6 +20,8 @@
 #include "Ausgabe.h"
 #include "Table.h"
 #include "Kuehlschrank.h"
+#include "Muell.h"
+#include "Salatbar.h"
 
 #include "Item.h"
 
@@ -115,6 +117,20 @@ int main()
         return -1;
     }
 
+    Texture salatbarTexture;
+    if (!salatbarTexture.loadFromFile("Texturen & Musik/Salatbar.png"))
+    {
+        cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
+        return -1;
+    }
+
+    Texture muellTexture;
+    if (!muellTexture.loadFromFile("Texturen & Musik/Muell.png"))
+    {
+        cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
+        return -1;
+    }
+
 
   
     //Game MEssage die man überall aufrüfen kann
@@ -205,10 +221,20 @@ int main()
     deviceManager->addInventory(mixer1.getDevInventar());
     deviceManager->addPosition(&mixer1.getShape());
 
-    Kuehlschrank kuehlschrank1(27, font, &spieler1, 0);
+    Kuehlschrank kuehlschrank1(52, font, &spieler1, 0);
     kuehlschrank1.setTexture(&kuehlschrankTexture);
     //deviceManager->addInventory(mixer1.getDevInventar());
     deviceManager->addPosition(&kuehlschrank1.getShape());
+
+    Salatbar salatbar1(42, font, &spieler1, 4);
+    salatbar1.setTexture(&salatbarTexture);
+    deviceManager->addInventory(salatbar1.getDevInventar());
+    deviceManager->addPosition(&salatbar1.getShape());
+
+    //Muell muell1(52, font, &spieler1, 5);
+    //muell1.setTexture(&muellTexture);
+    //deviceManager->addInventory(muell1.getDevInventar());
+    //deviceManager->addPosition(&muell1.getShape());
 
 
 
@@ -280,6 +306,8 @@ int main()
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
                 kuehlschrank1.handleEvent(event, window);
+                salatbar1.handleEvent(event, window);
+               // muell1.handleEvent(event, window);
                 derTableManager->handleEvent(event, window);
             }
         }
@@ -382,6 +410,12 @@ int main()
 
             kuehlschrank1.update();
             kuehlschrank1.draw(window);
+
+            salatbar1.update();
+            salatbar1.draw(window);
+
+            //muell1.update();
+            //muell1.draw(window);
 
       
 
