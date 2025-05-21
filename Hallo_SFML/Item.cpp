@@ -74,7 +74,7 @@ void Item::setupItem()
 
 void Item::print()
 {
-    cout << "Itemname: " << name << endl;
+    ///cout << "Itemname: " << name << endl;
 }
 
 sf::Sprite& Item::getSprite()

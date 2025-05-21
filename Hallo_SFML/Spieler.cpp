@@ -16,7 +16,7 @@ Spieler::Spieler(float startX, float startY, float size, float speed, sf::FloatR
 
     if (!herzTexture.loadFromFile("Texturen & Musik/Herz.png")) {
         std::cerr << "Fehler beim Laden der Herz-Textur!" << std::endl;
-        cout << "Texturen Test" << endl;
+        //cout << "Texturen Test" << endl;
     }
 
     float herzSize = 60.f;

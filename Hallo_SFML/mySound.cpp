@@ -6,7 +6,7 @@ mySound::mySound()
 {
     if (!buffer.loadFromFile("Texturen & Musik/Button-Click.wav"))
     {
-        std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
+        //std::cout << "Fehler beim Laden der Sound-Datei!" << std::endl;
     }
 
     if (!this->loadGameStartSound("Texturen & Musik/game start.ogg"))
@@ -33,7 +33,7 @@ mySound::mySound()
     }
     else
     {
-        cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
+        //cout << "Fehler beim Laden der Hintergrundmusik!" << endl;
     }
 
     meinSound.setBuffer(buffer);

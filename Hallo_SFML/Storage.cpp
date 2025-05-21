@@ -26,14 +26,14 @@ void Storage::setupButtons(Font& newFont, Spieler* player)
         }
     );
 
-    dasFenster.addKnopf(
-        "Nehme Salat",
-        newFont,  // Font übergeben
-        [this, player]()
-        {
-            player->getPlayerInventar()->addItem(new Item(ItemID::SALAT));
-        }
-    );
+    //dasFenster.addKnopf(
+    //    "Nehme Salat",
+    //    newFont,  // Font übergeben
+    //    [this, player]()
+    //    {
+    //        player->getPlayerInventar()->addItem(new Item(ItemID::SALAT));
+    //    }
+    //);
 
 
     dasFenster.addKnopf(

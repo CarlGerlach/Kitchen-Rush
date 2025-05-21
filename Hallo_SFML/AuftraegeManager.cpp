@@ -39,10 +39,10 @@ void AuftraegeManager::removeAuftrag(Auftrag* ini_auftrag)
 		//Ändern auf Getter und dann set um nicht Static
 		//Ändern, dass auch die Bestellpositionen gelöscht werden -> VOn unten aus alles nach oben hin weglöschen
 
-		cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
+		//cout << "Auftrag ID remove: " << ini_auftrag->getId() << endl;
 		letzterAuftragId = ini_auftrag->getId();
 		ini_auftrag->clearBestellpositionen();
-		cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
+		//cout << "Letzte Auftrag ID bei Remove: " << letzterAuftragId << endl;
 
 		Auftrag::decrementAnzahlAktiv();
 		delete* it;                    // Speicher freigeben
@@ -139,7 +139,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 	for (Auftrag* auftrag : alleAuftraege)
 	{
-		cout << "Leben: " << spieler->getLeben() << endl;
+		//cout << "Leben: " << spieler->getLeben() << endl;
 		if (auftrag)
 			auftrag->update(deltaTime, pauseManager);
 		if (auftrag->getAbgelaufen())
@@ -160,7 +160,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 	}
 
 
-	std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
+	//std::cout << "Aktive Aufträge: " << Auftrag::getAnzahlAktiveAuftraege() << std::endl;
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden() || Auftrag::getAnzahlAktiveAuftraege() < 5 && einAuftragAbgelaufen)
 	{

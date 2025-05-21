@@ -136,7 +136,7 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 {
 	if (abgelaufen == true) 
 	{
-		cout << "Fehler 1 " << endl;
+		//cout << "Fehler 1 " << endl;
 		return;
 	}
 
@@ -146,11 +146,11 @@ void Auftrag::update(float deltaTime, PauseManager& pauseManager)
 		abgelaufen = true;
 		GameMessage::setText("Ein Auftrag ist abgelaufen!");				  
 
-		cout << "Test 1 Auftrag::update()" << endl;
+		//cout << "Test 1 Auftrag::update()" << endl;
 		//pauseManager.setGameOver(true);    // Game Over Zustand aktivieren
 		//pauseManager.togglePause();        // Spiel pausieren
-		cout << "Test 2 Auftrag::update()" << endl;
-		cout << "Test 3 Auftrag::update()" << endl;
+		//cout << "Test 2 Auftrag::update()" << endl;
+		//cout << "Test 3 Auftrag::update()" << endl;
 	}
 }
 

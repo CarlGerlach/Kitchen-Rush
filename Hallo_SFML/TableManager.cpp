@@ -7,7 +7,7 @@ TableManager::TableManager(AuftraegeManager* ini_am)
     am = ini_am;
     
 
-    cout << "Test 3" << endl;
+    //cout << "Test 3" << endl;
     normalTexture.loadFromFile("Texturen & Musik/Tisch.png");
     //if (!normalTexture.loadFromFile("Texturen & Musik/Herd_01.png")) {
     //    cerr << "Fehler beim Laden der Herd-Textur!" << endl;
@@ -34,17 +34,17 @@ void TableManager::updateAllTables()
     for (auto& table : allTables) 
     {
         table->updateBot();
-        cout << table->getIsBotAmTable() << endl;
+        //cout << table->getIsBotAmTable() << endl;
 
         if (table->getIsBotAmTable())
         {
-            cout << "IstActiveTextur gesetzt" << endl;
+            //cout << "IstActiveTextur gesetzt" << endl;
             //table->setIsActiveTexture(&isActiveTexture);
             table->setTexture(&isActiveTexture);
         }
         else
         {
-            cout << "NormalTextur gesetzt" << endl;
+            //cout << "NormalTextur gesetzt" << endl;
             //table->setNormalTexture(&normalTexture);
             table->setTexture(&normalTexture);
         }
@@ -84,12 +84,12 @@ bool TableManager::sollNeuerAuftragErstelltWerden()
     {
         if (table->darfNeuenAuftragErstellen())
         {
-            std::cout << "Neuer Auftrag erlaubt bei Tisch!" << std::endl;
+            //std::cout << "Neuer Auftrag erlaubt bei Tisch!" << std::endl;
             table->resetNeuenAuftragErlaubt(); // Reset
             return true;
         }
     }
-    std::cout << "Kein Tisch erlaubt neuen Auftrag." << std::endl;
+    //std::cout << "Kein Tisch erlaubt neuen Auftrag." << std::endl;
     return false;
 }
 

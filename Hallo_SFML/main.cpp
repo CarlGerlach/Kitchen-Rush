@@ -166,7 +166,7 @@ int main()
     spieler1.setHighscore(ini_highscore); // Setze den Highscore des Spielers
 
 
-    cout << "Geladener Highscore: " << spieler1.getHighscore() << endl;
+    //cout << "Geladener Highscore: " << spieler1.getHighscore() << endl;
 
 
     //Sound
@@ -473,8 +473,8 @@ int main()
     {
         fileOut << j.dump(4); // 4 ist die Einrückung für die Lesbarkeit
         fileOut.close();
-        std::cout << "Highscore: " << spieler1.getHighscore() << endl;
-        std::cout << "Highscore gespeichert!" << std::endl;
+        //std::cout << "Highscore: " << spieler1.getHighscore() << endl;
+        //std::cout << "Highscore gespeichert!" << std::endl;
     }
     else
     {
