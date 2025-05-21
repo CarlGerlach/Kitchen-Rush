@@ -19,7 +19,7 @@ private:
 	int id;
 	bool wurdeInitialisiert;
 
-	float lebensdauer = 90.f;      
+	float lebensdauer = 120.f;      
 	float timer = 0.f;             // aktuelle verstrichene Zeit
 	bool abgelaufen = false;
 
