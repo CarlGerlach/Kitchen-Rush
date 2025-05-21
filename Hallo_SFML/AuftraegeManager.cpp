@@ -164,14 +164,31 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 
 	while (Auftrag::getAnzahlAktiveAuftraege() < 5 && tm->sollNeuerAuftragErstelltWerden() || Auftrag::getAnzahlAktiveAuftraege() < 5 && einAuftragAbgelaufen)
 	{
+		int randomGeneratorAnz1 = 5; //Anzahl der Pos (3x Pizza)
+		int randomGeneratorAnz2 = 4; // Wie viele Positionn
+
 		if (einAuftragAbgelaufen)
 		{
 			einAuftragAbgelaufen = false;
 		}
 
 
-		// Anzahl der Positionen pro Auftrag: 1–3
-		int anzahlPositionen = rand() % 4 + 1;
+		int punkte = spieler->getPoints();
+
+		if (punkte < 50) 
+		{
+			randomGeneratorAnz1 = 2;
+			randomGeneratorAnz2 = 2;
+		}
+		else if (punkte < 100) 
+		{
+			randomGeneratorAnz1 = 3;
+			randomGeneratorAnz2 = 3;
+		}
+		
+		
+
+		int anzahlPositionen = rand() % randomGeneratorAnz2 + 1;
 
 
 		//Auftrag* neuerAuftrag = nullptr;
@@ -179,7 +196,8 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 		//cout << "Letzte AuftragID in update(): " << letzterAuftragId << endl;
 		Auftrag* neuerAuftrag = new Auftrag(textureHintergrundAuftrag, font, letzterAuftragId);
 	
-	
+
+
 
 		for (int i = 0; i < anzahlPositionen;)
 		{
@@ -187,6 +205,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 			ItemID zufallsItem = Item::randomItem();
 
 			// Prüfen, ob die ItemID bereits im Auftrag vorhanden ist
+
 			bool schonVorhanden = false;
 			for (int j = 0; j < neuerAuftrag->getAnzahlBestellopsitionen(); ++j)
 			{
@@ -201,7 +220,7 @@ void AuftraegeManager::updateAuftraege(float deltaTime, PauseManager& pauseManag
 				continue; // gleiche Zutat -> neue ziehen
 
 			// Zufällige Menge 1–5
-			int menge = rand() % 5 + 1;
+			int menge = rand() % randomGeneratorAnz1 + 1;
 			Bestellposition* pos = new Bestellposition(zufallsItem, menge);
 			neuerAuftrag->addBestellposition(pos);
 

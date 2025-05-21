@@ -29,12 +29,14 @@ private:
     bool lookingLeft;
     bool lookingRight;
 
+
     
 
 public:
     // Konstruktor
     Spieler(float startX, float startY, float size, float speed, sf::FloatRect bounds, sf::Texture* newTexture);
 
+    void punkteReduzieren(int punkte);
     // Methode zum Ändern der Textur
     void setTextureManual(sf::Texture* newTexture);
 

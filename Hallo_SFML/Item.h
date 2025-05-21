@@ -17,7 +17,7 @@ enum class ItemID
     COLA = 6,
     SALAT = 7,
     GURKE = 8,
-    EISBERGSALAT = 9,
+    SALATKOPF = 9,
     UNBEKANNT = 99
 };
 
@@ -44,4 +44,6 @@ public:
     static string enumToString(ItemID ini_id);
 
     static ItemID randomItem();
+
+    int getPunkteForItem(ItemID searchedId);
 };
