@@ -15,7 +15,9 @@ NLOHMANN_JSON_SERIALIZE_ENUM(ItemID, {
 	{ItemID::TOMATE, "TOMATE"},
 	{ItemID::PIZZA, "PIZZA"},
 	{ItemID::COLA, "COLA"},
-	{ItemID::SALAT, "SALAT"}
+	{ItemID::SALAT, "SALAT"},
+	{ItemID::GURKE, "Gurke"},
+	{ItemID::EISBERGSALAT, "Eisbergsalat"}
 	});
 
 SpielstandManager::SpielstandManager(Spieler* spieler)
@@ -38,6 +40,8 @@ std::string itemIDToString(ItemID id) {
 	case ItemID::PIZZA: return "PIZZA";
 	case ItemID::COLA: return "COLA";
 	case ItemID::SALAT: return "SALAT";
+	case ItemID::GURKE: return "Gurke";
+	case ItemID::EISBERGSALAT: return "Eisbergsalat";
 	default: return "UNBEKANNT";
 	}
 }
@@ -50,6 +54,8 @@ ItemID stringToItemID(const std::string& str) {
 	if (str == "PIZZA") return ItemID::PIZZA;
 	if (str == "COLA") return ItemID::COLA;
 	if (str == "SALAT") return ItemID::SALAT;
+	if (str == "Gurke") return ItemID::GURKE;
+	if (str == "Eisbergsalat") return ItemID::EISBERGSALAT;
 	if (str == "LEER") return ItemID::UNBEKANNT;
 	return ItemID::UNBEKANNT; // Falls vorhanden
 }
@@ -153,7 +159,7 @@ void SpielstandManager::loadGame(Spieler* spieler, DeviceManager* dm)
 	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["3"])), 3);
 	spieler->getPlayerInventar()->addItemToSlot(new Item(stringToItemID(j["playerInventory"]["4"])), 4);
 
-	
+
 
 
 	// Zurück in den Spieler schreiben

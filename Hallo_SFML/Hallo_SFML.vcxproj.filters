@@ -49,6 +49,12 @@
     </ClCompile>
     <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="GameMessage.cpp" />
+    <ClCompile Include="Bot.cpp" />
+    <ClCompile Include="SpielstandManager.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="TableManager.cpp" />
+    <ClCompile Include="VolumeSlider.cpp" />
+    <ClCompile Include="Kuehlschrank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grid.h" />
@@ -101,6 +107,12 @@
     </ClInclude>
     <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="GameMessage.h" />
+    <ClInclude Include="Bot.h" />
+    <ClInclude Include="SpielstandManager.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="TableManager.h" />
+    <ClInclude Include="VolumeSlider.h" />
+    <ClInclude Include="Kuehlschrank.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="KitchenDevices">

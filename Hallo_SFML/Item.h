@@ -1,3 +1,4 @@
+
 #pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -15,14 +16,15 @@ enum class ItemID
     PIZZA = 5,
     COLA = 6,
     SALAT = 7,
-    UNBEKANNT = 99,
-    LEER = 100
+    GURKE = 8,
+    EISBERGSALAT = 9,
+    UNBEKANNT = 99
 };
 
 
-class Item 
+class Item
 {
-private: 
+private:
     ItemID id;
     string name;
     int points;
@@ -39,7 +41,7 @@ public:
     sf::Sprite& getSprite();
     ItemID getItemID();
 
-   static string enumToString(ItemID ini_id);
+    static string enumToString(ItemID ini_id);
 
-   static ItemID randomItem();
+    static ItemID randomItem();
 };

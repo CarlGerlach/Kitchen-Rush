@@ -150,6 +150,7 @@
     <ClCompile Include="Inventar.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Knopf.cpp" />
+    <ClCompile Include="Kuehlschrank.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mapelement.cpp" />
     <ClCompile Include="Mixer.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Inventar.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Knopf.h" />
+    <ClInclude Include="Kuehlschrank.h" />
     <ClInclude Include="Mapelement.h" />
     <ClInclude Include="Mixer.h" />
     <ClInclude Include="mySound.h" />
