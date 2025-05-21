@@ -5,7 +5,7 @@ StartScreen::StartScreen(mySound* soundManager)
     this->soundManager = soundManager; // Zeiger merken
 
     // Hintergrundbild laden 
-    if (!backgroundTexture.loadFromFile("Texturen & Musik/background.png")) {
+    if (!backgroundTexture.loadFromFile("Texturen & Musik/background.jpg")) {
         std::cerr << "Fehler: Hintergrundbild konnte nicht geladen werden!\n";
     }
     backgroundSprite.setTexture(backgroundTexture);
