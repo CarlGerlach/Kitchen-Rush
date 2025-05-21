@@ -179,14 +179,27 @@ void PauseManager::draw(sf::RenderWindow& window)
         idStream << "Score " << spieler->getPoints();
         text.setString(idStream.str());
 
+
+
+        Text text2;
+        text2.setFont(font);
+        text2.setCharacterSize(30);
+        text2.setFillColor(sf::Color::White);
+
+        stringstream id2Stream;
+        id2Stream << "Highscore " << spieler->getHighscore();
+        text2.setString(id2Stream.str());
+
         
 
         float fensterBreite = window.getSize().x;
 
         // Text in die Mitte (X) und auf Y=200 setzen
         text.setPosition(fensterBreite / 2.0f - 80.f, 200.f);
+        text2.setPosition(fensterBreite / 2.0f - 110.f, 250.f);
 
         window.draw(text);
+        window.draw(text2);
     }
 }
 
