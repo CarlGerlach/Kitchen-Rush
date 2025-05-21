@@ -118,16 +118,16 @@ void Spieler::draw(sf::RenderWindow& window)
             window.draw(sprite);
 
             // Debug-Hitbox zeichnen
-            sf::FloatRect b = this->getBounds();
-
-            sf::RectangleShape debugBox;
-            debugBox.setPosition(b.left, b.top);
-            debugBox.setSize({ b.width, b.height });
-            debugBox.setFillColor(sf::Color::Transparent);
-            debugBox.setOutlineColor(sf::Color::Blue);
-            debugBox.setOutlineThickness(1.f);
-
-            window.draw(debugBox);  // ? Zeichne die kleine Kollision-Hitbox
+            //sf::FloatRect b = this->getBounds();
+            //
+            //sf::RectangleShape debugBox;
+            //debugBox.setPosition(b.left, b.top);
+            //debugBox.setSize({ b.width, b.height });
+            //debugBox.setFillColor(sf::Color::Transparent);
+            //debugBox.setOutlineColor(sf::Color::Blue);
+            //debugBox.setOutlineThickness(1.f);
+            //
+            //window.draw(debugBox);  // ? Zeichne die kleine Kollision-Hitbox
         }
     }
 

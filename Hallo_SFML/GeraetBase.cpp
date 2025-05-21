@@ -73,16 +73,16 @@ void GeraetBase::draw(RenderWindow& window)
     this->dasFenster.drawForDevice(window, deviceInventorySlots, devInventar);
 
     // Debug-Hitbox zeichnen
-    sf::FloatRect b = shape.getGlobalBounds();
-
-    sf::RectangleShape debugBox;
-    debugBox.setPosition(b.left, b.top);
-    debugBox.setSize({ b.width, b.height });
-    debugBox.setFillColor(sf::Color::Transparent);
-    debugBox.setOutlineColor(sf::Color::Red);
-    debugBox.setOutlineThickness(1.f);
-
-    window.draw(debugBox);  // ? Zeichne die kleine Kollision-Hitbox
+   //sf::FloatRect b = shape.getGlobalBounds();
+   //
+   //sf::RectangleShape debugBox;
+   //debugBox.setPosition(b.left, b.top);
+   //debugBox.setSize({ b.width, b.height });
+   //debugBox.setFillColor(sf::Color::Transparent);
+   //debugBox.setOutlineColor(sf::Color::Red);
+   //debugBox.setOutlineThickness(1.f);
+   //
+   //window.draw(debugBox);  // ? Zeichne die kleine Kollision-Hitbox
 }
 
 void GeraetBase::update()

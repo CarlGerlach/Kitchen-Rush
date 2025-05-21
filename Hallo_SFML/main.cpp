@@ -366,7 +366,7 @@ int main()
             }
 
 
-            float speed = 200.f;
+            float speed = 350.f;
 
             sf::Vector2f movement = direction * speed * deltaTime;
             sf::Vector2f finalMove(0.f, 0.f);
