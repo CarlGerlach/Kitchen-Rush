@@ -108,13 +108,13 @@ void GeraetBase::handleEvent(const Event& event, const RenderWindow& window)
         }
 
     // Prüfe auf Leertaste gedrückt
-    //if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
-    //{
-    //    if (isPlayerInRange())
-    //    {
-    //        this->dasFenster.toggle();
-    //    }
-    //}
+    if (event.type == Event::KeyPressed && event.key.code == Keyboard::Space)
+    {
+        if (isPlayerInRange())
+        {
+            this->dasFenster.toggle();
+        }
+    }
 
     // Fenster automatisch schließen, wenn Spieler sich entfernt
     if (!isPlayerInRange() && this->dasFenster.getIsVisible())
