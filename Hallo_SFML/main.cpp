@@ -33,8 +33,12 @@
 
 #include "SpielstandManager.h"
 
+#include "json.hpp"
+#include <fstream>
+
 using namespace std;
 using namespace sf;
+using json = nlohmann::json;
 
 int main()
 {
@@ -42,6 +46,23 @@ int main()
     //Fenster erstellen-
     RenderWindow window(VideoMode(1920, 1080), "Kitchen Rush");
     window.setFramerateLimit(60);
+
+    std::ifstream fileInput("savegame.json");
+    if (!fileInput.is_open()) {
+        throw std::runtime_error("Datei konnte nicht geöffnet werden");
+    }
+
+    json j;
+    fileInput >> j;
+
+    if (j["highscore"].is_null()) {
+		j["highscore"] = 0; // Setze den Highscore auf 0, wenn er nicht vorhanden ist
+	}
+
+    // Werte auslesen
+    int ini_highscore = j["highscore"];
+
+
 
 
     //Alles was geladen wird
@@ -117,6 +138,12 @@ int main()
     // Spielfeldbegrenzung und Spieler
     FloatRect spielfeldGrenzen(273.f, 243.f, 1312.f, 582.f);
     Spieler spieler1(400.f, 400.f, 50.f, 5.0f, spielfeldGrenzen, &playerLeftTexture);
+
+    spieler1.setHighscore(ini_highscore); // Setze den Highscore des Spielers
+
+
+    cout << "Geladener Highscore: " << spieler1.getHighscore() << endl;
+
 
     //Sound
     mySound* soundManager = new mySound();
@@ -382,5 +409,25 @@ int main()
 
 
     derAuftraegeManager->clearAuftraege();
+
+    if (spieler1.getPoints() > spieler1.getHighscore()) {
+		spieler1.setHighscore(spieler1.getPoints());
+	}
+
+    j["highscore"] = spieler1.getHighscore();
+
+    std::ofstream fileOut("savegame.json");
+    if (fileOut.is_open())
+    {
+        fileOut << j.dump(4); // 4 ist die Einrückung für die Lesbarkeit
+        fileOut.close();
+        std::cout << "Highscore: " << spieler1.getHighscore() << endl;
+        std::cout << "Highscore gespeichert!" << std::endl;
+    }
+    else
+    {
+        std::cerr << "Fehler beim Speichern des Spielstands!" << std::endl;
+    }
+
     return 0;
 }
