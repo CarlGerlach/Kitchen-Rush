@@ -255,3 +255,13 @@ bool Spieler::isLookingRight()
 	return lookingRight;
 }
 
+void Spieler::setHighscore(int hs)
+{
+    this->highscore = hs;
+}
+
+int Spieler::getHighscore()
+{
+    return this->highscore;
+}
+

@@ -17,7 +17,7 @@ private:
     PlayerInventar* inventar;   // Inventar mit 5 Slots
     int points;
 
-
+    int highscore;
 
     int leben;
     RectangleShape herzen[5];
@@ -68,4 +68,7 @@ public:
 
     bool isLookingLeft();
     bool isLookingRight();
+
+    void setHighscore(int hs);
+    int getHighscore();
 };
