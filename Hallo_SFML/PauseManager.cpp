@@ -166,6 +166,27 @@ void PauseManager::draw(sf::RenderWindow& window)
 
 		buttonSaveGame->draw(window);
 		buttonLoadGame->draw(window);
+
+        
+        spieler->getPoints();
+
+        Text text;
+        text.setFont(font);
+        text.setCharacterSize(30);
+        text.setFillColor(sf::Color::White);
+
+        stringstream idStream;
+        idStream << "Score " << spieler->getPoints();
+        text.setString(idStream.str());
+
+        
+
+        float fensterBreite = window.getSize().x;
+
+        // Text in die Mitte (X) und auf Y=200 setzen
+        text.setPosition(fensterBreite / 2.0f - 80.f, 200.f);
+
+        window.draw(text);
     }
 }
 
