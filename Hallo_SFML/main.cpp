@@ -19,6 +19,7 @@
 #include "Mixer.h"
 #include "Ausgabe.h"
 #include "Table.h"
+#include "Kuehlschrank.h"
 
 #include "Item.h"
 
@@ -102,6 +103,13 @@ int main()
 
     Texture tasksTexture;
     if (!tasksTexture.loadFromFile("Texturen & Musik/tasks.png")) 
+    {
+        cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
+        return -1;
+    }
+
+    Texture kuehlschrankTexture;
+    if (!kuehlschrankTexture.loadFromFile("Texturen & Musik/Kuehlschrank.png"))
     {
         cerr << "Fehler beim Laden der HintergrundAuftrag!" << endl;
         return -1;
@@ -197,6 +205,12 @@ int main()
     deviceManager->addInventory(mixer1.getDevInventar());
     deviceManager->addPosition(&mixer1.getShape());
 
+    Kuehlschrank kuehlschrank1(27, font, &spieler1, 0);
+    kuehlschrank1.setTexture(&kuehlschrankTexture);
+    //deviceManager->addInventory(mixer1.getDevInventar());
+    deviceManager->addPosition(&kuehlschrank1.getShape());
+
+
 
 
 
@@ -265,6 +279,7 @@ int main()
                 ofen1.handleEvent(event, window);
                 storage1.handleEvent(event, window);
                 mixer1.handleEvent(event, window);
+                kuehlschrank1.handleEvent(event, window);
                 derTableManager->handleEvent(event, window);
             }
         }
@@ -364,6 +379,9 @@ int main()
 
             mixer1.update();
             mixer1.draw(window);
+
+            kuehlschrank1.update();
+            kuehlschrank1.draw(window);
 
       
 
